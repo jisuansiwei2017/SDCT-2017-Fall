@@ -1,0 +1,21 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/03/a/Bit.hdl
+
+/**
+ * 1-bit register:
+ * If load[t] == 1 then out[t+1] = in[t]
+ *                 else out does not change (out[t+1] = out[t])
+ */
+
+CHIP Bit {
+    IN in, load;
+    OUT out;
+
+    PARTS:
+    // Put your code here:
+    Mux(a=dffout, b=in, sel=load, out=muxout);   //注意到这里的dffout和下面的dffout重复，在guide中指出dhl语句交换顺序也能够编译，可以理解为图的节点
+    DFF(in=muxout, out=dffout);
+    And(a=dffout, b=dffout, out=out);   //这里的与门相当于节点的作用
+}
