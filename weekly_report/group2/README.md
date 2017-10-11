@@ -4,9 +4,9 @@
 
 ### 个人学习报告链接
 
-- [金帆]()
-- [李浩源]()
-- [李闫涛]()
+- [金帆](http://toyhouse.cc/wiki/index.php/%E9%87%91%E5%B8%86-%E5%AD%A6%E4%B9%A0%E6%8A%A5%E5%91%8A-%E7%AC%AC2%E5%91%A8)
+- [李浩源](http://toyhouse.cc/wiki/index.php/2017%E5%B9%B4%E7%A7%8B%E8%AE%A1%E7%AE%97%E6%80%9D%E7%BB%B4%E5%92%8C%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E7%AC%AC%E4%BA%8C%E5%91%A8%E5%AD%A6%E4%B9%A0%E6%8A%A5%E5%91%8A_%E6%9D%8E%E6%B5%A9%E6%BA%90)
+- [李闫涛](http://toyhouse.cc/wiki/index.php/User:2016012807#week_2)
 
 ### 工作汇总
 
