@@ -15,16 +15,9 @@ CHIP DMux {
 
     PARTS:
     // Put your code here:
-	
-	// Judge Number 0:
-	Xor(a = false, b = sel, out = notis0);
-	Not(in = notis0, out = is0);
-	
-	// Judge Number 1:
-	Xor(a = true, b = sel, out = notis1);
-	Not(in = notis1, out = is1);
-	
-	//Put out:
-	And(a = is0, b = in, out = a);
-	And(a = is1, b = in, out = b);
+
+    Not(in = sel, out = nsel);
+
+    And(a = in, b = nsel, out = a);
+    And(a = in, b = sel, out = b);
 }
