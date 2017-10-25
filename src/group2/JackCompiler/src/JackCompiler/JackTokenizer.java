@@ -147,7 +147,7 @@ public class JackTokenizer {
             symbol = curr;
             pos++;
         } else {
-            String word = readTillSeparator();
+            String word = readTillSeparatorOrSymbol();
             if (keywordSet.containsKey(word)) {
                 tokenType = TokenType.KEYWORD;
                 keyWord = keywordSet.get(word);
@@ -195,7 +195,7 @@ public class JackTokenizer {
         }
     }
 
-    private String readTillSeparator() {
+    private String readTillSeparatorOrSymbol() {
         String str = "";
         while (pos < bytes.length
                 && (bytes[pos] != ' ')
