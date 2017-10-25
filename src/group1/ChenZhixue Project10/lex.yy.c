@@ -498,13 +498,15 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "test.l"
-#line 2 "test.l"
+#line 1 "parser.l"
+#line 2 "parser.l"
 #include "stdio.h"
 #include "test1.h"
 int n=0;
+int smb=0;
 int else_value=0;
 int class = 0;
+int mns=0;
 int function = 0;
 int function1 = 0;
 int arith = 0;
@@ -516,7 +518,7 @@ int returnst = 0;
 int dost = 0;
 int statement = 0;
 int var_value = 0;
-#line 520 "lex.yy.c"
+#line 522 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -698,9 +700,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 19 "test.l"
+#line 21 "parser.l"
 
-#line 704 "lex.yy.c"
+#line 706 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -785,171 +787,171 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 20 "test.l"
+#line 22 "parser.l"
 {printf("<class>\n");n++;printf("\t<keyword> class </keyword>\n");class=1;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 21 "test.l"
+#line 23 "parser.l"
 n=leff(n,function,iese);
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 22 "test.l"
+#line 24 "parser.l"
 n=stat(n);
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 23 "test.l"
+#line 25 "parser.l"
 {for(int i=1;i<=n;i++) printf("\t"); printf("<keyword> %s </keyword>\n",yytext);}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 24 "test.l"
+#line 26 "parser.l"
 {n=seli(n,class,var_value,term,letst,dost,returnst);term=0;var_value=0;letst=0;dost=0;returnst=0;object=0;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 25 "test.l"
+#line 27 "parser.l"
 {if(class) {class=0;}function=1;function1=1;for(int i=1;i<=n;i++) printf("\t");printf("<subroutineDec>\n");n++;for(int i=1;i<=n;i++) printf("\t");printf("<keyword> %s </keyword>\n",yytext);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 26 "test.l"
+#line 28 "parser.l"
 {for(int i=1;i<=n;i++) printf("\t"); printf("<keyword> %s </keyword>\n",yytext);}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 27 "test.l"
-n=lefk(n,function1,object);
+#line 29 "parser.l"
+{n=lefk(n,function1,object);smb=1;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 28 "test.l"
-{n=rigk(n,function1,object);function1=0;object=0;}
+#line 30 "parser.l"
+{n=rigk(n,function1,object);function1=0;object=0;smb=0;}
 	YY_BREAK
 case 10:
 /* rule 10 can match eol */
 YY_RULE_SETUP
-#line 29 "test.l"
+#line 31 "parser.l"
 ;
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 30 "test.l"
+#line 32 "parser.l"
 {n=let(n,statement);letst=1;statement=1;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 31 "test.l"
-{n=leffa(n);}
+#line 33 "parser.l"
+{n=leffa(n);smb=1;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 32 "test.l"
-{n=rigfa(n);}
+#line 34 "parser.l"
+{n=rigfa(n);smb=0;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 33 "test.l"
+#line 35 "parser.l"
 {n=iff(n,statement);iese=1;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 34 "test.l"
+#line 36 "parser.l"
 {n=elsef(n);statement=0;iese=1;else_value=1;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 35 "test.l"
+#line 37 "parser.l"
 {n=doo(n,statement);dost=1;statement=1;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 36 "test.l"
-{n=equal(n);term=1;}
+#line 38 "parser.l"
+{n=equal(n);term=1;smb=1;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 37 "test.l"
+#line 39 "parser.l"
 {n=var(n);var_value=1;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 38 "test.l"
+#line 40 "parser.l"
 {n=retn(n);returnst=1;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 39 "test.l"
+#line 41 "parser.l"
 {print(n);printsymbol();object=1;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 40 "test.l"
+#line 42 "parser.l"
 {n--;print(n);printf("</term>\n");print(n);printsymbol();print(n);printf("<term>\n");n++;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 41 "test.l"
+#line 43 "parser.l"
 {n--;print(n);printf("</term>\n");print(n);printsymbol();print(n);printf("<term>\n");n++;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 42 "test.l"
-{n--;print(n);printf("</term>\n");print(n);printsymbol();print(n);printf("<term>\n");n++;}	
+#line 44 "parser.l"
+{n=mins(n,smb);smb=0;mns=1;}	
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 43 "test.l"
+#line 45 "parser.l"
 {n=rigf(n,function,iese,else_value);statement=0;function=jg(function,iese);iese=0;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 44 "test.l"
+#line 46 "parser.l"
 {print(n);printkeyword();}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 45 "test.l"
+#line 47 "parser.l"
 {print(n);printkeyword();}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 46 "test.l"
+#line 48 "parser.l"
 {print(n);printsymbol();}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 47 "test.l"
+#line 49 "parser.l"
 {print(n);printkeyword();}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 48 "test.l"
+#line 50 "parser.l"
 {print(n);printf("<stringConstant> string constant </stringConstant>\n",yytext);}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 49 "test.l"
-{print(n);printf("<integerConstant> %s </integerConstant>\n",yytext);}
+#line 51 "parser.l"
+{print(n);printf("<integerConstant> %s </integerConstant>\n",yytext);smb=0;if(mns){n--;print(n);printf("</term>\n");}mns=0;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 50 "test.l"
-{for(int i=1;i<=n;i++) printf("\t"); printf("<identifier> %s </identifier>\n",yytext);}
+#line 52 "parser.l"
+{n=idf(n,mns);smb=0;mns=0;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 51 "test.l"
+#line 53 "parser.l"
 ;
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 52 "test.l"
+#line 54 "parser.l"
 ECHO;
 	YY_BREAK
-#line 953 "lex.yy.c"
+#line 955 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1946,7 +1948,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 52 "test.l"
+#line 54 "parser.l"
 
 
 
