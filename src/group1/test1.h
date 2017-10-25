@@ -57,6 +57,22 @@ int rigf(int n,int function,int iese,int else_value){
 	}
 	return n;
 }
+int mins(int n, int smb){
+	if(smb){
+		print(n);printsymbol();
+		print(n);printf("<term>\n");
+		n++;return n;
+	}
+	n--;print(n);printf("</term>\n");print(n);printsymbol();print(n);printf("<term>\n");n++;return n;
+}
+
+int idf(int n,int mns){
+	print(n);printf("<identifier> %s </identifier>\n",yytext);
+	if(mns){
+		n--;print(n);printf("</term>\n");return n;
+	}
+	return n;
+}
 
 int rigk(int n,int function1,int object){
 	if(function1){
