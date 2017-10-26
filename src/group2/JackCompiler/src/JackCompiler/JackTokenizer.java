@@ -120,7 +120,11 @@ public class JackTokenizer {
         return pos < bytes.length;
     }
 
-    public void advance() {
+    public void advance() throws JackCompilerException{
+        if (!hasMoreTokens()) {
+            throw new JackCompilerException();
+        }
+
         byte curr = bytes[pos];
         if (curr == '"') {
             tokenType = TokenType.STRING_CONST;
