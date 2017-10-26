@@ -61,7 +61,7 @@
 
 - 预习
 
-## 第3周
+## 第4周（第3周）
 
 ### 逻辑模型
 
@@ -118,3 +118,71 @@
 ### ToDo List
 
 参考编译原理的有关资料，讨论 ```Parser``` 类怎么写。
+
+## 第5周
+
+### LL(0)语言
+
+Jack 是一种 LL(0) 语言，特点是自左向右的左优先推导（left to right, leftmost derivation），并且无需提前预知下一个单词，整个流程是可以用一个单向一次遍历完成的。
+
+- 整个读取过程是一个递归调用的过程
+- 最顶层是迭代器指向文件开头，并视为 class 进行读取
+- 在读取到 class name 之后，对剩余部分递归调用 classVarDec 以及 subroutineDec 读取。由于 classVarDec 和 subroutineDec 的个数不固定，这里需要统一对他们进行读取：
+	- 如果读取到 static 或 field 关键字，则按照 classVarDec 处理，处理完成后光标指向 classVarDec 末尾；
+	- 如果读取到 constructor 或 method 或 function 关键字，则按照相应的类型处理，处理完成后光标指向 subroutine 的末尾；
+	- 如果读取到 } 符号，则退出并返回上一层。
+- 由于是 LL(0) 语言，无需提前读取，因此对于其他的过程，也采用类似的写法，自顶向下。
+- 由于是递归调用，在将课本 217 页的表格完全实现之前，整个程序完全不能运行。
+
+### 关于 if-else 与 LL(0) 貌似冲突的问题
+
+由于 Jack 语言同时存在 if 和 if-else 两种语法，貌似必须向前预读一个词，判断其是否为 else，我们才能知道当前块是 if 语法还是 if-else 语法。更重要的是，两种语法对应的汇编是不同的：
+
+- if:
+
+```C
+if (cond) {
+    // code 1
+}
+```
+
+```asm
+// D = cond
+@flag
+D; JEQ
+// code 1
+(flag)
+// ...
+```
+
+```C
+if (cond) {
+    // code 1
+} else {
+    // code 2
+}
+```
+
+- if-else:
+
+```asm
+// D = cond
+@flag1
+D; JEQ
+// code 1
+@flag2
+0; JMP
+(flag1)
+// code 2
+(flag2)
+// ...
+```
+
+但是，我们也可以通过将 if 和 if-else 视为一个整体，采用同一种函数来处理。具体来说，就是采用“最近匹配”策略，结合 if 和 else 块，在 没有 else 块的情况下再用 if 语法，否则用 if-else 语法。这样就可以解决问题。
+
+### 设计合约
+
+参考自课本 217 页：
+
+![](https://i.loli.net/2017/10/26/59f16d4b76343.png)
+![](https://ooo.0o0.ooo/2017/10/26/59f16d4f83e94.png)
