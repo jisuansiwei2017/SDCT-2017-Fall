@@ -186,3 +186,8 @@ D; JEQ
 
 ![](https://i.loli.net/2017/10/26/59f16d4b76343.png)
 ![](https://ooo.0o0.ooo/2017/10/26/59f16d4f83e94.png)
+
+### 单元测试
+
+![处理 class 的函数片段](https://i.loli.net/2017/10/26/59f19c86b6b7e.png)
+![测试样例通过（subroutineDec 及 classVarDec 未完成）](https://i.loli.net/2017/10/26/59f19cca6e303.png)
