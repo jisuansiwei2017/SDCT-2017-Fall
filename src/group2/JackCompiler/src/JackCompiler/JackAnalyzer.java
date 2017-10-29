@@ -1,9 +1,7 @@
 package JackCompiler;
 
-import com.sun.org.apache.xpath.internal.SourceTreeManager;
 import org.w3c.dom.*;
 
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -19,7 +17,7 @@ import java.io.*;
 public class JackAnalyzer {
 
     private JackTokenizer tokenizer;
-    private Document xmlDocument;
+    private Document doc;
 
     public JackAnalyzer(JackTokenizer tokenizer) {
         try {
@@ -32,17 +30,67 @@ public class JackAnalyzer {
     public Document analyze() {
 
         try {
-            this.xmlDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+            this.doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
 
             procClass();
 
             // deep copy
-            return this.xmlDocument;
+            return this.doc;
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return null;
+    }
+
+    private static void writeXML(Document document, String filename) {
+        try {
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(document);
+
+            StreamResult result =  new StreamResult(new StringWriter());
+
+            //t.setParameter(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.transform(source, result);
+
+            //writing to file
+            FileOutputStream fop = null;
+            File file;
+            try {
+
+                file = new File(filename);
+                fop = new FileOutputStream(file);
+
+                // if file doesnt exists, then create it
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+
+                // get the content in bytes
+                String xmlString = result.getWriter().toString();
+                // System.out.println(xmlString);
+                byte[] contentInBytes = xmlString.getBytes();
+
+                fop.write(contentInBytes);
+                fop.flush();
+                fop.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (fop != null) {
+                        fop.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static void _assert(boolean condition) throws JackCompilerException{
@@ -52,17 +100,19 @@ public class JackAnalyzer {
     }
 
     private Element _createTextElement(String tagName, String text) {
-        Element t1 = this.xmlDocument.createElement(tagName);
-        Text t2 = this.xmlDocument.createTextNode(text);
+        Element t1 = this.doc.createElement(tagName);
+        Text t2 = this.doc.createTextNode(text);
         t1.appendChild(t2);
         return t1;
     }
+
+    // Program Structure
 
     private void procClass() throws JackCompilerException {
         tokenizer.advance();
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD
                 && tokenizer.getKeyWord() == JackTokenizer.KeyWord.CLASS);
-        Element currNode = xmlDocument.createElement("class");
+        Element currNode = doc.createElement("class");
         currNode.appendChild(_createTextElement("keyword", " class "));
 
         procClassName(currNode);
@@ -76,7 +126,7 @@ public class JackAnalyzer {
         procClassVarDecOrSubroutineDec(currNode);
 
         currNode.appendChild(_createTextElement("symbol", " } "));
-        xmlDocument.appendChild(currNode);
+        doc.appendChild(currNode);
     }
 
     private void procClassVarDecOrSubroutineDec(Element currNode) throws JackCompilerException {
@@ -92,7 +142,7 @@ public class JackAnalyzer {
         switch (tokenizer.getKeyWord()) {
             case STATIC:
             case FIELD:
-                newNode = xmlDocument.createElement("classVarDec");
+                newNode = doc.createElement("classVarDec");
 
                 switch (tokenizer.getKeyWord()) {
                     case STATIC:
@@ -124,7 +174,7 @@ public class JackAnalyzer {
             case CONSTRUCTOR:
             case FUNCTION:
             case METHOD:
-                newNode = xmlDocument.createElement("subroutineDec");
+                newNode = doc.createElement("subroutineDec");
 
                 switch (tokenizer.getKeyWord()) {
                     case CONSTRUCTOR:
@@ -218,7 +268,7 @@ public class JackAnalyzer {
     }
 
     private void procParameterList(Element currNode) throws JackCompilerException {
-        Element newNode = xmlDocument.createElement("parameterList");
+        Element newNode = doc.createElement("parameterList");
 
         tokenizer.advance();
         if (tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == ')') {
@@ -267,14 +317,70 @@ public class JackAnalyzer {
         currNode.appendChild(newNode);
     }
 
+    private void procVarDecWithoutFirstToken(Element currNode) throws JackCompilerException {
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD && tokenizer.getKeyWord() == JackTokenizer.KeyWord.VAR);
+
+        Element newNode = doc.createElement("varDec");
+        newNode.appendChild(_createTextElement("keyword", " var "));
+
+        procType(newNode);
+        procVarName(newNode);
+
+        while (true) {
+            tokenizer.advance();
+            _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL);
+            if (tokenizer.getSymbol() == ',') {
+                currNode.appendChild(_createTextElement("symbol", " , "));
+                procVarName(newNode);
+            } else {
+                _assert(tokenizer.getSymbol() == ';');
+                newNode.appendChild(_createTextElement("symbol", " ; "));
+                break;
+            }
+        }
+
+        currNode.appendChild(newNode);
+    }
+
+    private void procIdentifier(Element currNode) throws JackCompilerException {
+        tokenizer.advance();
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.IDENTIFIER);
+        currNode.appendChild(_createTextElement("identifier", " " + tokenizer.getIdentifier() + " "));
+    }
+
+    private void procVarName(Element currNode) throws JackCompilerException {
+        procIdentifier(currNode);
+    }
+
+    private void procClassName(Element currNode) throws JackCompilerException {
+        procIdentifier(currNode);
+    }
+
+    private void procSubroutineName(Element currNode) throws JackCompilerException {
+        procIdentifier(currNode);
+    }
+
+    // Statements
+
+    private boolean shouldAdvance; // set false in case of an "if" statement without "else"
+
     private void procStatements(Element currNode) throws JackCompilerException {
         tokenizer.advance();
         procStatementsWithoutFirstToken(currNode);
     }
 
     private void procStatementsWithoutFirstToken(Element currNode) throws JackCompilerException {
-        Element newNode = xmlDocument.createElement("statements");
+        if (tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '}') {
+            Element newNode = doc.createElement("statements");
+            currNode.appendChild(newNode);
+            return;
+        }
+
+        this.shouldAdvance = true;
+
+        Element newNode = doc.createElement("statements");
         while (true) {
+            _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD);
             switch (tokenizer.getKeyWord()) {
                 case LET:
                     procLetStatementWithoutFirstToken(newNode);
@@ -295,7 +401,11 @@ public class JackAnalyzer {
                     _assert(false);
                     break;
             }
-            tokenizer.advance();
+            if (shouldAdvance) {
+                tokenizer.advance();
+            } else {
+                shouldAdvance = true;
+            }
             if (tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '}') {
                 break;
             }
@@ -304,13 +414,11 @@ public class JackAnalyzer {
         currNode.appendChild(newNode);
     }
 
-
-
     private void procSubroutineBody(Element currNode) throws JackCompilerException {
         tokenizer.advance();
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '{');
 
-        Element newNode = xmlDocument.createElement("subroutineBody");
+        Element newNode = doc.createElement("subroutineBody");
         newNode.appendChild(_createTextElement("symbol", " { "));
 
         boolean flag;
@@ -345,141 +453,189 @@ public class JackAnalyzer {
 
     }
 
-    private void procVarDecWithoutFirstToken(Element currNode) throws JackCompilerException {
-        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD && tokenizer.getKeyWord() == JackTokenizer.KeyWord.VAR);
+    private void procLetStatementWithoutFirstToken(Element currNode) throws JackCompilerException {
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD
+                && tokenizer.getKeyWord() == JackTokenizer.KeyWord.LET);
 
-        Element newNode = xmlDocument.createElement("varDec");
-        newNode.appendChild(_createTextElement("keyword", " var "));
+        Element newNode = doc.createElement("letStatement");
+        newNode.appendChild(_createTextElement("keyword", " let "));
 
-        procType(newNode);
         procVarName(newNode);
 
-        while (true) {
-            tokenizer.advance();
-            _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL);
-            if (tokenizer.getSymbol() == ',') {
-                currNode.appendChild(_createTextElement("symbol", " , "));
-                procVarName(newNode);
-            } else {
-                _assert(tokenizer.getSymbol() == ';');
-                newNode.appendChild(_createTextElement("symbol", " ; "));
-                break;
-            }
-        }
-
-        currNode.appendChild(newNode);
-    }
-
-    private void procLetStatementWithoutFirstToken(Element currNode) {
-        Element newNode = xmlDocument.createElement("letStatement");
-
-        // to do
-
-        currNode.appendChild(newNode);
-    }
-
-    private void procIfStatementWithoutFirstToken(Element currNode) {
-        Element newNode = xmlDocument.createElement("ifStatement");
-
-        // to do
-
-        currNode.appendChild(newNode);
-    }
-
-    private void procWhileStatementWithoutFirstToken(Element currNode) {
-        Element newNode = xmlDocument.createElement("whileStatement");
-
-        // to do
-
-        currNode.appendChild(newNode);
-    }
-
-    private void procDoStatementWithoutFirstToken(Element currNode) {
-        Element newNode = xmlDocument.createElement("doStatement");
-
-        // to do
-
-        currNode.appendChild(newNode);
-    }
-
-    private void procReturnStatementWithoutFirstToken(Element currNode) {
-        Element newNode = xmlDocument.createElement("returnStatement");
-
-        // to do
-
-        currNode.appendChild(newNode);
-    }
-
-
-    private void procIdentifier(Element currNode) throws JackCompilerException {
         tokenizer.advance();
-        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.IDENTIFIER);
-        currNode.appendChild(_createTextElement("identifier", " " + tokenizer.getIdentifier() + " "));
-    }
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL);
 
-    private void procVarName(Element currNode) throws JackCompilerException {
-        procIdentifier(currNode);
-    }
+        switch (tokenizer.getSymbol()) {
+            case '[':
+                newNode.appendChild(_createTextElement("symbol", " [ "));
 
-    private void procClassName(Element currNode) throws JackCompilerException {
-        procIdentifier(currNode);
-    }
+                procExpression(newNode);
 
-    private void procSubroutineName(Element currNode) throws JackCompilerException {
-        procIdentifier(currNode);
-    }
+                _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == ']');
+                newNode.appendChild(_createTextElement("symbol", " ] "));
 
-    private static void writeXML(Document document, String filename) {
-        try {
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(document);
+                tokenizer.advance();
+                _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '=');
 
-            StreamResult result =  new StreamResult(new StringWriter());
-
-            //t.setParameter(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.transform(source, result);
-
-            //writing to file
-            FileOutputStream fop = null;
-            File file;
-            try {
-
-                file = new File(filename);
-                fop = new FileOutputStream(file);
-
-                // if file doesnt exists, then create it
-                if (!file.exists()) {
-                    file.createNewFile();
-                }
-
-                // get the content in bytes
-                String xmlString = result.getWriter().toString();
-                System.out.println(xmlString);
-                byte[] contentInBytes = xmlString.getBytes();
-
-                fop.write(contentInBytes);
-                fop.flush();
-                fop.close();
-
-                System.out.println("Done");
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (fop != null) {
-                        fop.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            case '=':
+                newNode.appendChild(_createTextElement("symbol", " = "));
+                break;
+            default:
+                _assert(false);
         }
+
+        procExpression(newNode);
+
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == ';');
+        newNode.appendChild(_createTextElement("symbol", " ; "));
+
+        currNode.appendChild(newNode);
     }
+
+    private void procIfStatementWithoutFirstToken(Element currNode) throws JackCompilerException {
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD
+                && tokenizer.getKeyWord() == JackTokenizer.KeyWord.IF);
+
+        Element newNode = doc.createElement("ifStatement");
+        newNode.appendChild(_createTextElement("keyword", " if "));
+
+        tokenizer.advance();
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '(');
+        newNode.appendChild(_createTextElement("symbol", " ( "));
+
+        procExpression(newNode);
+
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == ')');
+        newNode.appendChild(_createTextElement("symbol", " ) "));
+
+        tokenizer.advance();
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '{');
+        newNode.appendChild((_createTextElement("symbol", " { ")));
+
+        procStatements(newNode);
+
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '}');
+        newNode.appendChild(_createTextElement("symbol", " } "));
+
+        tokenizer.advance();
+
+        if (tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD
+                && tokenizer.getKeyWord() == JackTokenizer.KeyWord.ELSE) {
+            newNode.appendChild(_createTextElement("keyword", " else "));
+
+            tokenizer.advance();
+            _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '{');
+            newNode.appendChild(_createTextElement("symbol", " { "));
+
+            procStatements(newNode);
+
+            _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '}');
+            newNode.appendChild(_createTextElement("symbol", " } "));
+
+        } else {
+            shouldAdvance = false;
+        }
+
+        currNode.appendChild(newNode);
+    }
+
+    private void procWhileStatementWithoutFirstToken(Element currNode) throws JackCompilerException {
+
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD
+                && tokenizer.getKeyWord() == JackTokenizer.KeyWord.WHILE);
+
+        Element newNode = doc.createElement("whileStatement");
+        newNode.appendChild(_createTextElement("keyword", " while "));
+
+        tokenizer.advance();
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '(');
+        newNode.appendChild(_createTextElement("symbol", " ( "));
+
+        procExpression(newNode);
+
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == ')');
+        newNode.appendChild(_createTextElement("symbol", " ) "));
+
+        tokenizer.advance();
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '{');
+        newNode.appendChild((_createTextElement("symbol", " { ")));
+
+        procStatements(newNode);
+
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '}');
+        newNode.appendChild(_createTextElement("symbol", " } "));
+
+
+        currNode.appendChild(newNode);
+    }
+
+    private void procDoStatementWithoutFirstToken(Element currNode) throws JackCompilerException {
+
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD
+                && tokenizer.getKeyWord() == JackTokenizer.KeyWord.DO);
+        Element newNode = doc.createElement("doStatement");
+        newNode.appendChild(_createTextElement("keyword", " do "));
+
+        procSubroutineCall(newNode);
+
+        newNode.appendChild(_createTextElement("symbol", " ; "));
+        currNode.appendChild(newNode);
+    }
+
+    private void procReturnStatementWithoutFirstToken(Element currNode) throws JackCompilerException {
+
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD
+                && tokenizer.getKeyWord() == JackTokenizer.KeyWord.RETURN);
+
+        Element newNode = doc.createElement("returnStatement");
+        newNode.appendChild(_createTextElement("keyword", " return "));
+
+        tokenizer.advance();
+        if (tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == ';') {
+            newNode.appendChild(_createTextElement("symbol", " ; "));
+        } else {
+            procExpressionWithoutFirstToken(newNode);
+            newNode.appendChild(_createTextElement("symbol", " ; "));
+        }
+
+        currNode.appendChild(newNode);
+    }
+
+    // Expressions
+
+    private void procExpressionWithoutFirstToken(Element currNode) throws JackCompilerException {
+        // ends after a right bracket or a semicolon or a right square bracket
+
+        Element newNode = doc.createElement("expression");
+
+        // to do
+
+        currNode.appendChild(newNode);
+    }
+
+    private void procExpression(Element currNode) throws JackCompilerException {
+        tokenizer.advance();
+        procExpressionWithoutFirstToken(currNode);
+    }
+
+    private void procSubroutineCall(Element currNode) throws JackCompilerException {
+        // ends after a semicolon
+
+        tokenizer.advance(); // for test only; to do
+
+
+        Element newNode = doc.createElement("subroutineCall");
+
+        // to do
+
+        currNode.appendChild(newNode);
+    }
+
+
+    //
+
+
+
 
     /**
      * Unit test
