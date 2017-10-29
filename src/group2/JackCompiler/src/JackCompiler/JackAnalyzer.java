@@ -1,5 +1,6 @@
 package JackCompiler;
 
+import com.sun.org.apache.xpath.internal.SourceTreeManager;
 import org.w3c.dom.*;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -79,7 +80,6 @@ public class JackAnalyzer {
     }
 
     private void procClassVarDecOrSubroutineDec(Element currNode) throws JackCompilerException {
-        System.out.println(1);
 
         tokenizer.advance();
         if (tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '}') {
@@ -267,9 +267,149 @@ public class JackAnalyzer {
         currNode.appendChild(newNode);
     }
 
+    private void procStatements(Element currNode) throws JackCompilerException {
+        tokenizer.advance();
+        procStatementsWithoutFirstToken(currNode);
+    }
+
+    private void procStatementsWithoutFirstToken(Element currNode) throws JackCompilerException {
+        Element newNode = xmlDocument.createElement("statements");
+        while (true) {
+            switch (tokenizer.getKeyWord()) {
+                case LET:
+                    procLetStatementWithoutFirstToken(newNode);
+                    break;
+                case IF:
+                    procIfStatementWithoutFirstToken(newNode);
+                    break;
+                case WHILE:
+                    procWhileStatementWithoutFirstToken(newNode);
+                    break;
+                case DO:
+                    procDoStatementWithoutFirstToken(newNode);
+                    break;
+                case RETURN:
+                    procReturnStatementWithoutFirstToken(newNode);
+                    break;
+                default:
+                    _assert(false);
+                    break;
+            }
+            tokenizer.advance();
+            if (tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '}') {
+                break;
+            }
+        }
+
+        currNode.appendChild(newNode);
+    }
+
+
+
     private void procSubroutineBody(Element currNode) throws JackCompilerException {
+        tokenizer.advance();
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '{');
+
+        Element newNode = xmlDocument.createElement("subroutineBody");
+        newNode.appendChild(_createTextElement("symbol", " { "));
+
+        boolean flag;
+
+        while (true) {
+
+            tokenizer.advance();
+            if (tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '}') {
+                newNode.appendChild(_createTextElement("symbol", " } "));
+                flag = false;
+                break;
+            } else {
+                _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD);
+
+                if (tokenizer.getKeyWord() == JackTokenizer.KeyWord.VAR) {
+                    procVarDecWithoutFirstToken(newNode);
+                } else {
+                    flag = true;
+                    break;
+                }
+            }
+        }
+
+        if (flag) {
+            procStatementsWithoutFirstToken(newNode);
+        }
+
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '}');
+        newNode.appendChild(_createTextElement("symbol", " } "));
+
+        currNode.appendChild(newNode);
 
     }
+
+    private void procVarDecWithoutFirstToken(Element currNode) throws JackCompilerException {
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD && tokenizer.getKeyWord() == JackTokenizer.KeyWord.VAR);
+
+        Element newNode = xmlDocument.createElement("varDec");
+        newNode.appendChild(_createTextElement("keyword", " var "));
+
+        procType(newNode);
+        procVarName(newNode);
+
+        while (true) {
+            tokenizer.advance();
+            _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL);
+            if (tokenizer.getSymbol() == ',') {
+                currNode.appendChild(_createTextElement("symbol", " , "));
+                procVarName(newNode);
+            } else {
+                _assert(tokenizer.getSymbol() == ';');
+                newNode.appendChild(_createTextElement("symbol", " ; "));
+                break;
+            }
+        }
+
+        currNode.appendChild(newNode);
+    }
+
+    private void procLetStatementWithoutFirstToken(Element currNode) {
+        Element newNode = xmlDocument.createElement("letStatement");
+
+        // to do
+
+        currNode.appendChild(newNode);
+    }
+
+    private void procIfStatementWithoutFirstToken(Element currNode) {
+        Element newNode = xmlDocument.createElement("ifStatement");
+
+        // to do
+
+        currNode.appendChild(newNode);
+    }
+
+    private void procWhileStatementWithoutFirstToken(Element currNode) {
+        Element newNode = xmlDocument.createElement("whileStatement");
+
+        // to do
+
+        currNode.appendChild(newNode);
+    }
+
+    private void procDoStatementWithoutFirstToken(Element currNode) {
+        Element newNode = xmlDocument.createElement("doStatement");
+
+        // to do
+
+        currNode.appendChild(newNode);
+    }
+
+    private void procReturnStatementWithoutFirstToken(Element currNode) {
+        Element newNode = xmlDocument.createElement("returnStatement");
+
+        // to do
+
+        currNode.appendChild(newNode);
+    }
+
 
     private void procIdentifier(Element currNode) throws JackCompilerException {
         tokenizer.advance();
@@ -341,6 +481,10 @@ public class JackAnalyzer {
         }
     }
 
+    /**
+     * Unit test
+     * @param args optional
+     */
     public static void main(String[] args) {
         try {
             JackAnalyzer test = new JackAnalyzer(new JackTokenizer("C:/Users/kingi/Desktop/JackTest/test.jack"));
