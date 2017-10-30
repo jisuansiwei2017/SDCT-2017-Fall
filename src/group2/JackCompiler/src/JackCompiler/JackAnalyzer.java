@@ -651,7 +651,7 @@ public class JackAnalyzer {
             _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL);
 
             if (operators.contains(tokenizer.getSymbol())) {
-                newNode.appendChild(_createTextElement("symbol", " " + tokenizer.getSymbol() + " "));
+                newNode.appendChild(_createTextElement("symbol", " " + String.valueOf((char)tokenizer.getSymbol()) + " "));
                 tokenizer.advance();
             } else if (tokenizer.getSymbol() == ')' || tokenizer.getSymbol() == ';' || tokenizer.getSymbol() == ']' || tokenizer.getSymbol() == ',') {
                 currNode.appendChild(newNode);
@@ -692,7 +692,7 @@ public class JackAnalyzer {
                     //tokenizer.advance();
                 } else {
                     _assert(unaryOperators.contains(tokenizer.getSymbol()));
-                    newNode.appendChild(_createTextElement("symbol", " " + tokenizer.getSymbol() + " "));
+                    newNode.appendChild(_createTextElement("symbol", " " + String.valueOf((char)tokenizer.getSymbol()) + " "));
                     procTerm(newNode);
                 }
                 break;
@@ -740,9 +740,9 @@ public class JackAnalyzer {
 
                     case '[':
                         newNode.appendChild(_createTextElement("identifier", " " + identifierName + " "));
-                        newNode.appendChild(_createTextElement("symbol", " " + identifierName + " [ "));
+                        newNode.appendChild(_createTextElement("symbol",  " [ "));
                         procExpression(newNode);
-                        newNode.appendChild(_createTextElement("symbol", " " + identifierName + " ] "));
+                        newNode.appendChild(_createTextElement("symbol", " ] "));
                         tokenizer.advance();
                         break;
 
