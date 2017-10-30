@@ -9,6 +9,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Jack Analyzer
@@ -19,9 +21,35 @@ public class JackAnalyzer {
     private JackTokenizer tokenizer;
     private Document doc;
 
+    private HashSet<Byte> operators;
+    private HashSet<Byte> unaryOperators;
+    private HashMap<JackTokenizer.KeyWord, String> keywordConstants;
+
     public JackAnalyzer(JackTokenizer tokenizer) {
         try {
             this.tokenizer = tokenizer;
+
+            operators = new HashSet<Byte>();
+            operators.add((byte)'+');
+            operators.add((byte)'-');
+            operators.add((byte)'*');
+            operators.add((byte)'/');
+            operators.add((byte)'&');
+            operators.add((byte)'|');
+            operators.add((byte)'<');
+            operators.add((byte)'>');
+            operators.add((byte)'=');
+
+            unaryOperators = new HashSet<Byte>();
+            unaryOperators.add((byte)'-');
+            unaryOperators.add((byte)'~');
+
+            keywordConstants = new HashMap<JackTokenizer.KeyWord, String>();
+            keywordConstants.put(JackTokenizer.KeyWord.TRUE, "true");
+            keywordConstants.put(JackTokenizer.KeyWord.FALSE, "false");
+            keywordConstants.put(JackTokenizer.KeyWord.NULL, "null");
+            keywordConstants.put(JackTokenizer.KeyWord.THIS, "this");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -123,6 +151,7 @@ public class JackAnalyzer {
 
         currNode.appendChild(_createTextElement("symbol", " { "));
 
+        tokenizer.advance();
         procClassVarDecOrSubroutineDec(currNode);
 
         currNode.appendChild(_createTextElement("symbol", " } "));
@@ -131,7 +160,6 @@ public class JackAnalyzer {
 
     private void procClassVarDecOrSubroutineDec(Element currNode) throws JackCompilerException {
 
-        tokenizer.advance();
         if (tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '}') {
             return;
         }
@@ -208,6 +236,10 @@ public class JackAnalyzer {
         }
 
         currNode.appendChild(newNode);
+
+        if (tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '}') {
+            return;
+        }
         procClassVarDecOrSubroutineDec(currNode);
     }
 
@@ -380,6 +412,9 @@ public class JackAnalyzer {
 
         Element newNode = doc.createElement("statements");
         while (true) {
+            if (tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL) {
+                System.out.println((char)tokenizer.getSymbol());
+            }
             _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD);
             switch (tokenizer.getKeyWord()) {
                 case LET:
@@ -393,6 +428,7 @@ public class JackAnalyzer {
                     break;
                 case DO:
                     procDoStatementWithoutFirstToken(newNode);
+                    tokenizer.advance();
                     break;
                 case RETURN:
                     procReturnStatementWithoutFirstToken(newNode);
@@ -603,14 +639,131 @@ public class JackAnalyzer {
 
     // Expressions
 
+
+
     private void procExpressionWithoutFirstToken(Element currNode) throws JackCompilerException {
-        // ends after a right bracket or a semicolon or a right square bracket
+        // ends after a right bracket or a semicolon or a right square bracket or a comma
 
         Element newNode = doc.createElement("expression");
 
-        // to do
+        while (true) {
+            procTermWithoutFirstToken(newNode);
+            _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL);
+
+            if (operators.contains(tokenizer.getSymbol())) {
+                newNode.appendChild(_createTextElement("symbol", " " + tokenizer.getSymbol() + " "));
+                tokenizer.advance();
+            } else if (tokenizer.getSymbol() == ')' || tokenizer.getSymbol() == ';' || tokenizer.getSymbol() == ']' || tokenizer.getSymbol() == ',') {
+                currNode.appendChild(newNode);
+                return;
+            } else {
+                _assert(false);
+            }
+        }
+
+    }
+
+    private void procTerm(Element currNode) throws JackCompilerException {
+        tokenizer.advance();
+        procTermWithoutFirstToken(currNode);
+    }
+
+    private void procTermWithoutFirstToken(Element currNode) throws JackCompilerException {
+        // ends after a right bracket or a semicolon or a right square bracket or a comma or an operator
+
+        Element newNode = doc.createElement("term");
+        Element subNode;
+
+        switch (tokenizer.getTokenType()) {
+            case INT_CONST:
+                newNode.appendChild(_createTextElement("integerConstant", " " + Integer.toString(tokenizer.getIntVal()) + " "));
+                tokenizer.advance();
+                break;
+
+            case STRING_CONST:
+                newNode.appendChild(_createTextElement("stringConstant", " " + tokenizer.getStringVal() + " "));
+                tokenizer.advance();
+                break;
+
+            case SYMBOL:
+
+                if (tokenizer.getSymbol() == '(') {
+                    procExpression(newNode);
+                    //tokenizer.advance();
+                } else {
+                    _assert(unaryOperators.contains(tokenizer.getSymbol()));
+                    newNode.appendChild(_createTextElement("symbol", " " + tokenizer.getSymbol() + " "));
+                    procTerm(newNode);
+                }
+                break;
+
+            case IDENTIFIER:
+                String identifierName = tokenizer.getIdentifier();
+
+                tokenizer.advance();
+                _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL);
+
+                switch (tokenizer.getSymbol()) {
+                    case '.':
+                        subNode = doc.createElement("subroutineCall");
+
+                        subNode.appendChild(_createTextElement("identifier", " " + identifierName + " "));
+                        subNode.appendChild(_createTextElement("symbol", " . "));
+
+                        procSubroutineName(subNode);
+
+                        subNode.appendChild(_createTextElement("symbol", " ( "));
+
+                        procExpressionList(subNode);
+
+                        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == ')');
+                        subNode.appendChild(_createTextElement("symbol", " ) "));
+
+                        newNode.appendChild(subNode);
+                        tokenizer.advance();
+                        break;
+
+                    case '(':
+                        subNode = doc.createElement("subroutineCall");
+
+                        subNode.appendChild(_createTextElement("identifier", " " + identifierName + " "));
+                        subNode.appendChild(_createTextElement("symbol", " ( "));
+
+                        procExpressionList(subNode);
+
+                        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == ')');
+                        subNode.appendChild(_createTextElement("symbol", " ) "));
+
+                        newNode.appendChild(subNode);
+                        tokenizer.advance();
+                        break;
+
+                    case '[':
+                        newNode.appendChild(_createTextElement("identifier", " " + identifierName + " "));
+                        newNode.appendChild(_createTextElement("symbol", " " + identifierName + " [ "));
+                        procExpression(newNode);
+                        newNode.appendChild(_createTextElement("symbol", " " + identifierName + " ] "));
+                        tokenizer.advance();
+                        break;
+
+                    default:
+                        newNode.appendChild(_createTextElement("identifier", " " + identifierName + " "));
+                        break;
+                }
+
+                break;
+
+            case KEYWORD:
+                _assert(keywordConstants.containsKey(tokenizer.getKeyWord()));
+
+                newNode.appendChild(_createTextElement("keyword", " " + keywordConstants.get(tokenizer.getKeyWord()) + " "));
+                tokenizer.advance();
+
+                break;
+        }
 
         currNode.appendChild(newNode);
+
     }
 
     private void procExpression(Element currNode) throws JackCompilerException {
@@ -619,34 +772,87 @@ public class JackAnalyzer {
     }
 
     private void procSubroutineCall(Element currNode) throws JackCompilerException {
+        tokenizer.advance();
+        procSubroutineCallWithoutFirstToken(currNode);
+    }
+
+    private void procSubroutineCallWithoutFirstToken(Element currNode) throws JackCompilerException {
         // ends after a semicolon
-
-        tokenizer.advance(); // for test only; to do
-
 
         Element newNode = doc.createElement("subroutineCall");
 
-        // to do
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.IDENTIFIER);
+        String identifierName = tokenizer.getIdentifier();
+
+        newNode.appendChild(_createTextElement("identifier", " " + identifierName + " "));
+
+        tokenizer.advance();
+        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL);
+
+        switch (tokenizer.getSymbol()) {
+            case '.':
+                newNode.appendChild(_createTextElement("symbol", " . "));
+                procSubroutineName(newNode);
+                tokenizer.advance();
+            case '(':
+                _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '(');
+                newNode.appendChild(_createTextElement("symbol", " ( "));
+
+                procExpressionList(newNode);
+
+                _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == ')');
+                newNode.appendChild(_createTextElement("symbol", " ) "));
+                break;
+            default:
+                _assert(false);
+
+        }
 
         currNode.appendChild(newNode);
     }
 
+    private void procExpressionList(Element currNode) throws JackCompilerException {
+        // ends after a right bracket
 
-    //
+        tokenizer.advance();
+        if (tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == ')') {
+            currNode.appendChild(doc.createElement("expressionList"));
+            return;
+        }
 
+        //tokenizer.advance();
 
+        Element newNode = doc.createElement("expressionList");
 
+        while (true) {
+            procExpressionWithoutFirstToken(newNode);
+            _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL);
+
+            switch (tokenizer.getSymbol()) {
+                case ',':
+                    newNode.appendChild(_createTextElement("symbol", " , "));
+                    tokenizer.advance();
+                    break;
+                case ')':
+                    currNode.appendChild(newNode);
+                    return;
+                default:
+                    _assert(false);
+            }
+
+        }
+    }
 
     /**
      * Unit test
-     * @param args optional
+     * @param args paths of the input file (*.jack) and output file (*.xml)
      */
     public static void main(String[] args) {
         try {
-            JackAnalyzer test = new JackAnalyzer(new JackTokenizer("C:/Users/kingi/Desktop/JackTest/test.jack"));
+            JackAnalyzer test = new JackAnalyzer(new JackTokenizer(args[0]));
             Document doc = test.analyze();
 
-            writeXML(doc, "C:/Users/kingi/Desktop/JackTest/test.xml");
+            writeXML(doc, args[1]);
         } catch (Exception e) {
             e.printStackTrace();
         }

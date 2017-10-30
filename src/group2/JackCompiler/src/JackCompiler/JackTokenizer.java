@@ -125,6 +125,8 @@ public class JackTokenizer {
             throw new JackCompilerException();
         }
 
+        skipSeparator();
+
         byte curr = bytes[pos];
         if (curr == '"') {
             tokenType = TokenType.STRING_CONST;
@@ -269,6 +271,9 @@ public class JackTokenizer {
                                 break;
                             }
                         }
+                    } else {
+                        ret.add((byte)'/');
+                        ret.add(buf[0]);
                     }
                 } else {
                     break;
