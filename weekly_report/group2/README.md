@@ -191,3 +191,37 @@ D; JEQ
 
 ![处理 class 的函数片段](https://i.loli.net/2017/10/26/59f19c86b6b7e.png)
 ![测试样例通过（subroutineDec 及 classVarDec 未完成）](https://i.loli.net/2017/10/26/59f19cca6e303.png)
+
+## 第6周
+
+### 工作汇总
+
+- 使用 Java 语言，完整实现了 project 10 的语法分析模块（JackAnalyzer），单元测试通过
+	- 开发仓库：[https://github.com/kingium/JackCompiler](https://github.com/kingium/JackCompiler)
+	- 副本：[https://github.com/jisuansiwei2017/SDCT-2017-Fall/tree/master/src/group2/JackCompiler](https://github.com/jisuansiwei2017/SDCT-2017-Fall/tree/master/src/group2/JackCompiler)
+- 组员的个人作业，推进到 project 6（汇编转机器码编译器）
+
+### 逻辑模型
+
+
+### 语法分析心得体会
+
+课本217页给出的设计合约十分重要（参见第5周报告“设计合约”节）。但是，这个报告使用的是类似于正则表达式的方式去描述的（含有“|（或）”“*（至少0次）”和“?（0次或1次）”等复杂的逻辑关系），有时候一种 structure 对应的情况有多种可能，例如最复杂的 term 项，对应有 8 种可能性。为此，我们设计了一下的程序结构，可以做到正确处理这种复杂的逻辑判断：
+
+- 首先 Jack 是一种 LL(0) 语言，原则上不需要任何前向预读取，就能正确处理所有逻辑。我们的 tokenizer 也只设计了 advance 接口，没有往回读取的接口，对于 LL(0) 语言这是足够的。
+
+- 在 JackAnalyzer 类中，仅提供一个对外接口 analyze，读取 jack 文件，输出 xml 文件。
+
+- 定义“设计合约”是课本217页的图表，定义“结构”代表设计合约中的每一项（从属于“Program structure”“Statements”与“Expressions”三类之一）。
+
+- 在内部，设计合约中的每一种结构，都使用一个函数去处理，函数名称以 ```proc``` 开头。我们约定，这些函数在被调用的时刻，tokenizer 的光标指向的位置，或位于该结构的起始 token 之前（A型），或位于该结构的起始 token 之后（B型）（每种结构情况各异，有些结构同时提供两个版本）；类似地，约定这些函数在结束返回的时刻，tokenizer 的光标指向的位置，或位于该结构的末尾 token 之后（1型），或位于该结构的末尾 token 的下一个 token 之后（2型）（每种结构情况各异）。这一约定是我们 top-down 递归解析的基石。
+
+- 之所以一部分函数起始时 tokenizer 的位置在起始 token 之后，是因为在上层函数处理时，必须读取掉该结构的第一个 token，才能知道交由何种函数处理。例如，statements 处理函数 ```procStatemtns```，必须读取每个 statement 的第一个 token，判断是 ```return```、```let```、```do```、```while```、```if``` 中的哪一个，才能决定调用何种函数来处理相应的 statement（B型）。同理，由于 else 语句是可选的，ifStatement 处理函数 ```procifStatemtn``` 在读完 if 块的内容后，还必须向后读取一个 token，判断是否是 ```else```，才能知道是否结束自身，从而可能会使 tokenizer 的光标污染到 if-else 语句的下一句（2型）。基于这个原因，所有的 statement 处理函数都是 B2 型的。
+
+- 代码复用性：对于同时有 AB 两个版本的函数，A 版函数的逻辑就是在 ```tokenizer.advance();``` 之后调用 B 版函数。
+
+- XML 使用 Java 自带的 org.w3c.dom 处理。DOM 方式需要动态维护一个树状结构，性能较差，但是对我们已经足够了。我们只需要插入元素，而插入文本节点的操作非常频繁，所以我们自己封装了一个方法来处理。
+
+- 单元测试：我们在 README 文件中提供了命令，无需 IDE 也可以执行单元测试（需安装 Java 8 JDK）。该命令在 Windows Powershell 上测试通过，兼容 Linux Bash。
+
+- 代码的 Java doc 还在撰写。我们会在做 project 11 的时候，发现本工程的 bug，并进行 debug。
