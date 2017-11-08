@@ -1,14 +1,14 @@
 
 class Main {
     function void main() {
-
-
 	
-        var Array a;
-        var int length;
-        var int i, sum;
+	var Array a;
+	var int length;
+	var int i, sum;
+
 	
 	let length = Keyboard.readInt("HOW MANY NUMBERS? ");
+	
 	
 	let a = Array.new(length);
 	let i = 0;
@@ -29,11 +29,10 @@ class Main {
 	    let i = i + 1;
 	}
 	
-	
-	
 	do Output.printString("THE AVERAGE IS: ");
 	do Output.printInt(sum / length);
 	do Output.println();
+	
 	
 	return;
     }

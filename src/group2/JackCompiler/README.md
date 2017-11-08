@@ -2,7 +2,7 @@
 
 ## ```JackTokenizer``` Module
 
-Run the unit test: 
+Run the unit test without IntelliJ IDEA:
 
 ```bash
 cd <this git repo>
@@ -18,7 +18,7 @@ This module implements the ```JackTokenizer``` in textbook on p.214. It reads a 
 
 Developed using top-down ```LL(0)``` parser...  
 
-Run the unit test
+Run the unit test without IntelliJ IDEA:
 
 ```bash
 cd <this git repo>

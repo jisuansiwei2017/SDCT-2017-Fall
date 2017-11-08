@@ -79,7 +79,7 @@ public class JackAnalyzer {
 
             StreamResult result =  new StreamResult(new StringWriter());
 
-            //t.setParameter(OutputKeys.INDENT, "yes");
+            transformer.setParameter(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.transform(source, result);
 
@@ -91,7 +91,7 @@ public class JackAnalyzer {
                 file = new File(filename);
                 fop = new FileOutputStream(file);
 
-                // if file doesnt exists, then create it
+                // if file doesn't exists, then create it
                 if (!file.exists()) {
                     file.createNewFile();
                 }
@@ -362,7 +362,7 @@ public class JackAnalyzer {
             tokenizer.advance();
             _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL);
             if (tokenizer.getSymbol() == ',') {
-                currNode.appendChild(_createTextElement("symbol", " , "));
+                newNode.appendChild(_createTextElement("symbol", " , "));
                 procVarName(newNode);
             } else {
                 _assert(tokenizer.getSymbol() == ';');
@@ -713,6 +713,7 @@ public class JackAnalyzer {
                         procSubroutineName(subNode);
 
                         subNode.appendChild(_createTextElement("symbol", " ( "));
+                        tokenizer.advance();
 
                         procExpressionList(subNode);
 

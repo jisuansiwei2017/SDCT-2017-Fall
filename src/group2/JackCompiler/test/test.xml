@@ -24,11 +24,11 @@
 <identifier> length </identifier>
 <symbol> ; </symbol>
 </varDec>
-<symbol> , </symbol>
 <varDec>
 <keyword> var </keyword>
 <keyword> int </keyword>
 <identifier> i </identifier>
+<symbol> , </symbol>
 <identifier> sum </identifier>
 <symbol> ; </symbol>
 </varDec>
@@ -47,11 +47,7 @@
 <expressionList>
 <expression>
 <term>
-<expression>
-<term>
 <stringConstant> HOW MANY NUMBERS?  </stringConstant>
-</term>
-</expression>
 </term>
 </expression>
 </expressionList>
@@ -75,11 +71,7 @@
 <expressionList>
 <expression>
 <term>
-<expression>
-<term>
 <identifier> length </identifier>
-</term>
-</expression>
 </term>
 </expression>
 </expressionList>
@@ -136,11 +128,7 @@
 <expressionList>
 <expression>
 <term>
-<expression>
-<term>
 <stringConstant> ENTER THE NEXT NUMBER:  </stringConstant>
-</term>
-</expression>
 </term>
 </expression>
 </expressionList>
