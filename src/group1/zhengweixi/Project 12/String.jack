@@ -1,0 +1,166 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/String.jack
+
+/**
+ * Represents character strings. In addition for constructing and disposing
+ * strings, the class features methods for getting and setting individual
+ * characters of the string, for erasing the string's last character,
+ * for appending a character to the string's end, and more typical
+ * string-oriented operations.
+ */
+class String {
+
+    field Array str;
+    field int stringMaxLength;
+    field int length;
+
+    /** constructs a new empty string with a maximum length of maxLength
+     *  and initial length of 0. */
+    constructor String new(int maxLength) {
+
+        let str = Array.new(maxLength);
+        let length = 0;
+        let stringMaxLength = maxLength;
+
+        return this;
+    }
+
+    /** Disposes this string. */
+    method void dispose() {
+        do str.dispose();
+        return;
+    }
+
+    /** Returns the current length of this string. */
+    method int length() {
+        return length;
+    }
+
+    /** Returns the character at the j-th location of this string. */
+    method char charAt(int j) {
+        var char word;
+        word = str[j];
+        return word;
+    }
+
+    /** Sets the character at the j-th location of this string to c. */
+    method void setCharAt(int j, char c) {
+        let str[j] = c;
+        return;
+    }
+
+    /** Appends c to this string's end and returns this string. */
+    method String appendChar(char c) {
+        if (length = strMaxLength)
+        {
+            //Error;
+        }
+
+        str.[length] = c;
+        length = length + 1;
+        return this;
+    }
+
+    /** Erases the last character from this string. */
+    method void eraseLastChar() {
+        str.[length] = 0;
+        length = length - 1;
+    }
+
+    /** Returns the integer value of this string,
+     *  until a non-digit character is detected. */
+    method int intValue() {
+
+        var int temp;
+        var boolean minusFlag;
+        var int i;
+        var int result;
+
+        let i = 0;
+        let minusFlag = false;
+
+        if (a[0] = 45)                          // judge minus;
+        {
+            let minusFlag = true;
+            let i = i + 1;
+        }
+
+        while (i < length){
+            if ((a[i] > 47) & (a[i] < 58))
+            {
+                let temp = a[i] - 48;
+                let result = Math.multiply(result, 10) + temp;
+                let i = i + 1;
+            }
+            else
+            {
+                if (flag = true)
+                {
+                    let result = -result;
+                }
+                return result;
+            }
+
+        if (flag = true)
+        {
+            let result = -result;
+        }
+        return result;
+    }
+
+    /** Sets this string to hold a representation of the given value. */
+    method void setInt(int val) {
+        var boolean minusFlag;
+        var int nextNum;
+        var int num;
+
+
+        let length = 0;
+
+        if (val < 0)
+        {
+            let minusFlag = true;
+            let num = Math.abs(val);
+        }
+
+        if (num < 10)
+        {
+            if (minusFlag = true)
+            {
+                do appendChar(45);
+                length = length + 1;
+            }
+            do appendChar(num + 48);
+            length = length + 1;
+
+            return;
+        }
+
+        let nextNum = Math.divide(num, 10);
+        let lastNum = num - Math.multiply(nextNum, 10)
+        do setInt(nextNum);
+        do appendChar(lastNum);
+        length = length + 1;
+
+        return;
+
+
+    }
+
+    /** Returns the new line character. */
+    function char newLine() {
+        return 128;
+    }
+
+    /** Returns the backspace character. */
+    function char backSpace() {
+        return 129;
+    }
+
+    /** Returns the double quote (") character. */
+    function char doubleQuote() {
+        return 34;
+    }
+}

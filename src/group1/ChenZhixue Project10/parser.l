@@ -1,6 +1,7 @@
 %{
 #include "stdio.h"
 #include "test1.h"
+int a[10]={0};
 int n=0;
 int smb=0;
 int else_value=0;
@@ -25,6 +26,8 @@ int var_value = 0;
 "boolean" 			  {for(int i=1;i<=n;i++) printf("\t"); printf("<keyword> %s </keyword>\n",yytext);}
 ";"					  {n=seli(n,class,var_value,term,letst,dost,returnst);term=0;var_value=0;letst=0;dost=0;returnst=0;object=0;}
 "function" 			  {if(class) {class=0;}function=1;function1=1;for(int i=1;i<=n;i++) printf("\t");printf("<subroutineDec>\n");n++;for(int i=1;i<=n;i++) printf("\t");printf("<keyword> %s </keyword>\n",yytext);}
+"constructor" 		  {if(class) {class=0;}function=1;function1=1;for(int i=1;i<=n;i++) printf("\t");printf("<subroutineDec>\n");n++;for(int i=1;i<=n;i++) printf("\t");printf("<keyword> %s </keyword>\n",yytext);}
+"method" 			  {if(class) {class=0;}function=1;function1=1;for(int i=1;i<=n;i++) printf("\t");printf("<subroutineDec>\n");n++;for(int i=1;i<=n;i++) printf("\t");printf("<keyword> %s </keyword>\n",yytext);}
 "void"				  {for(int i=1;i<=n;i++) printf("\t"); printf("<keyword> %s </keyword>\n",yytext);}
 "("					  {n=lefk(n,function1,object);smb=1;}
 ")"					  {n=rigk(n,function1,object);function1=0;object=0;smb=0;}
@@ -33,6 +36,7 @@ int var_value = 0;
 "[" 				  {n=leffa(n);smb=1;}
 "]"					  {n=rigfa(n);smb=0;}
 "if"				  {n=iff(n,statement);iese=1;}
+"while" 	          {n=whl(n,statement);}
 "else"	  		      {n=elsef(n);statement=0;iese=1;else_value=1;}
 "do" 				  {n=doo(n,statement);dost=1;statement=1;}
 "="					  {n=equal(n);term=1;smb=1;}
@@ -41,11 +45,13 @@ int var_value = 0;
 "."					  {print(n);printsymbol();object=1;}
 "*"					  {n--;print(n);printf("</term>\n");print(n);printsymbol();print(n);printf("<term>\n");n++;}
 [+/\|]				  {n--;print(n);printf("</term>\n");print(n);printsymbol();print(n);printf("<term>\n");n++;}
-"-"					  {n=mins(n,smb);smb=0;mns=1;}	
+"-"					  {n=mins(n,smb);mns=smb;smb=0;}	
+"~"                   {n=mins(n,1);mns=1;}
 "}"				  	  {n=rigf(n,function,iese,else_value);statement=0;function=jg(function,iese);iese=0;}
+"field"				  {print(n);printkeyword();}
+","					  {print(n);printsymbol();}
 "int"				  {print(n);printkeyword();}
 "false"				  {print(n);printkeyword();}
-","					  {print(n);printsymbol();}
 "null"				  {print(n);printkeyword();}
 ["].*["]		 	  {print(n);printf("<stringConstant> string constant </stringConstant>\n",yytext);}
 [0-9]				  {print(n);printf("<integerConstant> %s </integerConstant>\n",yytext);smb=0;if(mns){n--;print(n);printf("</term>\n");}mns=0;}

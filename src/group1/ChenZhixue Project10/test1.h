@@ -1,6 +1,7 @@
 #ifndef Header_h
 #define Header_h
 
+
 //basic print functions
 void print(int n){
 	for(int i=1;i<=n;i++)
@@ -27,6 +28,9 @@ int leffa(int n){
 	print(n);printf("<expression>\n");n++;
 	print(n);printf("<term>\n");n++;
 	return n;
+}
+void push(int * a){
+	a[0]=1;
 }
 int rigfa(int n){
 	n--;print(n);printf("</term>\n");
@@ -122,6 +126,17 @@ int iff(int n,int statement){
 	print(n);printkeyword();
 	return n;
 }
+
+int whl(int n,int statement){
+	if(1-statement){
+		print(n);printf("<statements>\n");
+		n++;
+	}
+	print(n);printf("<whileStatement>\n");n++;
+	print(n);printkeyword();
+	return n;
+}
+
 int elsef(int n){
 	print(n);printf("<keyword> else </keyword>\n");
 	return n;
