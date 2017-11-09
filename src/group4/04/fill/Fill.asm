@@ -1,4 +1,4 @@
-// This file is part of www.nand2tetris.org
+D// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
 // File name: projects/04/Fill.asm
@@ -13,29 +13,25 @@
 
 // Put your code here.
 
-    @SCREEN
-	D=A
-	@screen_addr
-	M=D
-	@n
-	M=D
-	@KBD
-	D=A
-	@kbd_addr
-	M=D
 
 (LOOP1)
-    @kbd_addr
+
+    @SCREEN
+	D=A
+	@n
+	M=D
+    @KBD
 	D=M
-	@END1
+	@LOOP3
 	D;JEQ
 
 (LOOP2)
+
     @n
 	D=M
-	@24576
+	@KBD
 	D=D-A
-	@END2
+	@END
 	D;JGE
     @n
 	A=M
@@ -45,7 +41,23 @@
 	@LOOP2
 	0;JMP
 
-(END2)
+(LOOP3)
+
+    @n
+	D=M
+	@KBD
+	D=D-A
+	@END
+	D;JGE
+    @n
+	A=M
+	M=0
+	@n
+	M=M+1
+	@LOOP3
+	0;JMP
+
+(END)
     @LOOP1
 	0;JMP
 	
