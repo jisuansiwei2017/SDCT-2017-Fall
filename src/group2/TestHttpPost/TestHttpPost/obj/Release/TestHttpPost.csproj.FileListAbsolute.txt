@@ -1,0 +1,8 @@
+C:\Users\kingi\Desktop\httppost_veryhuo.com\TestHttpPost\bin\Release\TestHttpPost.exe
+C:\Users\kingi\Desktop\httppost_veryhuo.com\TestHttpPost\bin\Release\TestHttpPost.pdb
+C:\Users\kingi\Desktop\httppost_veryhuo.com\TestHttpPost\obj\Release\TestHttpPost.csprojResolveAssemblyReference.cache
+C:\Users\kingi\Desktop\httppost_veryhuo.com\TestHttpPost\obj\Release\TestHttpPost.FrmTestHttpPost.resources
+C:\Users\kingi\Desktop\httppost_veryhuo.com\TestHttpPost\obj\Release\TestHttpPost.Properties.Resources.resources
+C:\Users\kingi\Desktop\httppost_veryhuo.com\TestHttpPost\obj\Release\TestHttpPost.csproj.GenerateResource.Cache
+C:\Users\kingi\Desktop\httppost_veryhuo.com\TestHttpPost\obj\Release\TestHttpPost.exe
+C:\Users\kingi\Desktop\httppost_veryhuo.com\TestHttpPost\obj\Release\TestHttpPost.pdb

@@ -1,0 +1,10 @@
+C:\LHSCRIPT\HYYT\TestHttpPost\bin\Debug\TestHttpPost.exe
+C:\LHSCRIPT\HYYT\TestHttpPost\bin\Debug\TestHttpPost.pdb
+C:\LHSCRIPT\HYYT\TestHttpPost\obj\Debug\ResolveAssemblyReference.cache
+C:\LHSCRIPT\HYYT\TestHttpPost\obj\Debug\TestHttpPost.FrmTestHttpPost.resources
+C:\LHSCRIPT\HYYT\TestHttpPost\obj\Debug\TestHttpPost.Properties.Resources.resources
+C:\LHSCRIPT\HYYT\TestHttpPost\obj\Debug\TestHttpPost.csproj.GenerateResource.Cache
+C:\LHSCRIPT\HYYT\TestHttpPost\obj\Debug\TestHttpPost.exe
+C:\LHSCRIPT\HYYT\TestHttpPost\obj\Debug\TestHttpPost.pdb
+C:\Users\kingi\Desktop\httppost_veryhuo.com\TestHttpPost\obj\Debug\TestHttpPost.exe
+C:\Users\kingi\Desktop\httppost_veryhuo.com\TestHttpPost\obj\Debug\TestHttpPost.pdb
