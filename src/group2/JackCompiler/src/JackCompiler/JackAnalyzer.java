@@ -854,6 +854,17 @@ public class JackAnalyzer {
             Document doc = test.analyze();
 
             writeXML(doc, args[1]);
+
+            String[] codes = (new JackCodeGenerator(doc)).generate();
+
+            FileWriter fw = new FileWriter(args[2]);
+            for (String code : codes) {
+                fw.write(code);
+                fw.write("\r\n");
+            }
+            fw.flush();
+            fw.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

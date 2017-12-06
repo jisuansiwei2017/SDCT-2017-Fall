@@ -1,31 +1,31 @@
 # JackCompiler
 
-## ```JackTokenizer``` Module
+## `JackTokenizer` Module
 
 Run the unit test without IntelliJ IDEA:
 
 ```bash
 cd <this git repo>
-javac -d ./out/production/ ./src/JackCompiler/*.java
-cd ./out/production/
+javac -d ./out/shell/ ./src/JackCompiler/*.java
+cd ./out/shell/
 java JackCompiler.JackTokenizer ../../test/test.jack
 cd ../../
 ```
 
-This module implements the ```JackTokenizer``` in textbook on p.214. It reads a ```.jack``` file and tokenizes it. 
+This module implements the `JackTokenizer` in textbook on p.214. It reads a `.jack` file and tokenizes it.
 
-## ```JackAnalyzer``` Module
+## `JackAnalyzer` Module
 
-Developed using top-down ```LL(0)``` parser...  
+Developed using top-down `LL(0)` parser...
 
 Run the unit test without IntelliJ IDEA:
 
 ```bash
 cd <this git repo>
-javac -d ./out/production/ ./src/JackCompiler/*.java
-cd ./out/production/
-java JackCompiler.JackAnalyzer ../../test/test.jack ../../test/test.xml
+javac -d ./out/shell/ ./src/JackCompiler/*.java
+cd ./out/shell/
+java JackCompiler.JackAnalyzer ../../test/test.jack ../../test/test.xml ../../test/test.vm
 cd ../../
 ```
 
-This module implements the ```JackAnalyzer``` in textbook on pp.208-209. It reads a ```.jack``` file, parses it, and output an ```.xml``` file. 
+This module implements the `JackAnalyzer` in textbook on pp.208-209. It reads a `.jack` file, parses it, and output an `.xml` file and a `.vm` file.
