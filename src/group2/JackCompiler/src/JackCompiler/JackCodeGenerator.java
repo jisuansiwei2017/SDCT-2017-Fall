@@ -2,16 +2,8 @@ package JackCompiler;
 
 import org.w3c.dom.*;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class JackCodeGenerator {
 
@@ -19,6 +11,7 @@ public class JackCodeGenerator {
     private ArrayList<String> codes;
     private HashMap<String, Integer> fieldMap;
     private HashMap<String, Integer> staticMap;
+    private String className;
 
     public JackCodeGenerator(Document doc) {
         this.doc = doc;
@@ -37,6 +30,9 @@ public class JackCodeGenerator {
             throw new JackCompilerException();
         }
         */
+        for (String str : codes) {
+            System.out.println(str);
+        }
 
         String[] ret = new String[codes.size()];
         return codes.toArray(ret);
@@ -70,21 +66,23 @@ public class JackCodeGenerator {
         fieldMap = new HashMap<String, Integer>();
         staticMap = new HashMap<String, Integer>();
 
+        this.className = getChildren(doc.getDocumentElement())[1].getFirstChild().getNodeValue().trim();
+
         Element[] nodesClassVarDec =  getChildrenByTagName(doc.getDocumentElement(),"classVarDec");
         for (Element currNode : nodesClassVarDec) {
             Element[] children = getChildren(currNode);
             switch (children[0].getTextContent()) {
                 case " field ":
                     for (int i = 2; i < children.length; i++) {
-                        if (children[i].getTagName() == "identifier") {
-                            fieldMap.put(children[i].getTextContent().trim(), fieldMap.size());
+                        if (children[i].getTagName().equals("identifier")) {
+                            fieldMap.put(children[i].getFirstChild().getNodeValue().trim(), fieldMap.size());
                         }
                     }
                     break;
                 case " static ":
                     for (int i = 2; i < children.length; i++) {
-                        if (children[i].getTagName() == "identifier") {
-                            staticMap.put(children[i].getTextContent().trim(), fieldMap.size());
+                        if (children[i].getTagName().equals("identifier")) {
+                            staticMap.put(children[i].getFirstChild().getNodeValue().trim(), fieldMap.size());
                         }
                     }
                     break;
@@ -99,28 +97,84 @@ public class JackCodeGenerator {
 
     private void procSubroutineDec(Element dec) throws JackCompilerException {
         Element[] children = getChildren(dec);
-        switch (children[0].getTextContent()) {
-            case " constructor ":
+        switch (children[0].getFirstChild().getNodeValue().trim()) {
+            case "constructor":
                 procConstructor(dec);
                 break;
-            case " function ":
+            case "function":
                 procFunction(dec);
                 break;
-            case " method ":
+            case "method":
                 procMethod(dec);
+                break;
         }
     }
 
     private void procConstructor(Element dec) throws JackCompilerException {
-
+        Element[] children = getChildren(dec);
+        String constructorName = children[2].getFirstChild().getNodeValue().trim();
+        ArrayList<Pair> parameters = getParameterList(children[4]);
+        ArrayList<Pair> localVariables = getLocalVariableList(children[6]);
+        codes.add("function " + className + "." + constructorName + " " + localVariables.size());
     }
 
     private void procFunction(Element dec) throws JackCompilerException {
-
+        Element[] children = getChildren(dec);
+        String constructorName = children[2].getFirstChild().getNodeValue().trim();
+        ArrayList<Pair> parameters = getParameterList(children[4]);
+        ArrayList<Pair> localVariables = getLocalVariableList(children[6]);
+        codes.add("function " + className + "." + constructorName + " " + localVariables.size());
     }
 
     private void procMethod(Element dec) throws JackCompilerException {
+        Element[] children = getChildren(dec);
+        String constructorName = children[2].getFirstChild().getNodeValue().trim();
+        ArrayList<Pair> parameters = getParameterList(children[4]);
+        ArrayList<Pair> localVariables = getLocalVariableList(children[6]);
+        codes.add("function " + className + "." + constructorName + " " + localVariables.size());
+    }
 
+
+    private class Pair {
+        String name;
+        String type;
+    }
+
+    private ArrayList<Pair> getParameterList(Element param) throws JackCompilerException {
+        Element[] children = getChildren(param);
+        ArrayList<Pair> ret = new ArrayList<Pair>();
+        Pair temp = null;
+        for (int i = 0; i < children.length; i++) {
+            if (i % 3 == 0) {
+                temp = new Pair();
+                temp.type = children[i].getFirstChild().getNodeValue().trim();
+            } else if (i % 3 == 1) {
+                temp.name = children[i].getFirstChild().getNodeValue().trim();
+                ret.add(temp);
+            }
+        }
+        return ret;
+    }
+
+    private ArrayList<Pair> getLocalVariableList(Element subroutineBody) throws JackCompilerException {
+        Element[] children = getChildren(subroutineBody);
+        ArrayList<Pair> ret = new ArrayList<Pair>();
+
+        for (Element child : children) {
+            if (child.getTagName().equals("varDec")) {
+                Element[] list = getChildren(child);
+                String typeName = list[1].getFirstChild().getNodeValue().trim();
+                for (int j = 2; j < list.length; j += 2) {
+                    String name = list[j].getFirstChild().getNodeValue().trim();
+                    Pair temp = new Pair();
+                    temp.name = name;
+                    temp.type = typeName;
+                    ret.add(temp);
+                }
+            }
+        }
+
+        return ret;
     }
 
 }
