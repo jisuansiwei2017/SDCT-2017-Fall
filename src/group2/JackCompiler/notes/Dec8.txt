@@ -1,0 +1,24 @@
+Jack VM 语言的几个小问题：
+
+1. 请确认我的以下理解是否正确：
+    1.1  函数调用语句 call func n 中的 n 是函数的参数个数，这些参数已经被 push 到栈中，左边的参数先被 push。
+    1.2  寄存器 local 用来存储局部变量，并且是不需要初始化就能直接用的。
+    1.3  寄存器 argument 用来存储参数，并且是不需要初始化就能直接用的。
+    1.4  寄存器 this 用来存储当前类的 field 成员，仅需在每个 method 开头设置 this 地址，用以下两句：
+            push argument 0
+            pop pointer 0
+    1.5  在 constructor 中，需要根据 field 的个数 x，然后分配内存，使用如下语句：
+            push constant x
+            call Memory.alloc 1
+            pop pointer 0
+    1.6  函数调用语句的操作数是参数个数（对于 method，包含隐含的 this 参数），函数声明语句的操作数是 local 变量的个数。
+
+2. 请问 push pointer x 与 pop pointer x 语句中，寄存器 pointer 的作用是什么？
+    我看到“push pointer 0”语句可以把 this 指针（当前对象的内存地址）压入栈中，且发现所有的 pointer 后面跟的操作数都是 0，不知道为什么。
+
+3. 关于 static 寄存器的使用，我没找到样例，还没搞明白。
+
+4. 请问以下语句中的变量 x，在内存中存储的值是什么，是 x 对应的 this 指针吗？（假设 new 是 MyClass 类型的一个 constructor）
+    var MyClass x;
+    let x = MyClass.new();
+

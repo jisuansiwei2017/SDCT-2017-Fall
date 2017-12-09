@@ -141,7 +141,7 @@ public class JackAnalyzer {
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD
                 && tokenizer.getKeyWord() == JackTokenizer.KeyWord.CLASS);
         Element currNode = doc.createElement("class");
-        currNode.appendChild(_createTextElement("keyword", " class "));
+        currNode.appendChild(_createTextElement("keyword", "class"));
 
         procClassName(currNode);
 
@@ -149,12 +149,12 @@ public class JackAnalyzer {
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL
                 && tokenizer.getSymbol() == '{');
 
-        currNode.appendChild(_createTextElement("symbol", " { "));
+        currNode.appendChild(_createTextElement("symbol", "{"));
 
         tokenizer.advance();
         procClassVarDecOrSubroutineDec(currNode);
 
-        currNode.appendChild(_createTextElement("symbol", " } "));
+        currNode.appendChild(_createTextElement("symbol", "}"));
         doc.appendChild(currNode);
     }
 
@@ -174,10 +174,10 @@ public class JackAnalyzer {
 
                 switch (tokenizer.getKeyWord()) {
                     case STATIC:
-                        newNode.appendChild(_createTextElement("keyword", " static "));
+                        newNode.appendChild(_createTextElement("keyword", "static"));
                         break;
                     case FIELD:
-                        newNode.appendChild(_createTextElement("keyword", " field "));
+                        newNode.appendChild(_createTextElement("keyword", "field"));
                         break;
                 }
 
@@ -189,11 +189,11 @@ public class JackAnalyzer {
                     tokenizer.advance();
                     _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL);
                     if (tokenizer.getSymbol() == ';') {
-                        newNode.appendChild(_createTextElement("symbol", " ; "));
+                        newNode.appendChild(_createTextElement("symbol", ";"));
                         break;
                     } else {
                         _assert(tokenizer.getSymbol() == ',');
-                        newNode.appendChild(_createTextElement("symbol", " , "));
+                        newNode.appendChild(_createTextElement("symbol", ","));
                         procVarName(newNode);
                     }
                 }
@@ -206,13 +206,13 @@ public class JackAnalyzer {
 
                 switch (tokenizer.getKeyWord()) {
                     case CONSTRUCTOR:
-                        newNode.appendChild(_createTextElement("keyword", " constructor "));
+                        newNode.appendChild(_createTextElement("keyword", "constructor"));
                         break;
                     case FUNCTION:
-                        newNode.appendChild(_createTextElement("keyword", " function "));
+                        newNode.appendChild(_createTextElement("keyword", "function"));
                         break;
                     case METHOD:
-                        newNode.appendChild(_createTextElement("keyword", " method "));
+                        newNode.appendChild(_createTextElement("keyword", "method"));
                         break;
                 }
 
@@ -222,11 +222,11 @@ public class JackAnalyzer {
 
                 tokenizer.advance();
                 _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '(');
-                newNode.appendChild(_createTextElement("symbol", " ( "));
+                newNode.appendChild(_createTextElement("symbol", "("));
 
                 procParameterList(newNode);
 
-                newNode.appendChild(_createTextElement("symbol", " ) "));
+                newNode.appendChild(_createTextElement("symbol", ")"));
 
                 procSubroutineBody(newNode);
 
@@ -249,20 +249,20 @@ public class JackAnalyzer {
             case KEYWORD:
                 switch (tokenizer.getKeyWord()) {
                     case INT:
-                        currNode.appendChild(_createTextElement("keyword", " int "));
+                        currNode.appendChild(_createTextElement("keyword", "int"));
                         break;
                     case CHAR:
-                        currNode.appendChild(_createTextElement("keyword", " char "));
+                        currNode.appendChild(_createTextElement("keyword", "char"));
                         break;
                     case BOOLEAN:
-                        currNode.appendChild(_createTextElement("keyword", " boolean "));
+                        currNode.appendChild(_createTextElement("keyword", "boolean"));
                         break;
                     default:
                         _assert(false);
                 }
                 break;
             case IDENTIFIER:
-                currNode.appendChild(_createTextElement("identifier", " " + tokenizer.getIdentifier() + " "));
+                currNode.appendChild(_createTextElement("identifier", tokenizer.getIdentifier()));
                 break;
             default:
                 _assert(false);
@@ -275,23 +275,23 @@ public class JackAnalyzer {
             case KEYWORD:
                 switch (tokenizer.getKeyWord()) {
                     case VOID:
-                        currNode.appendChild(_createTextElement("keyword", " void "));
+                        currNode.appendChild(_createTextElement("keyword", "void"));
                         break;
                     case INT:
-                        currNode.appendChild(_createTextElement("keyword", " int "));
+                        currNode.appendChild(_createTextElement("keyword", "int"));
                         break;
                     case CHAR:
-                        currNode.appendChild(_createTextElement("keyword", " char "));
+                        currNode.appendChild(_createTextElement("keyword", "char"));
                         break;
                     case BOOLEAN:
-                        currNode.appendChild(_createTextElement("keyword", " boolean "));
+                        currNode.appendChild(_createTextElement("keyword", "boolean"));
                         break;
                     default:
                         _assert(false);
                 }
                 break;
             case IDENTIFIER:
-                currNode.appendChild(_createTextElement("identifier", " " + tokenizer.getIdentifier() + " "));
+                currNode.appendChild(_createTextElement("identifier", tokenizer.getIdentifier()));
                 break;
             default:
                 _assert(false);
@@ -310,20 +310,20 @@ public class JackAnalyzer {
                 case KEYWORD:
                     switch (tokenizer.getKeyWord()) {
                         case INT:
-                            newNode.appendChild(_createTextElement("keyword", " int "));
+                            newNode.appendChild(_createTextElement("keyword", "int"));
                             break;
                         case CHAR:
-                            newNode.appendChild(_createTextElement("keyword", " char "));
+                            newNode.appendChild(_createTextElement("keyword", "char"));
                             break;
                         case BOOLEAN:
-                            newNode.appendChild(_createTextElement("keyword", " boolean "));
+                            newNode.appendChild(_createTextElement("keyword", "boolean"));
                             break;
                         default:
                             _assert(false);
                     }
                     break;
                 case IDENTIFIER:
-                    newNode.appendChild(_createTextElement("identifier", " " + tokenizer.getIdentifier() + " "));
+                    newNode.appendChild(_createTextElement("identifier", tokenizer.getIdentifier()));
                     break;
                 default:
                     _assert(false);
@@ -335,7 +335,7 @@ public class JackAnalyzer {
                 tokenizer.advance();
                 _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL);
                 if (tokenizer.getSymbol() == ',') {
-                    newNode.appendChild(_createTextElement("symbol", " , "));
+                    newNode.appendChild(_createTextElement("symbol", ","));
                     procType(newNode);
                     procVarName(newNode);
                 } else if (tokenizer.getSymbol() == ')') {
@@ -353,7 +353,7 @@ public class JackAnalyzer {
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD && tokenizer.getKeyWord() == JackTokenizer.KeyWord.VAR);
 
         Element newNode = doc.createElement("varDec");
-        newNode.appendChild(_createTextElement("keyword", " var "));
+        newNode.appendChild(_createTextElement("keyword", "var"));
 
         procType(newNode);
         procVarName(newNode);
@@ -362,11 +362,11 @@ public class JackAnalyzer {
             tokenizer.advance();
             _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL);
             if (tokenizer.getSymbol() == ',') {
-                newNode.appendChild(_createTextElement("symbol", " , "));
+                newNode.appendChild(_createTextElement("symbol", ","));
                 procVarName(newNode);
             } else {
                 _assert(tokenizer.getSymbol() == ';');
-                newNode.appendChild(_createTextElement("symbol", " ; "));
+                newNode.appendChild(_createTextElement("symbol", ";"));
                 break;
             }
         }
@@ -377,7 +377,7 @@ public class JackAnalyzer {
     private void procIdentifier(Element currNode) throws JackCompilerException {
         tokenizer.advance();
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.IDENTIFIER);
-        currNode.appendChild(_createTextElement("identifier", " " + tokenizer.getIdentifier() + " "));
+        currNode.appendChild(_createTextElement("identifier", tokenizer.getIdentifier()));
     }
 
     private void procVarName(Element currNode) throws JackCompilerException {
@@ -455,7 +455,7 @@ public class JackAnalyzer {
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '{');
 
         Element newNode = doc.createElement("subroutineBody");
-        newNode.appendChild(_createTextElement("symbol", " { "));
+        newNode.appendChild(_createTextElement("symbol", "{"));
 
         boolean flag;
 
@@ -463,7 +463,6 @@ public class JackAnalyzer {
 
             tokenizer.advance();
             if (tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '}') {
-                newNode.appendChild(_createTextElement("symbol", " } "));
                 flag = false;
                 break;
             } else {
@@ -483,9 +482,12 @@ public class JackAnalyzer {
         }
 
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '}');
-        newNode.appendChild(_createTextElement("symbol", " } "));
+        newNode.appendChild(_createTextElement("symbol", "}"));
 
         currNode.appendChild(newNode);
+        if (!flag) {
+            tokenizer.advance();
+        }
 
     }
 
@@ -494,7 +496,7 @@ public class JackAnalyzer {
                 && tokenizer.getKeyWord() == JackTokenizer.KeyWord.LET);
 
         Element newNode = doc.createElement("letStatement");
-        newNode.appendChild(_createTextElement("keyword", " let "));
+        newNode.appendChild(_createTextElement("keyword", "let"));
 
         procVarName(newNode);
 
@@ -503,18 +505,18 @@ public class JackAnalyzer {
 
         switch (tokenizer.getSymbol()) {
             case '[':
-                newNode.appendChild(_createTextElement("symbol", " [ "));
+                newNode.appendChild(_createTextElement("symbol", "["));
 
                 procExpression(newNode);
 
                 _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == ']');
-                newNode.appendChild(_createTextElement("symbol", " ] "));
+                newNode.appendChild(_createTextElement("symbol", "]"));
 
                 tokenizer.advance();
                 _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '=');
 
             case '=':
-                newNode.appendChild(_createTextElement("symbol", " = "));
+                newNode.appendChild(_createTextElement("symbol", "="));
                 break;
             default:
                 _assert(false);
@@ -523,7 +525,7 @@ public class JackAnalyzer {
         procExpression(newNode);
 
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == ';');
-        newNode.appendChild(_createTextElement("symbol", " ; "));
+        newNode.appendChild(_createTextElement("symbol", ";"));
 
         currNode.appendChild(newNode);
     }
@@ -533,40 +535,40 @@ public class JackAnalyzer {
                 && tokenizer.getKeyWord() == JackTokenizer.KeyWord.IF);
 
         Element newNode = doc.createElement("ifStatement");
-        newNode.appendChild(_createTextElement("keyword", " if "));
+        newNode.appendChild(_createTextElement("keyword", "if"));
 
         tokenizer.advance();
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '(');
-        newNode.appendChild(_createTextElement("symbol", " ( "));
+        newNode.appendChild(_createTextElement("symbol", "("));
 
         procExpression(newNode);
 
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == ')');
-        newNode.appendChild(_createTextElement("symbol", " ) "));
+        newNode.appendChild(_createTextElement("symbol", ")"));
 
         tokenizer.advance();
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '{');
-        newNode.appendChild((_createTextElement("symbol", " { ")));
+        newNode.appendChild((_createTextElement("symbol", "{")));
 
         procStatements(newNode);
 
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '}');
-        newNode.appendChild(_createTextElement("symbol", " } "));
+        newNode.appendChild(_createTextElement("symbol", "}"));
 
         tokenizer.advance();
 
         if (tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD
                 && tokenizer.getKeyWord() == JackTokenizer.KeyWord.ELSE) {
-            newNode.appendChild(_createTextElement("keyword", " else "));
+            newNode.appendChild(_createTextElement("keyword", "else"));
 
             tokenizer.advance();
             _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '{');
-            newNode.appendChild(_createTextElement("symbol", " { "));
+            newNode.appendChild(_createTextElement("symbol", "{"));
 
             procStatements(newNode);
 
             _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '}');
-            newNode.appendChild(_createTextElement("symbol", " } "));
+            newNode.appendChild(_createTextElement("symbol", "}"));
 
         } else {
             shouldAdvance = false;
@@ -581,25 +583,25 @@ public class JackAnalyzer {
                 && tokenizer.getKeyWord() == JackTokenizer.KeyWord.WHILE);
 
         Element newNode = doc.createElement("whileStatement");
-        newNode.appendChild(_createTextElement("keyword", " while "));
+        newNode.appendChild(_createTextElement("keyword", "while"));
 
         tokenizer.advance();
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '(');
-        newNode.appendChild(_createTextElement("symbol", " ( "));
+        newNode.appendChild(_createTextElement("symbol", "("));
 
         procExpression(newNode);
 
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == ')');
-        newNode.appendChild(_createTextElement("symbol", " ) "));
+        newNode.appendChild(_createTextElement("symbol", ")"));
 
         tokenizer.advance();
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '{');
-        newNode.appendChild((_createTextElement("symbol", " { ")));
+        newNode.appendChild((_createTextElement("symbol", "{")));
 
         procStatements(newNode);
 
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '}');
-        newNode.appendChild(_createTextElement("symbol", " } "));
+        newNode.appendChild(_createTextElement("symbol", "}"));
 
 
         currNode.appendChild(newNode);
@@ -610,11 +612,11 @@ public class JackAnalyzer {
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD
                 && tokenizer.getKeyWord() == JackTokenizer.KeyWord.DO);
         Element newNode = doc.createElement("doStatement");
-        newNode.appendChild(_createTextElement("keyword", " do "));
+        newNode.appendChild(_createTextElement("keyword", "do"));
 
         procSubroutineCall(newNode);
 
-        newNode.appendChild(_createTextElement("symbol", " ; "));
+        newNode.appendChild(_createTextElement("symbol", ";"));
         currNode.appendChild(newNode);
     }
 
@@ -624,14 +626,14 @@ public class JackAnalyzer {
                 && tokenizer.getKeyWord() == JackTokenizer.KeyWord.RETURN);
 
         Element newNode = doc.createElement("returnStatement");
-        newNode.appendChild(_createTextElement("keyword", " return "));
+        newNode.appendChild(_createTextElement("keyword", "return"));
 
         tokenizer.advance();
         if (tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == ';') {
-            newNode.appendChild(_createTextElement("symbol", " ; "));
+            newNode.appendChild(_createTextElement("symbol", ";"));
         } else {
             procExpressionWithoutFirstToken(newNode);
-            newNode.appendChild(_createTextElement("symbol", " ; "));
+            newNode.appendChild(_createTextElement("symbol", ";"));
         }
 
         currNode.appendChild(newNode);
@@ -651,7 +653,7 @@ public class JackAnalyzer {
             _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL);
 
             if (operators.contains(tokenizer.getSymbol())) {
-                newNode.appendChild(_createTextElement("symbol", " " + String.valueOf((char)tokenizer.getSymbol()) + " "));
+                newNode.appendChild(_createTextElement("symbol", String.valueOf((char)tokenizer.getSymbol())));
                 tokenizer.advance();
             } else if (tokenizer.getSymbol() == ')' || tokenizer.getSymbol() == ';' || tokenizer.getSymbol() == ']' || tokenizer.getSymbol() == ',') {
                 currNode.appendChild(newNode);
@@ -676,12 +678,12 @@ public class JackAnalyzer {
 
         switch (tokenizer.getTokenType()) {
             case INT_CONST:
-                newNode.appendChild(_createTextElement("integerConstant", " " + Integer.toString(tokenizer.getIntVal()) + " "));
+                newNode.appendChild(_createTextElement("integerConstant", Integer.toString(tokenizer.getIntVal())));
                 tokenizer.advance();
                 break;
 
             case STRING_CONST:
-                newNode.appendChild(_createTextElement("stringConstant", " " + tokenizer.getStringVal() + " "));
+                newNode.appendChild(_createTextElement("stringConstant", tokenizer.getStringVal()));
                 tokenizer.advance();
                 break;
 
@@ -692,7 +694,7 @@ public class JackAnalyzer {
                     //tokenizer.advance();
                 } else {
                     _assert(unaryOperators.contains(tokenizer.getSymbol()));
-                    newNode.appendChild(_createTextElement("symbol", " " + String.valueOf((char)tokenizer.getSymbol()) + " "));
+                    newNode.appendChild(_createTextElement("symbol", String.valueOf((char)tokenizer.getSymbol())));
                     procTerm(newNode);
                 }
                 break;
@@ -707,18 +709,18 @@ public class JackAnalyzer {
                     case '.':
                         subNode = doc.createElement("subroutineCall");
 
-                        subNode.appendChild(_createTextElement("identifier", " " + identifierName + " "));
-                        subNode.appendChild(_createTextElement("symbol", " . "));
+                        subNode.appendChild(_createTextElement("identifier", identifierName));
+                        subNode.appendChild(_createTextElement("symbol", "."));
 
                         procSubroutineName(subNode);
 
-                        subNode.appendChild(_createTextElement("symbol", " ( "));
+                        subNode.appendChild(_createTextElement("symbol", "("));
                         tokenizer.advance();
 
                         procExpressionList(subNode);
 
                         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == ')');
-                        subNode.appendChild(_createTextElement("symbol", " ) "));
+                        subNode.appendChild(_createTextElement("symbol", ")"));
 
                         newNode.appendChild(subNode);
                         tokenizer.advance();
@@ -727,28 +729,28 @@ public class JackAnalyzer {
                     case '(':
                         subNode = doc.createElement("subroutineCall");
 
-                        subNode.appendChild(_createTextElement("identifier", " " + identifierName + " "));
-                        subNode.appendChild(_createTextElement("symbol", " ( "));
+                        subNode.appendChild(_createTextElement("identifier", identifierName));
+                        subNode.appendChild(_createTextElement("symbol", "("));
 
                         procExpressionList(subNode);
 
                         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == ')');
-                        subNode.appendChild(_createTextElement("symbol", " ) "));
+                        subNode.appendChild(_createTextElement("symbol", ")"));
 
                         newNode.appendChild(subNode);
                         tokenizer.advance();
                         break;
 
                     case '[':
-                        newNode.appendChild(_createTextElement("identifier", " " + identifierName + " "));
-                        newNode.appendChild(_createTextElement("symbol",  " [ "));
+                        newNode.appendChild(_createTextElement("identifier", identifierName));
+                        newNode.appendChild(_createTextElement("symbol",  "["));
                         procExpression(newNode);
-                        newNode.appendChild(_createTextElement("symbol", " ] "));
+                        newNode.appendChild(_createTextElement("symbol", "]"));
                         tokenizer.advance();
                         break;
 
                     default:
-                        newNode.appendChild(_createTextElement("identifier", " " + identifierName + " "));
+                        newNode.appendChild(_createTextElement("identifier", identifierName));
                         break;
                 }
 
@@ -757,7 +759,7 @@ public class JackAnalyzer {
             case KEYWORD:
                 _assert(keywordConstants.containsKey(tokenizer.getKeyWord()));
 
-                newNode.appendChild(_createTextElement("keyword", " " + keywordConstants.get(tokenizer.getKeyWord()) + " "));
+                newNode.appendChild(_createTextElement("keyword", keywordConstants.get(tokenizer.getKeyWord())));
                 tokenizer.advance();
 
                 break;
@@ -785,24 +787,24 @@ public class JackAnalyzer {
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.IDENTIFIER);
         String identifierName = tokenizer.getIdentifier();
 
-        newNode.appendChild(_createTextElement("identifier", " " + identifierName + " "));
+        newNode.appendChild(_createTextElement("identifier", identifierName));
 
         tokenizer.advance();
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL);
 
         switch (tokenizer.getSymbol()) {
             case '.':
-                newNode.appendChild(_createTextElement("symbol", " . "));
+                newNode.appendChild(_createTextElement("symbol", "."));
                 procSubroutineName(newNode);
                 tokenizer.advance();
             case '(':
                 _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '(');
-                newNode.appendChild(_createTextElement("symbol", " ( "));
+                newNode.appendChild(_createTextElement("symbol", "("));
 
                 procExpressionList(newNode);
 
                 _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == ')');
-                newNode.appendChild(_createTextElement("symbol", " ) "));
+                newNode.appendChild(_createTextElement("symbol", ")"));
                 break;
             default:
                 _assert(false);
@@ -831,7 +833,7 @@ public class JackAnalyzer {
 
             switch (tokenizer.getSymbol()) {
                 case ',':
-                    newNode.appendChild(_createTextElement("symbol", " , "));
+                    newNode.appendChild(_createTextElement("symbol", ","));
                     tokenizer.advance();
                     break;
                 case ')':
@@ -854,16 +856,6 @@ public class JackAnalyzer {
             Document doc = test.analyze();
 
             writeXML(doc, args[1]);
-
-            String[] codes = (new JackCodeGenerator(doc)).generate();
-
-            FileWriter fw = new FileWriter(args[2]);
-            for (String code : codes) {
-                fw.write(code);
-                fw.write("\r\n");
-            }
-            fw.flush();
-            fw.close();
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,5 +1,10 @@
 
 class Main {
+
+	method void test() {
+		
+	}
+
     function void main() {
 	
 	var Array a;
