@@ -288,4 +288,8 @@ public class JackTokenizer {
         return temp;
     }
 
+    int getPos() {
+        return this.pos;
+    }
+
 }

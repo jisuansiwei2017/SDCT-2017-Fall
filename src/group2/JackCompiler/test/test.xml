@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <class>
 <keyword>class</keyword>
-<identifier>Main</identifier>
+<identifier>Test</identifier>
 <symbol>{</symbol>
 <subroutineDec>
 <keyword>method</keyword>
@@ -12,6 +12,12 @@
 <symbol>)</symbol>
 <subroutineBody>
 <symbol>{</symbol>
+<statements>
+<returnStatement>
+<keyword>return</keyword>
+<symbol>;</symbol>
+</returnStatement>
+</statements>
 <symbol>}</symbol>
 </subroutineBody>
 </subroutineDec>
@@ -59,7 +65,7 @@
 <expressionList>
 <expression>
 <term>
-<stringConstant>HOW MANY NUMBERS? </stringConstant>
+<stringConstant>H</stringConstant>
 </term>
 </expression>
 </expressionList>
@@ -140,7 +146,7 @@
 <expressionList>
 <expression>
 <term>
-<stringConstant>ENTER THE NEXT NUMBER: </stringConstant>
+<stringConstant>E</stringConstant>
 </term>
 </expression>
 </expressionList>
@@ -185,7 +191,28 @@
 <symbol>=</symbol>
 <expression>
 <term>
-<integerConstant>0</integerConstant>
+<identifier>i</identifier>
+</term>
+<symbol>+</symbol>
+<term>
+<expression>
+<term>
+<subroutineCall>
+<identifier>Keyboard</identifier>
+<symbol>.</symbol>
+<identifier>readInt</identifier>
+<symbol>(</symbol>
+<expressionList>
+<expression>
+<term>
+<stringConstant>R</stringConstant>
+</term>
+</expression>
+</expressionList>
+<symbol>)</symbol>
+</subroutineCall>
+</term>
+</expression>
 </term>
 </expression>
 <symbol>;</symbol>
@@ -255,7 +282,7 @@
 <expressionList>
 <expression>
 <term>
-<stringConstant>THE AVERAGE IS: </stringConstant>
+<stringConstant>T</stringConstant>
 </term>
 </expression>
 </expressionList>

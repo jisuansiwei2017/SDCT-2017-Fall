@@ -15,12 +15,12 @@ call Array.new 1
 pop local 0
 push constant 0
 pop local 2
-label LABEL_0
+label WHILE_EXP0
 push local 2
 push local 1
 lt
 not
-if-goto LABEL_1
+if-goto WHILE_END0
 push local 2
 push local 0
 add
@@ -37,8 +37,8 @@ push local 2
 push constant 1
 add
 pop local 2
-goto LABEL_0
-label LABEL_1
+goto WHILE_EXP0
+label WHILE_END0
 push constant 0
 pop local 2
 push local 2
@@ -49,12 +49,12 @@ call String.appendChar 2
 call Keyboard.readInt 1
 add
 pop local 3
-label LABEL_2
+label WHILE_EXP1
 push local 2
 push local 1
 lt
 not
-if-goto LABEL_3
+if-goto WHILE_END1
 push local 3
 push local 2
 push local 0
@@ -67,8 +67,8 @@ push local 2
 push constant 1
 add
 pop local 2
-goto LABEL_2
-label LABEL_3
+goto WHILE_EXP1
+label WHILE_END1
 push constant 1
 call String.new 1
 push constant 84

@@ -1,5 +1,7 @@
 # JackCompiler
 
+This project is my implementation of a compiler that compiles the `Jack` language into `Jack VM` bytecodes. See [Nand2Tetris](http://nand2tetris.org/) for details.
+
 ## `JackTokenizer` Module
 
 Run the unit test without IntelliJ IDEA:
@@ -8,7 +10,7 @@ Run the unit test without IntelliJ IDEA:
 cd <this git repo>
 javac -d ./out/shell/ ./src/JackCompiler/*.java
 cd ./out/shell/
-java JackCompiler.JackTokenizer ../../test/test.jack
+java JackCompiler.JackTokenizer ../../test/Test.jack
 cd ../../
 ```
 
@@ -24,15 +26,17 @@ Run the unit test without IntelliJ IDEA:
 cd <this git repo>
 javac -d ./out/shell/ ./src/JackCompiler/*.java
 cd ./out/shell/
-java JackCompiler.JackAnalyzer ../../test/test.jack ../../test/test.xml
+java JackCompiler.JackAnalyzer ../../test/Test.jack ../../test/Test.xml
 cd ../../
 ```
 
 This module implements the `JackAnalyzer` in textbook on pp.208-209. It reads a `.jack` file, parses it, and output an `.xml` file.
 
-## `JackCodeGenerator` Module (developing)
+This module is finished, but is still under test.
 
-Developing using recursive-descent. It should be able to generate a `.vm` file from an input `.xml` file.
+## `JackCodeGenerator` Module
+
+Developed using recursive-descent. It should be able to generate a `.vm` file from an input `.xml` file.
 
 Run the unit test without IntelliJ IDEA:
 
@@ -40,6 +44,27 @@ Run the unit test without IntelliJ IDEA:
 cd <this git repo>
 javac -d ./out/shell/ ./src/JackCompiler/*.java
 cd ./out/shell/
-java JackCompiler.JackCodeGenerator ../../test/test.jack ../../test/test.vm
+java JackCompiler.JackCodeGenerator ../../test/Test.jack ../../test/Test.xml ../../test/Test.vm
 cd ../../
 ```
+
+This module is finished, but is still under test.
+
+## `HttpWebApi` Module
+
+You can send your `Jack` code by sending POST to endpoint `/compile` at port `80`. The POST data is the code in text format.
+
+Run the Http Web API server (it listens to port `80`):
+
+```bash
+cd <this git repo>
+javac -d ./out/shell/ ./src/JackCompiler/*.java
+cd ./out/shell/
+java JackCompiler.HttpWebApi
+cd ../../
+```
+
+## Reference
+
+[Nand2Tetris Project 10](http://nand2tetris.org/10.php)
+[Nand2Tetris Project 11](http://nand2tetris.org/11.php)

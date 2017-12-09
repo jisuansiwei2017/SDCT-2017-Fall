@@ -2,7 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f0fa553c-3e66-478f-830f-24393a5de4b7" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/out/shell/JackCompiler/JackAnalyzer$1.class" afterPath="$PROJECT_DIR$/out/shell/JackCompiler/JackAnalyzer$1.class" />
+      <change beforePath="$PROJECT_DIR$/out/shell/JackCompiler/JackAnalyzer.class" afterPath="$PROJECT_DIR$/out/shell/JackCompiler/JackAnalyzer.class" />
+      <change beforePath="$PROJECT_DIR$/out/shell/JackCompiler/JackCodeGenerator$1.class" afterPath="$PROJECT_DIR$/out/shell/JackCompiler/JackCodeGenerator$1.class" />
+      <change beforePath="$PROJECT_DIR$/out/shell/JackCompiler/JackCodeGenerator$SymbolType.class" afterPath="$PROJECT_DIR$/out/shell/JackCompiler/JackCodeGenerator$SymbolType.class" />
+      <change beforePath="$PROJECT_DIR$/out/shell/JackCompiler/JackCodeGenerator.class" afterPath="$PROJECT_DIR$/out/shell/JackCompiler/JackCodeGenerator.class" />
+      <change beforePath="$PROJECT_DIR$/out/shell/JackCompiler/JackTokenizer.class" afterPath="$PROJECT_DIR$/out/shell/JackCompiler/JackTokenizer.class" />
+      <change beforePath="$PROJECT_DIR$/src/JackCompiler/HttpWebApi.java" afterPath="$PROJECT_DIR$/src/JackCompiler/HttpWebApi.java" />
+      <change beforePath="$PROJECT_DIR$/src/JackCompiler/JackAnalyzer.java" afterPath="$PROJECT_DIR$/src/JackCompiler/JackAnalyzer.java" />
       <change beforePath="$PROJECT_DIR$/src/JackCompiler/JackCodeGenerator.java" afterPath="$PROJECT_DIR$/src/JackCompiler/JackCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/JackCompiler/JackTokenizer.java" afterPath="$PROJECT_DIR$/src/JackCompiler/JackTokenizer.java" />
+      <change beforePath="$PROJECT_DIR$/test/test.jack" afterPath="$PROJECT_DIR$/test/test.jack" />
+      <change beforePath="$PROJECT_DIR$/test/test.vm" afterPath="$PROJECT_DIR$/test/test.vm" />
+      <change beforePath="$PROJECT_DIR$/test/test.xml" afterPath="$PROJECT_DIR$/test/test.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,8 +35,8 @@
       <file leaf-file-name="JackAnalyzer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/JackCompiler/JackAnalyzer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3150">
-              <caret line="847" column="0" lean-forward="true" selection-start-line="847" selection-start-column="0" selection-end-line="847" selection-end-column="0" />
+            <state relative-caret-position="12160">
+              <caret line="770" column="0" lean-forward="false" selection-start-line="770" selection-start-column="0" selection-end-line="770" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -31,17 +44,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JackCodeGenerator.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="JackCodeGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/JackCompiler/JackCodeGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="669">
-              <caret line="213" column="0" lean-forward="false" selection-start-line="213" selection-start-column="0" selection-end-line="213" selection-end-column="0" />
+            <state relative-caret-position="16">
+              <caret line="27" column="5" lean-forward="false" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#779#780#0" expanded="true" />
-                <element signature="e#809#810#0" expanded="true" />
-                <element signature="e#4434#4450#0" expanded="true" />
+                <element signature="e#986#987#0" expanded="true" />
+                <element signature="e#1016#1017#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HttpWebApi.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/JackCompiler/HttpWebApi.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="112">
+              <caret line="17" column="41" lean-forward="false" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="41" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -59,10 +81,12 @@
       <file leaf-file-name="JackTokenizer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/JackCompiler/JackTokenizer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+            <state relative-caret-position="4368">
+              <caret line="291" column="24" lean-forward="false" selection-start-line="291" selection-start-column="24" selection-end-line="291" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#8224#8225#0" expanded="true" />
+                <element signature="e#8255#8256#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -91,6 +115,8 @@
       <find>getParameterList</find>
       <find>System</find>
       <find>className</find>
+      <find>procTerm</find>
+      <find>args</find>
     </findStrings>
     <replaceStrings>
       <replace>,</replace>
@@ -113,12 +139,12 @@
         <option value="$PROJECT_DIR$/src/JackCompiler/CodeGenerator.java" />
         <option value="$PROJECT_DIR$/src/JackCompiler/JackParser.java" />
         <option value="$PROJECT_DIR$/src/JackCompiler/JackCompilerException.java" />
-        <option value="$PROJECT_DIR$/src/JackCompiler/JackTokenizer.java" />
         <option value="$PROJECT_DIR$/src/JackCompiler/JackCompilationEngine.java" />
         <option value="$PROJECT_DIR$/src/JackCompiler/HttpServer.java" />
-        <option value="$PROJECT_DIR$/src/JackCompiler/HttpWebApi.java" />
+        <option value="$PROJECT_DIR$/src/JackCompiler/JackTokenizer.java" />
         <option value="$PROJECT_DIR$/src/JackCompiler/JackAnalyzer.java" />
         <option value="$PROJECT_DIR$/src/JackCompiler/JackCodeGenerator.java" />
+        <option value="$PROJECT_DIR$/src/JackCompiler/HttpWebApi.java" />
       </list>
     </option>
   </component>
@@ -143,8 +169,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
@@ -152,6 +176,11 @@
             <path>
               <item name="JackCompiler" type="b2602c69:ProjectViewProjectNode" />
               <item name="JackCompiler" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="JackCompiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="JackCompiler" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="JackCompiler" type="b2602c69:ProjectViewProjectNode" />
@@ -168,6 +197,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -399,7 +430,7 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32910052" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -418,6 +449,8 @@
           <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8224#8225#0" expanded="true" />
+            <element signature="e#8255#8256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -446,6 +479,8 @@
           <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8224#8225#0" expanded="true" />
+            <element signature="e#8255#8256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -498,6 +533,8 @@
           <caret line="269" column="49" lean-forward="true" selection-start-line="269" selection-start-column="49" selection-end-line="269" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8224#8225#0" expanded="true" />
+            <element signature="e#8255#8256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -526,6 +563,8 @@
           <caret line="275" column="40" lean-forward="false" selection-start-line="275" selection-start-column="40" selection-end-line="275" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8224#8225#0" expanded="true" />
+            <element signature="e#8255#8256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -546,6 +585,8 @@
           <caret line="275" column="40" lean-forward="false" selection-start-line="275" selection-start-column="40" selection-end-line="275" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8224#8225#0" expanded="true" />
+            <element signature="e#8255#8256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -566,6 +607,8 @@
           <caret line="105" column="26" lean-forward="false" selection-start-line="105" selection-start-column="24" selection-end-line="105" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8224#8225#0" expanded="true" />
+            <element signature="e#8255#8256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -596,6 +639,8 @@
           <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8224#8225#0" expanded="true" />
+            <element signature="e#8255#8256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -616,6 +661,8 @@
           <caret line="128" column="0" lean-forward="false" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8224#8225#0" expanded="true" />
+            <element signature="e#8255#8256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -644,6 +691,8 @@
           <caret line="128" column="0" lean-forward="false" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8224#8225#0" expanded="true" />
+            <element signature="e#8255#8256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -672,6 +721,8 @@
           <caret line="128" column="0" lean-forward="false" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8224#8225#0" expanded="true" />
+            <element signature="e#8255#8256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -700,6 +751,8 @@
           <caret line="273" column="26" lean-forward="true" selection-start-line="273" selection-start-column="26" selection-end-line="273" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8224#8225#0" expanded="true" />
+            <element signature="e#8255#8256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -728,6 +781,8 @@
           <caret line="245" column="5" lean-forward="true" selection-start-line="234" selection-start-column="4" selection-end-line="245" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8224#8225#0" expanded="true" />
+            <element signature="e#8255#8256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -756,6 +811,8 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8224#8225#0" expanded="true" />
+            <element signature="e#8255#8256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -766,6 +823,8 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8224#8225#0" expanded="true" />
+            <element signature="e#8255#8256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -776,6 +835,8 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8224#8225#0" expanded="true" />
+            <element signature="e#8255#8256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -786,6 +847,8 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8224#8225#0" expanded="true" />
+            <element signature="e#8255#8256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -796,6 +859,8 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8224#8225#0" expanded="true" />
+            <element signature="e#8255#8256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -806,6 +871,8 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8224#8225#0" expanded="true" />
+            <element signature="e#8255#8256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -825,16 +892,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/JackCompiler/HttpWebApi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="61">
-          <caret line="42" column="45" lean-forward="false" selection-start-line="42" selection-start-column="45" selection-end-line="42" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/JackCompiler/JackCompilerException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="32">
@@ -845,18 +902,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/JackCompiler/JackTokenizer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        <state relative-caret-position="4368">
+          <caret line="291" column="24" lean-forward="false" selection-start-line="291" selection-start-column="24" selection-end-line="291" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8224#8225#0" expanded="true" />
+            <element signature="e#8255#8256#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/JackCompiler/JackAnalyzer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3150">
-          <caret line="847" column="0" lean-forward="true" selection-start-line="847" selection-start-column="0" selection-end-line="847" selection-end-column="0" />
+        <state relative-caret-position="12160">
+          <caret line="770" column="0" lean-forward="false" selection-start-line="770" selection-start-column="0" selection-end-line="770" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -865,14 +924,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/JackCompiler/JackCodeGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="669">
-          <caret line="213" column="0" lean-forward="false" selection-start-line="213" selection-start-column="0" selection-end-line="213" selection-end-column="0" />
+        <state relative-caret-position="16">
+          <caret line="27" column="5" lean-forward="false" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#779#780#0" expanded="true" />
-            <element signature="e#809#810#0" expanded="true" />
-            <element signature="e#4434#4450#0" expanded="true" />
+            <element signature="e#986#987#0" expanded="true" />
+            <element signature="e#1016#1017#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JackCompiler/HttpWebApi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="17" column="41" lean-forward="false" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="41" />
+          <folding />
         </state>
       </provider>
     </entry>

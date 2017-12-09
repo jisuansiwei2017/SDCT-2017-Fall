@@ -20,7 +20,7 @@ public class HttpWebApi {
             HttpServer server = HttpServer.create(new InetSocketAddress(80), 10);
             server.setExecutor(null);
             server.createContext(
-                    "/endpoint",
+                    "/compile",
                     (HttpExchange httpExchange) -> {
 
                         String tempDir = System.getProperty("java.io.tmpdir");;
@@ -46,9 +46,9 @@ public class HttpWebApi {
                         fos.write(bytes, 0, b);
                         fos.close();
 
-                        JackAnalyzer.main(new String[]{tempDir + "temp.jack", tempDir + "temp.xml"});
+                        JackCodeGenerator.main(new String[]{tempDir + "temp.jack", tempDir + "temp.xml", tempDir + "temp.vm"});
 
-                        String ret = readTxtFile(tempDir + "temp.xml");
+                        String ret = readTxtFile(tempDir + "temp.vm");
                         httpExchange.sendResponseHeaders(200, ret.length());
 
                         OutputStream output = httpExchange.getResponseBody();

@@ -1,9 +1,10 @@
+class Test {
 
-class Main {
 
 	method void test() {
-		
+		return;
 	}
+	
 
     function void main() {
 	
@@ -12,7 +13,7 @@ class Main {
 	var int i, sum;
 
 	
-	let length = Keyboard.readInt("HOW MANY NUMBERS? ");
+	let length = Keyboard.readInt("H");
 	
 	
 	let a = Array.new(length);
@@ -21,12 +22,16 @@ class Main {
 	
 	
 	while (i < length) {
-	    let a[i] = Keyboard.readInt("ENTER THE NEXT NUMBER: ");
+
+	    let a[i] = Keyboard.readInt("E");
+		
 	    let i = i + 1;
 	}
 	
 	let i = 0;
-	let sum = 0;
+
+	
+	let sum = i + (Keyboard.readInt("R"));
 	
 	
 	while (i < length) {
@@ -34,7 +39,7 @@ class Main {
 	    let i = i + 1;
 	}
 	
-	do Output.printString("THE AVERAGE IS: ");
+	do Output.printString("T");
 	do Output.printInt(sum / length);
 	do Output.println();
 	
