@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="TestHttpPost">
+</Property><Property Name="Solution File" Value="C:\LHSCRIPT\HYYT\TestHttpPost\TestHttpPost.sln">
+</Property><Property Name="Date" Value="2012年10月23日">
+</Property><Property Name="Time" Value="8:51">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="TestHttpPost.sln" Description="File successfully backed up as C:\LHSCRIPT\HYYT\TestHttpPost\Backup\TestHttpPost.sln">
+</Event><Event ErrorLevel="0" Project="TestHttpPost" Source="TestHttpPost.csproj" Description="Project file successfully backed up as C:\LHSCRIPT\HYYT\TestHttpPost\Backup\TestHttpPost.csproj">
+</Event><Event ErrorLevel="0" Project="TestHttpPost" Source="FrmTestHttpPost.cs" Description="File successfully backed up as C:\LHSCRIPT\HYYT\TestHttpPost\Backup\FrmTestHttpPost.cs">
+</Event><Event ErrorLevel="0" Project="TestHttpPost" Source="FrmTestHttpPost.Designer.cs" Description="File successfully backed up as C:\LHSCRIPT\HYYT\TestHttpPost\Backup\FrmTestHttpPost.Designer.cs">
+</Event><Event ErrorLevel="0" Project="TestHttpPost" Source="Program.cs" Description="File successfully backed up as C:\LHSCRIPT\HYYT\TestHttpPost\Backup\Program.cs">
+</Event><Event ErrorLevel="0" Project="TestHttpPost" Source="Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\LHSCRIPT\HYYT\TestHttpPost\Backup\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="TestHttpPost" Source="Properties\Resources.Designer.cs" Description="File successfully backed up as C:\LHSCRIPT\HYYT\TestHttpPost\Backup\Properties\Resources.Designer.cs">
+</Event><Event ErrorLevel="0" Project="TestHttpPost" Source="Properties\Settings.Designer.cs" Description="File successfully backed up as C:\LHSCRIPT\HYYT\TestHttpPost\Backup\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="TestHttpPost" Source="Properties\Settings.settings" Description="File successfully backed up as C:\LHSCRIPT\HYYT\TestHttpPost\Backup\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="TestHttpPost" Source="FrmTestHttpPost.resx" Description="File successfully backed up as C:\LHSCRIPT\HYYT\TestHttpPost\Backup\FrmTestHttpPost.resx">
+</Event><Event ErrorLevel="0" Project="TestHttpPost" Source="Properties\Resources.resx" Description="File successfully backed up as C:\LHSCRIPT\HYYT\TestHttpPost\Backup\Properties\Resources.resx">
+</Event><Event ErrorLevel="0" Project="TestHttpPost" Source="TestHttpPost.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="TestHttpPost" Source="TestHttpPost.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="TestHttpPost.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="TestHttpPost.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="TestHttpPost" Source="TestHttpPost.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

@@ -52,17 +52,25 @@ This module is finished, but is still under test.
 
 ## `HttpWebApi` Module
 
-You can send your `Jack` code by sending POST to endpoint `/compile` at port `80`. The POST data is the code in text format.
+You can send your `Jack` code by sending POST to endpoint `/compile` at port `args[0]`. The POST data is the code in text format.
 
-Run the Http Web API server (it listens to port `80`):
+Run the Http Web API server (it listens to port `args[0]`):
 
 ```bash
 cd <this git repo>
 javac -d ./out/shell/ ./src/JackCompiler/*.java
 cd ./out/shell/
-java JackCompiler.HttpWebApi
+java JackCompiler.HttpWebApi 3247
 cd ../../
 ```
+
+Alternatively, using the test tool in `./TestHttpPost/TestHttpPost.exe` (written in C#), you can send your Jack code as POST data:
+
+- to `http://119.28.44.116:3247/compile` to compile it into Jack VM bytecodes, or
+
+- to `http://119.28.44.116:3247/analyze` to parse it into a syntax tree.
+
+![](http://ww3.sinaimg.cn/large/0060lm7Tly1fmbssbv9l4j30ji0e03yo.jpg)
 
 ## Reference
 
