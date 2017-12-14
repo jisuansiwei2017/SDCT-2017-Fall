@@ -391,6 +391,10 @@ public class JackCodeGenerator {
     private void procExpression(Element node) throws JackCompilerException {
         ArrayList<Element> children = getChildren(node);
 
+        if (children.size() == 0) {
+            return;
+        }
+
         procTerm(children.get(0));
 
         for (int i = 1; i < children.size(); i += 2) {
@@ -488,8 +492,11 @@ public class JackCodeGenerator {
 
         ArrayList<Element> expressions = getChildren(children.get(4));
         for (Element expr : expressions) {
-            procExpression(expr);
-            parameterCount++;
+            if (expr.getTagName().equals("expression")) {
+                procExpression(expr);
+                parameterCount++;
+            }
+
         }
 
         codes.add("call " + className + "." + subroutineName + " " + Integer.toString(parameterCount));

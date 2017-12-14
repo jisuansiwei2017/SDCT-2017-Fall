@@ -35,6 +35,11 @@ public class HttpWebApi {
 
                         String s = stringBuilder.toString();
 
+                        File orig = new File(tempDir + "temp.vm");
+                        if (orig.exists()) {
+                            orig.delete();
+                        }
+
                         File txt = new File(tempDir + "temp.jack");
                         if (!txt.exists()) {
                             txt.createNewFile();
@@ -73,6 +78,11 @@ public class HttpWebApi {
                                 .forEach((String s) -> stringBuilder.append(s + "\r\n"));
 
                         String s = stringBuilder.toString();
+
+                        File orig = new File(tempDir + "temp.xml");
+                        if (orig.exists()) {
+                            orig.delete();
+                        }
 
                         File txt = new File(tempDir + "temp.jack");
                         if (!txt.exists()) {
