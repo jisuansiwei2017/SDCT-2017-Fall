@@ -543,7 +543,7 @@ public class JackCodeGenerator {
             procTerm(children.get(1));
             switch (children.get(0).getFirstChild().getNodeValue()) {
                 case "-":
-                    codes.add("sub");
+                    codes.add("neg");
                     break;
                 case "~":
                     codes.add("not");
