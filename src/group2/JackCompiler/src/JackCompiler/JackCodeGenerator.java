@@ -6,6 +6,10 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Jack Code Generator
+ * reference: sample test files from Project 11, Nand2Tetris
+ */
 public class JackCodeGenerator {
 
     private class Symbol {

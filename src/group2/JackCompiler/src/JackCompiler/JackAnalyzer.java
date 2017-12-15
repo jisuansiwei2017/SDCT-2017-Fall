@@ -98,7 +98,6 @@ public class JackAnalyzer {
 
                 // get the content in bytes
                 String xmlString = result.getWriter().toString();
-                // System.out.println(xmlString);
                 byte[] contentInBytes = xmlString.getBytes();
 
                 fop.write(contentInBytes);
@@ -162,10 +161,6 @@ public class JackAnalyzer {
 
         if (tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '}') {
             return;
-        }
-
-        if (tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL) {
-            System.out.println(tokenizer.getSymbol());
         }
 
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD);
@@ -419,9 +414,6 @@ public class JackAnalyzer {
 
         Element newNode = doc.createElement("statements");
         while (true) {
-            if (tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL) {
-                System.out.println((char)tokenizer.getSymbol());
-            }
             _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD);
             switch (tokenizer.getKeyWord()) {
                 case LET:
@@ -774,31 +766,6 @@ public class JackAnalyzer {
 
         currNode.appendChild(newNode);
 
-
-
-
-    }
-
-    private void printLastToken() {
-        System.out.print(tokenizer.getPos());
-        System.out.print("   ");
-        switch (tokenizer.getTokenType()) {
-            case INT_CONST:
-                System.out.println(tokenizer.getIntVal());
-                break;
-            case STRING_CONST:
-                System.out.println(tokenizer.getStringVal());
-                break;
-            case SYMBOL:
-                System.out.println((char)tokenizer.getSymbol());
-                break;
-            case KEYWORD:
-                System.out.println(keywordConstants.get(tokenizer.getKeyWord()));
-                break;
-            case IDENTIFIER:
-                System.out.println(tokenizer.getIdentifier());
-                break;
-        }
     }
 
     private void procExpression(Element currNode) throws JackCompilerException {

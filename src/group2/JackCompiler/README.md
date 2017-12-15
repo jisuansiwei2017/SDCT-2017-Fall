@@ -76,9 +76,7 @@ Alternatively, using the HTTP POST tool at [http://coolaf.com/tool/post](http://
 
 - to `http://119.28.44.116:3247/analyze` to parse it into a syntax tree.
 
-![](http://ww3.sinaimg.cn/large/0060lm7Tly1fmbssbv9l4j30ji0e03yo.jpg)
-
-## Reference
+## References
 
 [Nand2Tetris Project 10](http://nand2tetris.org/10.php)
 [Nand2Tetris Project 11](http://nand2tetris.org/11.php)
