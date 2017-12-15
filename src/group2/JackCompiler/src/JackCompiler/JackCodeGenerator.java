@@ -189,6 +189,7 @@ public class JackCodeGenerator {
 
         codes.add("push constant " + Integer.toString(this.fieldMap.size()));
         codes.add("call Memory.alloc 1");
+        codes.add("pop pointer 0");
 
         procSubroutineStatements(children.get(6));
     }
@@ -439,6 +440,7 @@ public class JackCodeGenerator {
         String subroutineName = null;
 
         int parameterCount = 0;
+        ArrayList<Element> expressions = null;
 
         switch (children.get(1).getFirstChild().getNodeValue()) {
             case ".":
@@ -472,6 +474,8 @@ public class JackCodeGenerator {
                         parameterCount++;
                         break;
                 }
+
+                expressions = getChildren(children.get(4));
                 break;
             case "(":
                 className = this.className;
@@ -480,17 +484,18 @@ public class JackCodeGenerator {
                     case "constructor":
                         break;
                     case "method":
-                        codes.add("push argument 0");
+                        codes.add("push pointer 0");
                         parameterCount++;
                         break;
                     case "function":
 
                         break;
                 }
+                expressions = getChildren(children.get(2));
                 break;
         }
 
-        ArrayList<Element> expressions = getChildren(children.get(4));
+
         for (Element expr : expressions) {
             if (expr.getTagName().equals("expression")) {
                 procExpression(expr);
@@ -530,7 +535,7 @@ public class JackCodeGenerator {
                     codes.add("push constant 0");
                     break;
                 case "this":
-                    codes.add("push argument 0");
+                    codes.add("push pointer 0");
                     break;
                 default:
                     throw new JackCompilerException();

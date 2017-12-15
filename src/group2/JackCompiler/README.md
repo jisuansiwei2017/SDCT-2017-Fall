@@ -10,7 +10,9 @@ Run the unit test without IntelliJ IDEA:
 cd <this git repo>
 javac -d ./out/shell/ ./src/JackCompiler/*.java
 cd ./out/shell/
-java JackCompiler.JackTokenizer ../../test/Test.jack
+java JackCompiler.JackTokenizer ../../test/Main.jack
+java JackCompiler.JackTokenizer ../../test/Square.jack
+java JackCompiler.JackTokenizer ../../test/SquareGame.jack
 cd ../../
 ```
 
@@ -26,7 +28,9 @@ Run the unit test without IntelliJ IDEA:
 cd <this git repo>
 javac -d ./out/shell/ ./src/JackCompiler/*.java
 cd ./out/shell/
-java JackCompiler.JackAnalyzer ../../test/Test.jack ../../test/Test.xml
+java JackCompiler.JackAnalyzer ../../test/Main.jack ../../test/Main.xml
+java JackCompiler.JackAnalyzer ../../test/Square.jack ../../test/Square.xml
+java JackCompiler.JackAnalyzer ../../test/SquareGame.jack ../../test/SquareGame.xml
 cd ../../
 ```
 
@@ -44,7 +48,9 @@ Run the unit test without IntelliJ IDEA:
 cd <this git repo>
 javac -d ./out/shell/ ./src/JackCompiler/*.java
 cd ./out/shell/
-java JackCompiler.JackCodeGenerator ../../test/Test.jack ../../test/Test.xml ../../test/Test.vm
+java JackCompiler.JackCodeGenerator ../../test/Main.jack ../../test/Main.xml ../../test/Main.vm
+java JackCompiler.JackCodeGenerator ../../test/Square.jack ../../test/Square.xml ../../test/Square.vm
+java JackCompiler.JackCodeGenerator ../../test/SquareGame.jack ../../test/SquareGame.xml ../../test/SquareGame.vm
 cd ../../
 ```
 
@@ -64,7 +70,7 @@ java JackCompiler.HttpWebApi 3247
 cd ../../
 ```
 
-Alternatively, using the test tool in `./TestHttpPost/TestHttpPost.exe` (written in C#), you can send your Jack code as POST data:
+Alternatively, using the HTTP POST tool at [http://coolaf.com/tool/post](http://coolaf.com/tool/post) (select `raw` -> `text(test/plain)`), you can send your Jack code as POST data:
 
 - to `http://119.28.44.116:3247/compile` to compile it into Jack VM bytecodes, or
 

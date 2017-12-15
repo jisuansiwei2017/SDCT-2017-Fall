@@ -163,6 +163,11 @@ public class JackAnalyzer {
         if (tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL && tokenizer.getSymbol() == '}') {
             return;
         }
+
+        if (tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL) {
+            System.out.println(tokenizer.getSymbol());
+        }
+
         _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD);
 
         Element newNode = null;
@@ -190,6 +195,7 @@ public class JackAnalyzer {
                     _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL);
                     if (tokenizer.getSymbol() == ';') {
                         newNode.appendChild(_createTextElement("symbol", ";"));
+                        tokenizer.advance();
                         break;
                     } else {
                         _assert(tokenizer.getSymbol() == ',');

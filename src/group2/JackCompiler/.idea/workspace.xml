@@ -3,7 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="f0fa553c-3e66-478f-830f-24393a5de4b7" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/out/shell/JackCompiler/HttpWebApi.class" afterPath="$PROJECT_DIR$/out/shell/JackCompiler/HttpWebApi.class" />
+      <change beforePath="$PROJECT_DIR$/out/shell/JackCompiler/JackCodeGenerator.class" afterPath="$PROJECT_DIR$/out/shell/JackCompiler/JackCodeGenerator.class" />
+      <change beforePath="$PROJECT_DIR$/src/JackCompiler/JackAnalyzer.java" afterPath="$PROJECT_DIR$/src/JackCompiler/JackAnalyzer.java" />
       <change beforePath="$PROJECT_DIR$/src/JackCompiler/JackCodeGenerator.java" afterPath="$PROJECT_DIR$/src/JackCompiler/JackCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/test/Target.vm" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/test/test.jack" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/test/test.vm" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/test/test.xml" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,8 +30,8 @@
       <file leaf-file-name="JackAnalyzer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/JackCompiler/JackAnalyzer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-368">
-              <caret line="770" column="0" lean-forward="false" selection-start-line="770" selection-start-column="0" selection-end-line="770" selection-end-column="0" />
+            <state relative-caret-position="436">
+              <caret line="199" column="28" lean-forward="true" selection-start-line="199" selection-start-column="28" selection-end-line="199" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -35,8 +42,8 @@
       <file leaf-file-name="JackCodeGenerator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/JackCompiler/JackCodeGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="445">
-              <caret line="546" column="26" lean-forward="true" selection-start-line="546" selection-start-column="26" selection-end-line="546" selection-end-column="26" />
+            <state relative-caret-position="671">
+              <caret line="491" column="30" lean-forward="true" selection-start-line="491" selection-start-column="30" selection-end-line="491" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#986#987#0" expanded="true" />
@@ -49,8 +56,8 @@
       <file leaf-file-name="HttpWebApi.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/JackCompiler/HttpWebApi.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-128">
-              <caret line="52" column="36" lean-forward="true" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
+            <state relative-caret-position="672">
+              <caret line="52" column="36" lean-forward="false" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -105,6 +112,7 @@
       <find>className</find>
       <find>procTerm</find>
       <find>args</find>
+      <find>push argument</find>
     </findStrings>
     <replaceStrings>
       <replace>,</replace>
@@ -130,8 +138,8 @@
         <option value="$PROJECT_DIR$/src/JackCompiler/JackCompilationEngine.java" />
         <option value="$PROJECT_DIR$/src/JackCompiler/HttpServer.java" />
         <option value="$PROJECT_DIR$/src/JackCompiler/JackTokenizer.java" />
-        <option value="$PROJECT_DIR$/src/JackCompiler/JackAnalyzer.java" />
         <option value="$PROJECT_DIR$/src/JackCompiler/HttpWebApi.java" />
+        <option value="$PROJECT_DIR$/src/JackCompiler/JackAnalyzer.java" />
         <option value="$PROJECT_DIR$/src/JackCompiler/JackCodeGenerator.java" />
       </list>
     </option>
@@ -157,6 +165,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -185,9 +194,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
-      <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -391,7 +399,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -903,16 +910,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/JackCompiler/HttpWebApi.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-128">
-          <caret line="52" column="36" lean-forward="true" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
+        <state relative-caret-position="672">
+          <caret line="52" column="36" lean-forward="false" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/JackCompiler/JackAnalyzer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-368">
-          <caret line="770" column="0" lean-forward="false" selection-start-line="770" selection-start-column="0" selection-end-line="770" selection-end-column="0" />
+        <state relative-caret-position="436">
+          <caret line="199" column="28" lean-forward="true" selection-start-line="199" selection-start-column="28" selection-end-line="199" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -921,8 +928,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/JackCompiler/JackCodeGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="546" column="26" lean-forward="true" selection-start-line="546" selection-start-column="26" selection-end-line="546" selection-end-column="26" />
+        <state relative-caret-position="671">
+          <caret line="491" column="30" lean-forward="true" selection-start-line="491" selection-start-column="30" selection-end-line="491" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#986#987#0" expanded="true" />
