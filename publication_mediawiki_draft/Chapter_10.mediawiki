@@ -43,6 +43,9 @@ Chapter 10 - Compiler I: Syntax Analysis
 |-
 |（编程语言的）句法
 |syntax
+|-
+|缩进
+|indentation
 |}
 
 =6.0 Introduction=
@@ -50,9 +53,9 @@ Items worth paying special attention to
 
 In the last chapter, we discover that it is much easier to write programs in Jack language than in VM language. When it comes to high perplexity, video games for instance, it seems impractical if not using high level languages such as Jack. Again, we learn that abstraction enables us to handle complexity. 
 
-Although programmers benefit from high-level languages, the computer does not. An extra step, called compilation, is needed to convert Jack codes into VM codes. Whenever you run a program after writing it in C++, Java, a compiler plays its role in converting high-level codes to machine codes (in C++) or to VM codes (in Java). This conversion, involving a lot of knowledge, is usually not a easy job. 
+Although programmers benefit from high-level languages, the computer does not. An extra step, called compilation, is needed to convert Jack codes into VM codes. Whenever you run a program after writing it in C++ or Java, a compiler plays its role in converting high-level codes to machine codes (in C++) or to VM codes (in Java). This conversion, involving a lot of knowledge, is usually not a easy job. 
 
-Luckily, computer scientists have found it useful to divide this complex task, whose target language is VM codes, into roughly three stages:
+Luckily, computer scientists have found it useful to divide this complex task, whose target language is VM codes, into roughly three stages: (See Figure 10.1 in textbook)
 *tokenization: Extract tokens (symbols, keywords, constants, and identifiers) from the source code in Jack.
 *syntax analysis: Analyze the syntax based on the tokens, and generate a syntax tree if no syntax errors occur in the source file. 
 *code generation: Generate the target code in VM language according to the syntax tree. 
@@ -61,14 +64,124 @@ In this chapter, we focus on tokenization and syntax analysis. Code generation w
 
 =6.1 Background=
 逻辑模型
-=6.2 Hack Assembly-to-Binary Translation Specification=
+=6.2 Syntax Analyzer Specification=
 
 尽量依照原有的内容结构 Try to follow the original content structure
 加入个人的学习体会  Include your own learning experience
 
-==6.2.1 Syntax Conventions and File Formats==
-==6.2.2 Instructions==
-==6.2.3 Symbols==
+The tokenizer is much easier to implement than the syntax analyzer is, so we discuss further on the syntax analyzer. We will come back to implementation of a tokenizer in section 6.3.1.  
+
+Suppose the tokenization is done, and we have a list of tokens from the source code, each token belonging to one of the types (or lexical elements): 
+*integer constant
+*string constant
+*keyword
+*identifier
+*symbol
+
+See Figure 10.5 in textbook to learn how these types are defined. In fact, the same figure is also the syntax, itself enough for the syntax analyze. This figure serves as the design contract, by which our syntax analyzer is designed. 
+
+Here we introduce two major ideas toword the problem. One is recursive descent, in which we construct the syntax tree by recursively expanding children nodes to some node in the tree; the other is RegEx match, in which we directly match specific patterns with those in Figure 10.5 using a powerful tool called RegEx, or regular expressions. 
+
+==6.2.1 Recursive descent approach==
+
+First of all, we should know that the codes in Jack programming language is hierarchical. For example, when we set indentation to the source code, each line of the code have its own level of indentation. On the top is the line defining the class, like <code>class Adder {</code>, which has no indents. Subordinate to it is the fields and subroutines, like <code>field int x, y;</code>, which has 1 indent (1 tab or 4 spaces). The declarations and statements in a subroutine, such as <code>return x + y;</code>, have 2 indents (2 tabs or 8 spaces), which means they are actually children of their parent subroutine in the syntax tree. The expression <code>x + y</code> subordinates to the <code>return</code> statement, and at the bottom are two terms <code>x</code> and <code>y</code>. 
+
+<code>
+class Adder {
+    field int x, y;
+    method int add() {
+        return x + y;
+    }
+}
+</code>
+
+The language, though human readable, is hierarchical, which is the feature of a syntax tree. Therefore, it is actually equivalent to the following syntax tree: 
+
+<code>
+<class>
+    <keyword>class</keyword>
+    <identifier>Adder</identifier>
+    <symbol>{</symbol>
+    <classVarDec>
+        <keyword>field</keyword>
+        <keyword>int</keyword>
+        <identifier>x</identifier>
+        <symbol>,</symbol>
+        <identifier>y</identifier>
+        <symbol>;</symbol>
+    </classVarDec>
+    <subroutineDec>
+        <keyword>method</keyword>
+        <keyword>int</keyword>
+        <identifier>add</identifier>
+        <symbol>(</symbol>
+        <parameterList>
+        </parameterList>
+        <symbol>)</symbol>
+        <symbol>{</symbol>
+        <statements>
+            <returnStatement>
+                <keyword>return</keyword>
+                <expression>
+                    <term>
+                        <identifier>x</identifier>
+                    </term>
+                    <symbol>+</symbol>
+                    <term>
+                        <identifier>y</identifier>
+                    </term>
+                <symbol>;</symbol>
+                </expression>
+            </returnStatement>
+        </statements>
+        <symbol>}</symbol>
+    </subroutineDec>
+    <symbol>}</symbol>
+</class>
+</code>
+
+Using recursion, we only focus on one level each time. When processing the <code>class</code> level, we inpterpret the code as follows: 
+
+<code>
+<class>
+    <keyword>class</keyword>
+    <identifier>Adder</identifier>
+    <symbol>{</symbol>
+    <classVarDec>
+        to be handled recursively
+    </classVarDec>
+    <subroutineDec>
+        to be handled recursively
+    </subroutineDec>
+    <symbol>}</symbol>
+</class>
+</code>
+
+This interpretation is identical to the "Program structure - class" syntax in our design contract Figure 10.5 in textbook. We do not handle of <code>classVarDecs</code> and <code>subroutineDecs</code> in a handler for <code>class</code>. Instead, we call their corresponding handlers in a recursive way. Since we begin recursion on the top level (class), we are actually moving down along a syntax tree, from root to bottom, expanding children from parents, so this approach is called a recursive descent. 
+
+One more example. In the code above, when processing the <code>subroutineDec</code> level, we interpret it as follows:
+
+<code>
+<subroutineDec>
+    <keyword>method</keyword>
+    <keyword>int</keyword>
+    <identifier>add</identifier>
+    <symbol>(</symbol>
+    <parameterList>
+        to be handled recursively
+    </parameterList>
+    <symbol>)</symbol>
+    <symbol>{</symbol>
+        to be handled recursively
+    <symbol>}</symbol>
+</subroutineDec>
+</code>
+
+Again, this recursive syntax tree corresponds to the "Program structure - subroutineDec" syntax in Figure 10.5 in textbook. 
+
+==6.2.2 RegEx match approach==
+(Group 1's work)
+
 =6.3 Implementation=
 ==6.3.1 The Parser Module==
 ==6.3.2 The Code Module==
