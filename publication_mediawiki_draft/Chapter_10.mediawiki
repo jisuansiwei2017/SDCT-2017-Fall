@@ -86,18 +86,18 @@ Here we introduce two major ideas toword the problem. One is recursive descent, 
 
 First of all, we should know that the codes in Jack programming language is hierarchical. For example, when we set indentation to the source code, each line of the code have its own level of indentation. On the top is the line defining the class, like <code>class Adder {</code>, which has no indents. Subordinate to it is the fields and subroutines, like <code>field int x, y;</code>, which has 1 indent (1 tab or 4 spaces). The declarations and statements in a subroutine, such as <code>return x + y;</code>, have 2 indents (2 tabs or 8 spaces), which means they are actually children of their parent subroutine in the syntax tree. The expression <code>x + y</code> subordinates to the <code>return</code> statement, and at the bottom are two terms <code>x</code> and <code>y</code>. 
 
-<code>
+<source>
 class Adder {
     field int x, y;
     method int add() {
         return x + y;
     }
 }
-</code>
+</source>
 
 The language, though human readable, is hierarchical, which is the feature of a syntax tree. Therefore, it is actually equivalent to the following syntax tree: 
 
-<code>
+<source>
 <class>
     <keyword>class</keyword>
     <identifier>Adder</identifier>
@@ -138,11 +138,11 @@ The language, though human readable, is hierarchical, which is the feature of a 
     </subroutineDec>
     <symbol>}</symbol>
 </class>
-</code>
+</source>
 
 Using recursion, we only focus on one level each time. When processing the <code>class</code> level, we inpterpret the code as follows: 
 
-<code>
+<source>
 <class>
     <keyword>class</keyword>
     <identifier>Adder</identifier>
@@ -155,13 +155,13 @@ Using recursion, we only focus on one level each time. When processing the <code
     </subroutineDec>
     <symbol>}</symbol>
 </class>
-</code>
+</source>
 
 This interpretation is identical to the "Program structure - class" syntax in our design contract Figure 10.5 in textbook. We do not handle of <code>classVarDecs</code> and <code>subroutineDecs</code> in a handler for <code>class</code>. Instead, we call their corresponding handlers in a recursive way. Since we begin recursion on the top level (class), we are actually moving down along a syntax tree, from root to bottom, expanding children from parents, so this approach is called a recursive descent. 
 
 One more example. In the code above, when processing the <code>subroutineDec</code> level, we interpret it as follows:
 
-<code>
+<source>
 <subroutineDec>
     <keyword>method</keyword>
     <keyword>int</keyword>
@@ -175,7 +175,7 @@ One more example. In the code above, when processing the <code>subroutineDec</co
         to be handled recursively
     <symbol>}</symbol>
 </subroutineDec>
-</code>
+</source>
 
 Again, this recursive syntax tree corresponds to the "Program structure - subroutineDec" syntax in Figure 10.5 in textbook. 
 
