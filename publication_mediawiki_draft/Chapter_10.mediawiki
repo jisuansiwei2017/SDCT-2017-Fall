@@ -1,0 +1,55 @@
+Chapter 10 - Compiler I: Syntax Analysis
+
+=Term list=
+编译器 a compiler
+词法分析 tokenization
+语法分析 syntax analysis
+代码生成 code generation
+记号（编程语言的最小单位，包括符号、关键字、变量名称） a token
+（编程语言的）符号 a symbol
+（编程语言的）关键字 a keyword
+（用户定义的）变量名、类名、函数名 an identifier
+递归 recursion
+递归下降（算法） recursive-descent
+有限状态机 a finite state machine
+状态转移 state transition
+（编程语言的）句法 syntax
+
+=6.0 Introduction=
+Items worth paying special attention to
+
+In the last chapter, we discover that it is much easier to write programs in Jack language than in VM language. When it comes to high perplexity, video games for instance, it seems impractical if not using high level languages such as Jack. Again, we learn that abstraction enables us to handle complexity. 
+
+Although programmers benefit from high-level languages, the computer does not. An extra step, called compilation, is needed to convert Jack codes into VM codes. Whenever you run a program after writing it in C++, Java, a compiler plays its role in converting high-level codes to machine codes (in C++) or to VM codes (in Java). This conversion, involving a lot of knowledge, is usually not a easy job. 
+
+Luckily, computer scientists have found it useful to divide this complex task, whose target language is VM codes, into roughly three stages:
+*tokenization: Extract tokens (symbols, keywords, constants, and identifiers) from the source code in Jack.
+*syntax analysis: Analyze the syntax based on the tokens, and generate a syntax tree if no syntax errors occur in the source file. 
+*code generation: Generate the target code in VM language according to the syntax tree. 
+
+In this chapter, we focus on tokenization and syntax analysis. Code generation will be the topic of Chapter 11. 
+
+=6.1 Background=
+逻辑模型
+=6.2 Hack Assembly-to-Binary Translation Specification=
+
+尽量依照原有的内容结构 Try to follow the original content structure
+加入个人的学习体会  Include your own learning experience
+
+==6.2.1 Syntax Conventions and File Formats==
+==6.2.2 Instructions==
+==6.2.3 Symbols==
+=6.3 Implementation=
+==6.3.1 The Parser Module==
+==6.3.2 The Code Module==
+==6.3.3 Assembler for Programs with No Symbols==
+==6.3.4 The SymbolTable Module==
+==6.3.5 Assembler for Programs with Symbols==
+=6.4 Perspective=
+=6.5 Project=
+讲解题目的关键点  Elaborate on key ideas for the project
+=6.6 Glossary=
+关键词
+=6.7 References=
+参考文献
+=6.8 Additional Reading Material=
