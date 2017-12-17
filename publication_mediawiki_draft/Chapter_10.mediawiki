@@ -1,19 +1,49 @@
 Chapter 10 - Compiler I: Syntax Analysis
 
 =Term list=
-编译器 a compiler
-词法分析 tokenization
-语法分析 syntax analysis
-代码生成 code generation
-记号（编程语言的最小单位，包括符号、关键字、变量名称） a token
-（编程语言的）符号 a symbol
-（编程语言的）关键字 a keyword
-（用户定义的）变量名、类名、函数名 an identifier
-递归 recursion
-递归下降（算法） recursive-descent
-有限状态机 a finite state machine
-状态转移 state transition
-（编程语言的）句法 syntax
+{|
+|中文
+|English
+|-
+|编译器
+|a compiler
+|-
+|词法分析
+|tokenization
+|-
+|语法分析
+|syntax analysis
+|-
+|代码生成
+|code generation
+|-
+|记号（编程语言的最小单位，包括符号、关键字、变量名称）
+|a token
+|-
+|（编程语言的）符号
+|a symbol
+|-
+|（编程语言的）关键字
+|a keyword
+|-
+|（用户定义的）变量名、类名、函数名
+|an identifier
+|-
+|递归
+|recursion
+|-
+|递归下降（算法）
+|recursive-descent
+|-
+|有限状态机
+|a finite state machine
+|-
+|状态转移
+|state transition
+|-
+|（编程语言的）句法
+|syntax
+|}
 
 =6.0 Introduction=
 Items worth paying special attention to
