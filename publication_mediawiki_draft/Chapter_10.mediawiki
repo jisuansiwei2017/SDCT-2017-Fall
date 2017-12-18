@@ -182,9 +182,21 @@ Again, this recursive syntax tree corresponds to the "Program structure - subrou
 ==6.2.2 RegEx match approach==
 (Group 1's work)
 
-=6.3 Implementation=
-==6.3.1 The Parser Module==
-==6.3.2 The Code Module==
+=6.3 Implementation using recursive descent=
+Our implementation is in Java, a popular object-oriented programming language. The source code is public at <a href="https://github.com/kingium/JackCompiler">GitHub</a> with a readme file. It is equiped with a HTTP Web API, which can be deployed in any server with Java SE installed. 
+
+Besides the Web API, our module <code>JackCompiler</code> consists of three modules. The modules <code>JackTokenizer</code> and <code>JackAnalyzer</code> are for this chapter. 
+
+==6.3.1 The Tokenizer Module==
+Source file in <code>./src/JackCompiler/JackTokenizer.java</code>
+
+We scan the input Jack file twice. At the first time, we read in every single character from the source code, and store them in a list. All the commenting lines are omitted during this scan. 
+
+At the second time, we tokenize the list of characters using a finite state machine. Each token type can be regarded as a state, with a default state in addition. Every time the main loop begins, the state machines is in the default state, and the cursor is at the beginning of the next token. Within each loop, we advance over one character, and check if it is a symbol, a digit, or a letter. Based on the type of the first character, We have different ways to determine how to advance the cursor in the next steps. For example, if it is a digit, we know that the token must be a interger constant, and we read as many digits as possible, until a blank or a symbol is met. Now we see why an identifier cannot begin with a digit in Jack: it helps the tokenizer to distinguish an integer constant from an identifier when it only scans the first character of the token. 
+
+==6.3.2 The Analyzer Module==
+
+
 ==6.3.3 Assembler for Programs with No Symbols==
 ==6.3.4 The SymbolTable Module==
 ==6.3.5 Assembler for Programs with Symbols==
