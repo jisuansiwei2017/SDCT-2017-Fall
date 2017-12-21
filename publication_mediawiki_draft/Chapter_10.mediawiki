@@ -48,7 +48,7 @@ Chapter 10 - Compiler I: Syntax Analysis
 |indentation
 |}
 
-=6.0 Introduction=
+=10.0 Introduction=
 Items worth paying special attention to
 
 In the last chapter, we discover that it is much easier to write programs in Jack language than in VM language. When it comes to high perplexity, video games for instance, it seems impractical if not using high level languages such as Jack. Again, we learn that abstraction enables us to handle complexity. 
@@ -62,9 +62,9 @@ Luckily, computer scientists have found it useful to divide this complex task, w
 
 In this chapter, we focus on tokenization and syntax analysis. Code generation will be the topic of Chapter 11. 
 
-=6.1 Background=
+=10.1 Background=
 逻辑模型
-=6.2 Syntax Analyzer Specification=
+=10.2 Syntax Analyzer Specification=
 
 尽量依照原有的内容结构 Try to follow the original content structure
 加入个人的学习体会  Include your own learning experience
@@ -82,7 +82,7 @@ See Figure 10.5 in textbook to learn how these types are defined. In fact, the s
 
 Here we introduce two major ideas toword the problem. One is recursive descent, in which we construct the syntax tree by recursively expanding children nodes to some node in the tree; the other is RegEx match, in which we directly match specific patterns with those in Figure 10.5 using a powerful tool called RegEx, or regular expressions. 
 
-==6.2.1 Recursive descent approach==
+==10.2.1 Recursive descent approach==
 
 First of all, we should know that the codes in Jack programming language is hierarchical. For example, when we set indentation to the source code, each line of the code have its own level of indentation. On the top is the line defining the class, like <code>class Adder {</code>, which has no indents. Subordinate to it is the fields and subroutines, like <code>field int x, y;</code>, which has 1 indent (1 tab or 4 spaces). The declarations and statements in a subroutine, such as <code>return x + y;</code>, have 2 indents (2 tabs or 8 spaces), which means they are actually children of their parent subroutine in the syntax tree. The expression <code>x + y</code> subordinates to the <code>return</code> statement, and at the bottom are two terms <code>x</code> and <code>y</code>. 
 
@@ -179,22 +179,22 @@ One more example. In the code above, when processing the <code>subroutineDec</co
 
 Again, this recursive syntax tree corresponds to the "Program structure - subroutineDec" syntax in Figure 10.5 in textbook. 
 
-==6.2.2 RegEx match approach==
+==10.2.2 RegEx match approach==
 (Group 1's work)
 
-=6.3 Implementation using recursive descent=
+=10.3 Implementation using recursive descent=
 Our implementation is in Java, a popular object-oriented programming language. The source code is public at <a href="https://github.com/kingium/JackCompiler">GitHub</a> with a readme file. It is equiped with a HTTP Web API, which can be deployed in any server with Java SE installed. 
 
 Besides the Web API, our module <code>JackCompiler</code> consists of three modules. The modules <code>JackTokenizer</code> and <code>JackAnalyzer</code> are for this chapter. 
 
-==6.3.1 The Tokenizer Module==
+==10.3.1 The Tokenizer Module==
 Source file in <code>./src/JackCompiler/JackTokenizer.java</code>
 
 We scan the input Jack file twice. At the first time, we read in every single character from the source code, and store them in a list. All the commenting lines are omitted during this scan. 
 
 At the second time, we tokenize the list of characters using a finite state machine. Each token type can be regarded as a state, with a default state in addition. Every time the main loop begins, the state machines is in the default state, and the cursor is at the beginning of the next token. Within each loop, we advance over one character, and check if it is a symbol, a digit, or a letter. Based on the type of the first character, We have different ways to determine how to advance the cursor in the next steps. For example, if it is a digit, we know that the token must be a interger constant, and we read as many digits as possible, until a blank or a symbol is met. Now we see why an identifier cannot begin with a digit in Jack: it helps the tokenizer to distinguish an integer constant from an identifier when it only scans the first character of the token. 
 
-==6.3.2 The Analyzer Module==
+==10.3.2 The Analyzer Module==
 This module takes a tokenizer as its input. It has several private methods, each one dealing with one case in our design contract (Figure 10.5 in textbook). 
 
 The <code>analyze()</code> method is the entrance of syntax analyze, in which the <code>procClass()</code> method is called to process the class definition. In Figure 10.5 in textbook, the class definition is assumed to have the following structure: <code>'class' className '{' classVarDec* subroutineDec* '}'</code>. Therefore, in <code>procClass</code> method, we follow this structure, so the code goes like <a href="https://github.com/kingium/JackCompiler/blob/master/src/JackCompiler/JackAnalyzer.java">this</a>: 
@@ -244,7 +244,7 @@ procLetStatement            // let a = x + (y + 1);
                 procTerm    // 1
 </source>
 
-=6.4 Perspective=
+=10.4 Perspective=
 Our tokenizer does not support moving backwards. It can only move forward by the <code>advance()</code> method. Therefore, the programming language must be an LL(0) language (Left-to-right Leftmost using 0 tokens ahead). The Jack language is designed to be capatible with LL(0) parsers. So, it will not impede the syntax parser not to support backward tokenization. 
 
 However, it takes a bit more effort to design our recursive-descent-based syntax parser so as to make it work properly in some disambiguous situations. One thing in particular is distinguishing between a <code>if-else</code> statement and a <code>if</code> statement. The parser does not know whether it has an <code>else</code> block when it reads the <code>if</code> block. See the example below: 
@@ -270,8 +270,8 @@ In this example, the cursor is right after <code>let</code> after the <code>proc
 
 Note that the attributes of the first token <code>let</code> will be kept in the tokenizer until it advances to the next token. So, our solution is quite straightforward: delay the starting and the ending position of a handler by one token. That is, let every function that processes statements begin just after the first token of that statement, and let it returns just after the first token succeeding that statement. Hence, in our example, the <code>procIfStatement</code> begins with the cursor position right after <code>if</code>, and returns with the cursor position right after <code>let</code>. Compared to their original positions (right before <code>if</code> and right before <code>let</code>), the positions are delayed for one token. This trick facilitates us to build an LL(0) parser without moving backwards the cursor of the tokenizer. 
 
-=6.5 Project=
-==6.5.1 JackTokenizer==
+=10.5 Project=
+==10.5.1 JackTokenizer==
 This class has a public constructor and several public methods: 
 *(constructor) <source lang="java">public JackTokenizer(String path) throws IOException</source>
 *<source lang="java">public boolean hasMoreTokens()</source>
@@ -285,13 +285,13 @@ This class has a public constructor and several public methods:
 
 These methods do not have to be public, because it is called within the JackCompiler module. 
 
-==6.5.2 JackAnalyzer==
+==10.5.2 JackAnalyzer==
 *(constructor) <source lang="java">public JackAnalyzer(JackTokenizer tokenizer)</source>
 *<source lang="java">public Document analyze()</source>
 
 This class takes a tokenizer as its input, and parse it into an XML document. The XML format is designed to represent text in tree structure, which, therefore, is a good candidate for the syntax tree to be written in. Here is the <a href="https://github.com/kingium/JackCompiler/blob/master/test/Square.jack">sample input</a> together with the corresponding <a href="https://github.com/kingium/JackCompiler/blob/master/test/Square.xml">sample output</a>. 
 
-=6.6 Glossary=
+=10.6 Glossary=
 {|
 |Keywords
 |-
@@ -316,10 +316,10 @@ This class takes a tokenizer as its input, and parse it into an XML document. Th
 |syntax
 |}
 
-=6.7 References=
+=10.7 References=
 *Nisan, N. & Schocken, S. (2005). The Elements of Computing Systems: Building a Modern Computer from First Principles. Prentice-Hall of India
 
-=6.8 Additional Reading Material=
+=10.8 Additional Reading Material=
 *LL parser. (2017, December 13). In Wikipedia, The Free Encyclopedia. Retrieved 03:18, December 21, 2017, from https://en.wikipedia.org/w/index.php?title=LL_parser&oldid=815200886 
 *Recursive descent parser. (2017, November 16). In Wikipedia, The Free Encyclopedia. Retrieved 03:19, December 21, 2017, from https://en.wikipedia.org/w/index.php?title=Recursive_descent_parser&oldid=810700680 
 *XML. (2017, December 11). In Wikipedia, The Free Encyclopedia. Retrieved 03:39, December 21, 2017, from https://en.wikipedia.org/w/index.php?title=XML&oldid=814880050 
