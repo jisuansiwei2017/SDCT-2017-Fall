@@ -1,0 +1,34 @@
+Preface 
+
+focus on the publication itself instead of the documentation
+
+should introduce why we write this publication, and why it's necessary to divide the system into so many levels to run codes as simple as "hello world"
+
+backgroud: 
+    Some readers have background in specific levels, some do not. Written for those who have no background at all
+    Focus not only the implementation itself, but also the computational thinking
+    When doing homework, we find where it can be improved. 
+    Emphasize design by contract, and groupword using git and wiki
+    It is a challege for those who had no background before.
+
+Goal:
+    Learn computational thinking, rather than do 12 assignments only
+    After reading all course videos, textbook and our publication, and finishing homework, any reader should be able to deal with coplex systems in computational thinking. (particularly Staging, Modularity, Abstraction, Focus)
+
+Validation:
+    Is it possible for a reader who has no background to understand computational thinking after reading our publication? 
+
+input: 
+    textbook
+    Nand2Tetris course website
+
+output:
+    a publication
+    a git repo with slides and source codes for homework
+
+
+
+Spotlights:
+    optimization of assembly codes
+    implement the game Go in Jack and its three rules
+    a Jack compiler written in Java
