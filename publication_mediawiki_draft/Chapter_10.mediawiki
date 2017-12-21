@@ -201,26 +201,26 @@ The <code>analyze()</code> method is the entrance of syntax analyze, in which th
 
 <source lang="java">
 private void procClass() throws JackCompilerException {
-        tokenizer.advance();
-        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD
-                && tokenizer.getKeyWord() == JackTokenizer.KeyWord.CLASS);
-        Element currNode = doc.createElement("class");
-        currNode.appendChild(_createTextElement("keyword", "class"));
+    tokenizer.advance();
+    _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.KEYWORD
+            && tokenizer.getKeyWord() == JackTokenizer.KeyWord.CLASS);
+    Element currNode = doc.createElement("class");
+    currNode.appendChild(_createTextElement("keyword", "class"));
 
-        procClassName(currNode);
+    procClassName(currNode);
 
-        tokenizer.advance();
-        _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL
-                && tokenizer.getSymbol() == '{');
+    tokenizer.advance();
+    _assert(tokenizer.getTokenType() == JackTokenizer.TokenType.SYMBOL
+            && tokenizer.getSymbol() == '{');
 
-        currNode.appendChild(_createTextElement("symbol", "{"));
+    currNode.appendChild(_createTextElement("symbol", "{"));
 
-        tokenizer.advance();
-        procClassVarDecOrSubroutineDec(currNode);
+    tokenizer.advance();
+    procClassVarDecOrSubroutineDec(currNode);
 
-        currNode.appendChild(_createTextElement("symbol", "}"));
-        doc.appendChild(currNode);
-    }
+    currNode.appendChild(_createTextElement("symbol", "}"));
+    doc.appendChild(currNode);
+}
 </source>
 
 In the code, we call <code>tokenizer.advance()</code> to advance to the next token, and call <code>tokenizer.getToeknType()</code> and methods like <code>tokenizer.getKeyword()</code> to get the type and content of the token we just read. 
@@ -271,9 +271,55 @@ In this example, the cursor is right after <code>let</code> after the <code>proc
 Note that the attributes of the first token <code>let</code> will be kept in the tokenizer until it advances to the next token. So, our solution is quite straightforward: delay the starting and the ending position of a handler by one token. That is, let every function that processes statements begin just after the first token of that statement, and let it returns just after the first token succeeding that statement. Hence, in our example, the <code>procIfStatement</code> begins with the cursor position right after <code>if</code>, and returns with the cursor position right after <code>let</code>. Compared to their original positions (right before <code>if</code> and right before <code>let</code>), the positions are delayed for one token. This trick facilitates us to build an LL(0) parser without moving backwards the cursor of the tokenizer. 
 
 =6.5 Project=
-讲解题目的关键点  Elaborate on key ideas for the project
+==6.5.1 JackTokenizer==
+This class has a public constructor and several public methods: 
+*(constructor) <source lang="java">public JackTokenizer(String path) throws IOException</source>
+*<source lang="java">public boolean hasMoreTokens()</source>
+*<source lang="java">public void advance() throws JackCompilerException</source>
+*<source lang="java">public TokenType getTokenType()</source>
+*<source lang="java">public KeyWord getKeyWord()</source>
+*<source lang="java">public byte getSymbol()</source>
+*<source lang="java">public String getIdentifier()</source>
+*<source lang="java">public int getIntVal()</source>
+*<source lang="java">public String getStringVal()</source>
+
+These methods do not have to be public, because it is called within the JackCompiler module. 
+
+==6.5.2 JackAnalyzer==
+*(constructor) <source lang="java">public JackAnalyzer(JackTokenizer tokenizer)</source>
+*<source lang="java">public Document analyze()</source>
+
+This class takes a tokenizer as its input, and parse it into an XML document. The XML format is designed to represent text in tree structure, which, therefore, is a good candidate for the syntax tree to be written in. Here is the <a href="https://github.com/kingium/JackCompiler/blob/master/test/Square.jack">sample input</a> together with the corresponding <a href="https://github.com/kingium/JackCompiler/blob/master/test/Square.xml">sample output</a>. 
+
 =6.6 Glossary=
-关键词
+{|
+|Keywords
+|-
+|compiler
+|-
+|tokenization
+|-
+|syntax analysis
+|-
+|code generation
+|-
+|token
+|-
+|recursion
+|-
+|recursive-descent
+|-
+|finite state machine
+|-
+|state transition
+|-
+|syntax
+|}
+
 =6.7 References=
-参考文献
+*Nisan, N. & Schocken, S. (2005). The Elements of Computing Systems: Building a Modern Computer from First Principles. Prentice-Hall of India
+
 =6.8 Additional Reading Material=
+*LL parser. (2017, December 13). In Wikipedia, The Free Encyclopedia. Retrieved 03:18, December 21, 2017, from https://en.wikipedia.org/w/index.php?title=LL_parser&oldid=815200886 
+*Recursive descent parser. (2017, November 16). In Wikipedia, The Free Encyclopedia. Retrieved 03:19, December 21, 2017, from https://en.wikipedia.org/w/index.php?title=Recursive_descent_parser&oldid=810700680 
+*XML. (2017, December 11). In Wikipedia, The Free Encyclopedia. Retrieved 03:39, December 21, 2017, from https://en.wikipedia.org/w/index.php?title=XML&oldid=814880050 
