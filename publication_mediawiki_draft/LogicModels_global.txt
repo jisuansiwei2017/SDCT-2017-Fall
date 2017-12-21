@@ -26,7 +26,8 @@ output:
     a publication
     a git repo with slides and source codes for homework
 
-
+写3个逻辑模型：
+总览、第10章、第11章
 
 Spotlights:
     optimization of assembly codes
