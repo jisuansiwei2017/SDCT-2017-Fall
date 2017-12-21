@@ -327,4 +327,3 @@ This class takes an XML document (from the JackAnalyzer module) as its input, an
 *LL parser. (2017, December 13). In Wikipedia, The Free Encyclopedia. Retrieved 03:18, December 21, 2017, from https://en.wikipedia.org/w/index.php?title=LL_parser&oldid=815200886 
 *Recursive descent parser. (2017, November 16). In Wikipedia, The Free Encyclopedia. Retrieved 03:19, December 21, 2017, from https://en.wikipedia.org/w/index.php?title=Recursive_descent_parser&oldid=810700680 
 *XML. (2017, December 11). In Wikipedia, The Free Encyclopedia. Retrieved 03:39, December 21, 2017, from https://en.wikipedia.org/w/index.php?title=XML&oldid=814880050 
-*XML. (2017, December 11). In Wikipedia, The Free Encyclopedia. Retrieved 06:37, December 21, 2017, from https://en.wikipedia.org/w/index.php?title=XML&oldid=814880050 
