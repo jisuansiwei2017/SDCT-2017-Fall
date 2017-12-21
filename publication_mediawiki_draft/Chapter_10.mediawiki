@@ -247,7 +247,7 @@ procLetStatement            // let a = x + (y + 1);
 =10.4 Perspective=
 Our tokenizer does not support moving backwards. It can only move forward by the <code>advance()</code> method. Therefore, the programming language must be an LL(0) language (Left-to-right Leftmost using 0 tokens ahead). The Jack language is designed to be capatible with LL(0) parsers. So, it will not impede the syntax parser not to support backward tokenization. 
 
-However, it takes a bit more effort to design our recursive-descent-based syntax parser so as to make it work properly in some disambiguous situations. One thing in particular is distinguishing between a <code>if-else</code> statement and a <code>if</code> statement. The parser does not know whether it has an <code>else</code> block when it reads the <code>if</code> block. See the example below: 
+However, it takes a bit more effort to design our recursive-descent-based syntax parser so as to make it work properly in some ambiguous situations. One thing in particular is distinguishing between a <code>if-else</code> statement and a <code>if</code> statement. The parser does not know whether it has an <code>else</code> block when it reads the <code>if</code> block. See the example below: 
 
 <source lang="jack">
 if (condition) {
