@@ -257,7 +257,33 @@ private void procConstructor(Element node) throws JackCompilerException {
 It first gets the subroutine name and type of the return value. Then, it generates the code <code>"function " + className + "." + subroutineName + " " + Integer.toString(localMap.size())</code>, which is a function definition in VM. The class name is put before the subroutine name, separated by a dot. The following three lines of codes are memory allocation, and the code generator uses the field map to determine how much space to allocate. Finally, it calls another function to handle the statements of this subroutine, by passing it the XML element <code>children.get(6)</code> in the syntax tree.
 
 =11.4 Perspective=
+The VM language is process-oriented, while Jack, to some extent, is an object-oriented programming (OOP) language, albeit key features of OOP like derivation and polymorphism are not supported by Jack. The conversion is usually not trivial, but in our project it is not that difficult because of the features above that Jack lacks. To investigate how to convert an OOP language in process-oriented VM, let's see what changes we make during the code generation:
 
+==11.4.1 Convert Classes to Structures==
+A class without any subroutines in it is identical to a structure (like <code>struct</code> in C). Each field in the class is equivalent to a member of the structure. For a class with some subroutines, however, we deal with the subroutines in a different way (See below)
+
+==11.4.2 Convert Methods to Functions==
+Each subroutine in a class can be converted to a function in VM by puting the class name before the subroutine name, separated by a dot. For example, the constructor <code>add</code> of the class <code>Adder</code> becomes <code>Adder.add</code> in VM. 
+*For a function in Jack, it is directly converted to a function in VM.
+*For a method in Jack, a hidden parameter <code>this</code> is added before all other parameters. <code>this</code> contains the address of the current instance. 
+*For a constructor, it is directly conoverted to a function in VM, with some codes added to allocate memory to the fields of the instance to construct.
+
+==11.4.2 Convert Method Calls to Function Calls==
+Suppose you have an instance of <code>Adder</code> called adder, and you call its <code>adder</code> method in Jack: 
+
+<source lang="jack">
+let y = adder.add(x, 1);
+</source>
+
+The code generator, seeing this statement, will look up <code>adder</code> in the symbol tables, and learns it is a local variable. Then, it knows <code>add</code> must be a method of its class. Therefore, before pushing parameters <code>x</code> and <code>1</code> into the stack, it will first push the address of the instance itself: (Suppose <code>adder</code>, <code>x</code> nad <code>y</code> is local variables in addresses 0, 1 and 2 respectively)
+
+<source lang="vm">
+push local 0      // address of adder
+push local 1      // value of x
+push constant 1   // integer constant 1
+call Adder.add    // call the add method
+pop local 2       // pop the return value to y
+</source>
 
 =11.5 Project=
 ==11.5.1 JackCodeGenerator==
@@ -301,4 +327,4 @@ This class takes an XML document (from the JackAnalyzer module) as its input, an
 *LL parser. (2017, December 13). In Wikipedia, The Free Encyclopedia. Retrieved 03:18, December 21, 2017, from https://en.wikipedia.org/w/index.php?title=LL_parser&oldid=815200886 
 *Recursive descent parser. (2017, November 16). In Wikipedia, The Free Encyclopedia. Retrieved 03:19, December 21, 2017, from https://en.wikipedia.org/w/index.php?title=Recursive_descent_parser&oldid=810700680 
 *XML. (2017, December 11). In Wikipedia, The Free Encyclopedia. Retrieved 03:39, December 21, 2017, from https://en.wikipedia.org/w/index.php?title=XML&oldid=814880050 
-XML. (2017, December 11). In Wikipedia, The Free Encyclopedia. Retrieved 06:37, December 21, 2017, from https://en.wikipedia.org/w/index.php?title=XML&oldid=814880050 
+*XML. (2017, December 11). In Wikipedia, The Free Encyclopedia. Retrieved 06:37, December 21, 2017, from https://en.wikipedia.org/w/index.php?title=XML&oldid=814880050 
