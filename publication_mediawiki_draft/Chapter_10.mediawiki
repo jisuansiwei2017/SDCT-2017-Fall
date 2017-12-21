@@ -183,7 +183,7 @@ Again, this recursive syntax tree corresponds to the "Program structure - subrou
 (Group 1's work)
 
 =10.3 Implementation using recursive descent=
-Our implementation is in Java, a popular object-oriented programming language. The source code is public at <a href="https://github.com/kingium/JackCompiler">GitHub</a> with a readme file. It is equiped with a HTTP Web API, which can be deployed in any server with Java SE installed. 
+Our implementation is in Java, a popular object-oriented programming language. The source code is public at <a href="https://github.com/kingium/JackCompiler">GitHub</a> with a readme file. It is equiped with an HTTP Web API, which can be deployed in any server with Java SE installed. 
 
 Besides the Web API, our module <code>JackCompiler</code> consists of three modules. The modules <code>JackTokenizer</code> and <code>JackAnalyzer</code> are for this chapter. 
 
