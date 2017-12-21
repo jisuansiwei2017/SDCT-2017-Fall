@@ -244,11 +244,32 @@ procLetStatement            // let a = x + (y + 1);
                 procTerm    // 1
 </source>
 
-
-==6.3.3 Assembler for Programs with No Symbols==
-==6.3.4 The SymbolTable Module==
-==6.3.5 Assembler for Programs with Symbols==
 =6.4 Perspective=
+Our tokenizer does not support moving backwards. It can only move forward by the <code>advance()</code> method. Therefore, the programming language must be an LL(0) language (Left-to-right Leftmost using 0 tokens ahead). The Jack language is designed to be capatible with LL(0) parsers. So, it will not impede the syntax parser not to support backward tokenization. 
+
+However, it takes a bit more effort to design our recursive-descent-based syntax parser so as to make it work properly in some disambiguous situations. One thing in particular is distinguishing between a <code>if-else</code> statement and a <code>if</code> statement. The parser does not know whether it has an <code>else</code> block when it reads the <code>if</code> block. See the example below: 
+
+<source lang="jack">
+if (condition) {
+    // some codes
+} else {
+    // some other codes
+}
+</source>
+
+When the tokenizer stops just before the token <code>else</code>, the parser has no idea whether it is followed by an <code>else</code> block. It must advance a token, and reads in <code>else</code> to determine. Unfortunately, this will make the cursor incorrectly advanced if there is no <code>else</code> block, in the following code: 
+
+<source lang="jack">
+if (condition) {
+    // some codes
+}
+let a = x;
+</source>
+
+In this example, the cursor is right after <code>let</code> after the <code>procIfStatement()</code> is called, since it needs to advance one token to see if there is a <code>else</code> block. However, the let-statement begins before the <code>let</code> token, not after it. To process the succedding statements, the cursor should go backwards one token in such cases. The problem is, how to do this if the tokenizer does not support moving backwards? 
+
+Note that the attributes of the first token <code>let</code> will be kept in the tokenizer until it advances to the next token. So, our solution is quite straightforward: delay the starting and the ending position of a handler by one token. That is, let every function that processes statements begin just after the first token of that statement, and let it returns just after the first token succeeding that statement. Hence, in our example, the <code>procIfStatement</code> begins with the cursor position right after <code>if</code>, and returns with the cursor position right after <code>let</code>. Compared to their original positions (right before <code>if</code> and right before <code>let</code>), the positions are delayed for one token. This trick facilitates us to build an LL(0) parser without moving backwards the cursor of the tokenizer. 
+
 =6.5 Project=
 讲解题目的关键点  Elaborate on key ideas for the project
 =6.6 Glossary=
