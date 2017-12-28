@@ -101,6 +101,7 @@ We focus on the last stage in this chapter.
 ***Sample codes written in Jack, for test
 ***A sample Jack Compiler, which parses sample Jack codes into VM codes
 **Activities
+***Learn recursive descent
 ***Write our Jack code generator in Java
 ***Compare oour output with that of the test samples
 **Outputs
