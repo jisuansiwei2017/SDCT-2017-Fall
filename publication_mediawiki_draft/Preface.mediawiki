@@ -1,0 +1,81 @@
+Preface - From Nand to Go
+
+=Term list=
+{|
+|中文
+|English
+|}
+
+=10.0 Introduction=
+The computer is one of the most amazing inventions in the last century. A modern computer is extremely complex, based of billions of silicon transitors, yet still remaining a user-friendly graphical interface and capable of general-purpose computation. How did computer designers manage to do this? 
+
+This is the focus of this 12-week course. The short answer is, to divide the system into several layers, forming a hierarchical structure. In detail, the complex computer system is designed by four crucial concepts: 
+*Abstraction: Each hierarchy is abstract as a blackbox, which reads in input from its inferior hierarchy, and expose interfaces to its superior hierarchy. 
+*Modularization: The system is divided into separate modules, each independent of others, with some common contract shared by all modules. This is called "design by contract". 
+*Staging: The whole process is divided into different stages. 
+*Focus: In each stage, only one hierarchy and one module is focused.
+
+With such concepts, the complex task is divided into separate, easier tasks, enabling coorporation. In general, the computer has hardware part and software part. In this course, chapters 1, 2, 3, 5 deals with hardware, the others with software. Spefically, the hierarchies are (from top to bottom): 
+*Operating system -- Chapter 12
+*high-level language (Jack) -- Chapter 9
+*Jack Compiler -- Chapters 10, 11
+*VM language (Jack VM) -- Chapters 7, 8
+*Virual Machine -- Chapters 7, 8
+*Assembly language (Hack) -- Chapter 6
+*Assembler -- Chapter 6
+*Hardware language -- Chapter 4
+*CPU -- Chapter 5
+*Hardware modules like the ALU and program counter -- Chapter 3
+*Hardware submodules like the full adder -- Chapter 2
+*Gates, like "and", "or", "not", "nor" -- Chapter 1
+*The "nand" gate (not-and) -- Chapter 1
+
+
+=10.1 Background=
+Below is a logic model. It tells us the background, the target, and the validation of this chapter, together with inputs and outpus. 
+
+*Logic Model
+**Background
+***The reader of this publication may have insufficient backgrounds in computer structure. 
+***The reader may find it a challenge to do the homework by their own, since the computer system is abstract and requires background in it. 
+**Target / Goal
+***After reading this publication, the reader should be able to accomplish the homework tasks with the help of the textbook and MOOC videos. 
+***Besided the 12 homework assignments, the reader should learn to think in a computational way, and be able to handle a complex system using the four concepts above: abstraction, modularization, staging, and focus. 
+***In addition, the reader would learn utilities, like git and MediaWiki. 
+**Inputs
+***textbook: The elements of Computing Systems, by Noam Nisan and Shimon Schocken
+***Nand2Tetris course website
+**Activities
+***Write logic models for each chapter
+***Give our perspectives of the chapters
+***Guide to the homework in each chapter, providing specifications and our thoughts
+**Outputs:
+***publication
+***a git repo with slides and source codes for homework
+**Impacts/Validation
+***Is it possible for a reader who has little background to understand computational thinking after reading our publication? 
+
+
+
+=10.6 Glossary=
+{|
+|Keywords
+|-
+|abstraction
+|-
+|modularization
+|-
+|staging
+|-
+|focus
+|-
+|design by contract
+|-
+|logic model
+|}
+
+=10.7 References=
+*Nisan, N. & Schocken, S. (2005). The Elements of Computing Systems: Building a Modern Computer from First Principles. Prentice-Hall of India
+
+=10.8 Additional Reading Material=
+*Logic model. (2017, October 23). In Wikipedia, The Free Encyclopedia. Retrieved 03:14, December 28, 2017, from https://en.wikipedia.org/w/index.php?title=Logic_model&oldid=806683974 
