@@ -79,8 +79,6 @@ Chapter 11 - Compiler II: Code Generation
 |}
 
 =11.0 Introduction=
-Items worth paying special attention to
-
 In chapter 9, we discover that it is much easier to write programs in Jack language than in VM language. Further, we implement a tokenizer and a syntax analyzer in chapter 10. With the syntax tree, it is time now to accomplish our last task: generate VM, or virtual machine, instructions from the syntax tree in an XML document. This step is called code generation, in which the compiler is responsible for maintaining several symbol tables to map from an identifier to its address in the stack of the VM. 
 
 Let's review the three stages we talked about in the last chapter: (See Figure 10.1 in textbook)
@@ -91,12 +89,24 @@ Let's review the three stages we talked about in the last chapter: (See Figure 1
 We focus on the last stage in this chapter. 
 
 =11.1 Background=
-逻辑模型
+*Logic Model
+**Background
+***Convert the Jack language into VM language.
+**Target / Goal
+***Write a Jack VM code generator in Java, using recursive descent. 
+**Inputs
+***Chapter 11 in textbook
+***Sample codes written in Jack, for test
+***A sample Jack Compiler, which parses sample Jack codes into VM codes
+**Activities
+***Write our Jack code generator in Java
+***Compare oour output with that of the test samples
+**Outputs
+***A Jack code generator in Java, along with an HTTP Web API
+**Outcomes/Impacts
+***Our code generator passes all the test samples, generating the same VM codes as the sample compiler does
+
 =11.2 Code Generation Specification=
-
-尽量依照原有的内容结构 Try to follow the original content structure
-加入个人的学习体会  Include your own learning experience
-
 To generate VM codes, the code generator should maintain several symbol tables: 
 *symbol table for local variables
 *symbol table for arguments
