@@ -6,7 +6,7 @@ Preface - From Nand to Go
 |English
 |}
 
-=10.0 Introduction=
+=0.0 Introduction=
 The computer is one of the most amazing inventions in the last century. A modern computer is extremely complex, based of billions of silicon transitors, yet still remaining a user-friendly graphical interface and capable of general-purpose computation. How did computer designers manage to do this? 
 
 This is the focus of this 12-week course. The short answer is, to divide the system into several layers, forming a hierarchical structure. In detail, the complex computer system is designed by four crucial concepts: 
@@ -31,7 +31,7 @@ With such concepts, the complex task is divided into separate, easier tasks, ena
 *The "nand" gate (not-and) -- Chapter 1
 
 
-=10.1 Background=
+=0.1 Background=
 Below is a logic model. It tells us the background, the target, and the validation of this chapter, together with inputs and outpus. 
 
 *Logic Model
@@ -57,7 +57,7 @@ Below is a logic model. It tells us the background, the target, and the validati
 
 
 
-=10.6 Glossary=
+=0.2 Glossary=
 {|
 |Keywords
 |-
@@ -74,8 +74,8 @@ Below is a logic model. It tells us the background, the target, and the validati
 |logic model
 |}
 
-=10.7 References=
+=0.3 References=
 *Nisan, N. & Schocken, S. (2005). The Elements of Computing Systems: Building a Modern Computer from First Principles. Prentice-Hall of India
 
-=10.8 Additional Reading Material=
+=0.4 Additional Reading Material=
 *Logic model. (2017, October 23). In Wikipedia, The Free Encyclopedia. Retrieved 03:14, December 28, 2017, from https://en.wikipedia.org/w/index.php?title=Logic_model&oldid=806683974 
