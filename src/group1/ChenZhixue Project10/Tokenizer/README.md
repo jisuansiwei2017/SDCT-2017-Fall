@@ -4,7 +4,8 @@
 
 - Test examples from nand2tetris, which are named like "Main.jack", "MainT.xml" ...
 - My tokenizer's output, which are named like "Maintokens.xml" ...
-- The tokenizer program, which is "tokenizer.l" and its head file "mylex.h" 
+- The tokenizer program, which is "tokenizer.l" and its head file "mytokenizer.h"
+- And you may find there are many unnecessary functions in the head file because I just copy it from part of the parser head file.  
 
 ### Implementation
 
