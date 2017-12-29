@@ -1,6 +1,6 @@
 %{
 #include "stdio.h"
-#include "test1.h"
+#include "myparser.h"
 int a[50]={0};
 int len=0;
 int n=0;
