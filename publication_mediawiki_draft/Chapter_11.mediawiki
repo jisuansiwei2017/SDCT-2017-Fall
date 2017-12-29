@@ -94,17 +94,19 @@ We focus on the last stage in this chapter.
 ***Convert the Jack language into VM language.
 **Target / Goal
 ***Write a Jack VM code generator in Java, using recursive descent. 
+**Outcomes/Impacts
+***Our code generator passes all the test samples, generating the same VM codes as the sample compiler does
 **Inputs
 ***Chapter 11 in textbook
 ***Sample codes written in Jack, for test
 ***A sample Jack Compiler, which parses sample Jack codes into VM codes
 **Activities
+***Learn recursive descent
 ***Write our Jack code generator in Java
 ***Compare oour output with that of the test samples
 **Outputs
 ***A Jack code generator in Java, along with an HTTP Web API
-**Outcomes/Impacts
-***Our code generator passes all the test samples, generating the same VM codes as the sample compiler does
+
 
 =11.2 Code Generation Specification=
 To generate VM codes, the code generator should maintain several symbol tables: 
