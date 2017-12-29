@@ -15,5 +15,5 @@ Sadly, I found that there is a huge problem with implementing the whole using ju
 
 Remember you can not handle all the situations unless you actually write all the situations in regular expressions if you are just using Lex. A brute-force way to do it is that you write some very arbitrary regular expressions, so that you get some raw-input as a string and do those subtle distinguishing afterwards. But it's just the same idea with ANTLR and Yacc. 
 
-**So I would rather leave my half-failed work here, so that you can see how it passes test examples but fail when input gets complicated. **
+**So I would rather leave my half-failed work here, so that you can see how it passes test examples but fail when input gets complicated.**
 
