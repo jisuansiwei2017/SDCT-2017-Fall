@@ -9,7 +9,7 @@
 ### Implementation
 
 - I run the program on Mac. I believe you can easily find the environment requirements online. 
-- I have Xcode pre-installed, which is supposed to be sufficient since Lex is basically supported by C. 
+- I have Xcode pre-installed (and maybe some Terminal Tools), which is supposed to be sufficient since Lex is basically supported by C. 
 
 And here is what I type in terminal to run the tokenizer (cd to this folder of course):
 
