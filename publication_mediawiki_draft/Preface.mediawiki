@@ -30,9 +30,9 @@ With such concepts, the complex task is divided into separate, easier tasks, ena
 *Gates, like "and", "or", "not", "nor" -- Chapter 1
 *The "nand" gate (not-and) -- Chapter 1
 
-
 =0.1 Background=
-Below is a logic model. It tells us about the background, the goal, and the validation of this chapter, together with inputs and outpus. 
+Below is a logic model. It tells us about the background (why to do), the goal (what to do), and the effects (how to validate what we did) of this chapter, together with outpus (what we obtained), activities (what we did), and inputs (what we needed). Not only is it a summary of the whole chapter, but it can also be used as the design contract, by which this publication is designed.
+
 *Logic Model
 **Background
 ***This publication does not require the reader to have background in computer structure or circuit design.
