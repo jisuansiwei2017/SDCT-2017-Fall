@@ -32,28 +32,42 @@ With such concepts, the complex task is divided into separate, easier tasks, ena
 
 
 =0.1 Background=
-Below is a logic model. It tells us the background, the target, and the validation of this chapter, together with inputs and outpus. 
+Below is a logic model. It tells us about the background, the goal, and the validation of this chapter, together with inputs and outpus. 
 
 *Logic Model
 **Background
-***The reader of this publication may have insufficient backgrounds in computer structure. 
-***The reader may find it a challenge to do the homework by their own, since the computer system is abstract and requires background in it. 
-**Target / Goal
-***After reading this publication, the reader should be able to accomplish the homework tasks with the help of the textbook and MOOC videos. 
-***Besided the 12 homework assignments, the reader should learn to think in a computational way, and be able to handle a complex system using the four concepts above: abstraction, modularization, staging, and focus. 
-***In addition, the reader would learn utilities, like git and MediaWiki. 
+***This publication does not require the reader to have background in computer structure or circuit design.
+***The reader may find it a challenge to do the homework by their own, since the computer system is highly abstract, but a publication can help learners overcome these challenges.
+
+**Goal
+***Help the reader learn the structure of computer systems, both in hardware and in software.
+***Help the reader acquire computational thinking.
+***Help the reader accomplish the Nand2Tetris course, and learn some utility tools like MediaWiki, git, and Phabricator.
+
+**Effects
+***The reader should understand the four fundamental concepts of computational thinking: Abstraction, modularity, staging, and focus.
+***The reader should be able to the teach other learners about the Nand2Tetris course, and be able to apply the logic model in their own fields.
+***After reading this publication, the reader should be able to accomplish the 12 homework tasks with the help of the textbook and MOOC videos. 
+***After reading this publication, the reader should have a whole picture about the complete hardware and software hierarchy.
+
+**Outputs:
+***This publication, with 12 chapters corresponding with the chapters in the textbook, and a logic model in each chapter.
+***All 12 homework assignments have been accomplished, with source codes and documentation.
+***Weekly reports by our team members, stoted in a git repo together with source codes.
+***Functional implementations of the chess Go and 2048 in Jack language, in place of the Tetris game in the textbook.
+
+**Activities
+***Write logic models for each chapter.
+***Give our perspectives of the chapters, and provide additional materials.
+***Guide to the homework in each chapter, providing specifications and our thoughts. Part of our answer codes are exemplified.
+***Learn utility tools, such as MediaWiki for documentation, git for groupwork version control, and Phabricator for team resource management.
+
 **Inputs
 ***textbook: The elements of Computing Systems, by Noam Nisan and Shimon Schocken
-***Nand2Tetris course website
-**Activities
-***Write logic models for each chapter
-***Give our perspectives of the chapters
-***Guide to the homework in each chapter, providing specifications and our thoughts
-**Outputs:
-***publication
-***a git repo with slides and source codes for homework
-**Impacts/Validation
-***Is it possible for a reader who has little background to understand computational thinking after reading our publication? 
+***Nand2Tetris course website (video on Coursera, sample code and template for homework)
+***Lecture slides by Prof. Ben Gu
+***Textbooks about computer architecture and compilers.
+***Online references.
 
 
 
