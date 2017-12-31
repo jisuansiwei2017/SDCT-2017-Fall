@@ -1,6 +1,6 @@
 %{
 #include "stdio.h"
-#include "mylex.h"
+#include "mytokenizer.h"
 %}
 %%
 [/][/].*              ;

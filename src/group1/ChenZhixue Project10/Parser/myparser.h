@@ -34,6 +34,9 @@ int pop(int *a, int len){
 	a[len-1]=0;
 	return t;
 }
+int top(int * a, int len){
+	return a[len-1];
+}
 
 //functions in rules
 int leffa(int n){
@@ -55,7 +58,7 @@ int rigf(int * a,int len,int n){
 	if(t==3){
 		n--;print(n);printf("</statements>\n");
 		print(n);printsymbol();
-		print(n);printf("</ifStatement>\n");
+		n--;print(n);printf("</ifStatement>\n");
 		return n;
 	}
 	if(t==2){
@@ -118,6 +121,14 @@ int lefk(int n,int function1,int object){
 	}
 	return n;
 }
+void ths(int n)
+{
+	print(n);printf("<expression>\n");n++;
+	print(n);printf("<term>\n");n++;
+	print(n);printkeyword();n--;
+	print(n);printf("</term>\n");n--;
+	print(n);printf("</expression>\n");
+}
 
 int let(int n,int statement){
 	if(1-statement){
@@ -150,9 +161,9 @@ int whl(int n,int statement){
 
 int elsef(int n){
 	n--;print(n);printf("</statements>\n");
-	print(n);printf("<symbol> } </symbol>");
+	print(n);printf("<symbol> } </symbol>\n");
 	print(n);printf("<keyword> else </keyword>\n");
-    print(n);printf("<symbol> { </symbol>");
+    print(n);printf("<symbol> { </symbol>\n");
 	return n;
 }
 int doo(int n,int statement){
@@ -178,21 +189,9 @@ int equal(int n){
 	return n;
 }
 
-int stat(int n){
-	print(n);printf("<classVarDec>\n");n++;
-	print(n);printkeyword();
-	return n;
-}
 
-int seli(int n,int class,int var_value,int term,int letst,int dost,int returnst){
-	if(class){
-		print(n);printsymbol();
-		n--;print(n);printf("</classVarDec>\n");
-	}
-	if(var_value){
-		print(n);printsymbol();
-		n--;print(n);printf("</varDec>\n");
-	}
+int seli(int * a, int len, int n,int class,int var_value,int term,int letst,int dost,int returnst){
+	int t=top(a,len);
 	if(term){
 		n--;print(n);printf("</term>\n");
 		n--;print(n);printf("</expression>\n");
@@ -200,22 +199,35 @@ int seli(int n,int class,int var_value,int term,int letst,int dost,int returnst)
 	}
 	if(letst){
 		n--;print(n);printf("</letStatement>\n");
+		return n;
 	}
 	if(dost){
 		print(n);printsymbol();
 		n--;print(n);printf("</doStatement>\n");
+		return n;
 	}
 	if(returnst){
 		print(n);printsymbol();
 		n--;print(n);printf("</returnStatement>\n");
+		return n;
 	}
-	return n;
+	if(t==1){
+		print(n);printsymbol();
+		n--;print(n);printf("</classVarDec>\n");
+		return n;
+	}
+	if(t==2){
+		print(n);printsymbol();
+		n--;print(n);printf("</varDec>\n");
+		return n;
+	}
 }
 int func(int n){
 	print(n);printf("<subroutineDec>\n");
 	n++;print(n);printkeyword();
 	return n;
 }
+
 
 int leff(int n,int function,int iese){
 	if(iese){
@@ -231,6 +243,22 @@ int leff(int n,int function,int iese){
 	}
 	print(n);printsymbol();
 	return n;
+}
+
+int type(int * a, int len, int n)
+{
+	int t=top(a,len);
+	if(t==1)
+	{
+		print(n);printf("<classVarDec>\n");
+		n++;print(n);printkeyword();
+	}
+	if(t==2)
+	{
+		print(n);printf("<varDec>\n");
+		n++;print(n);printkeyword();
+	}
+
 }
 
 int var(int n){
