@@ -49,7 +49,7 @@ Chapter 10 - Compiler I: Syntax Analysis
 |}
 
 =10.0 Introduction=
-In the last chapter, we discover that it is much easier to write programs in Jack language than in VM language. When it comes to high perplexity, video games for instance, it seems impractical if not using high level languages such as Jack. Again, we learn that abstraction enables us to handle complexity. 
+In the Chapter 9, we discover that it is much easier to write programs in Jack language than in VM language. When it comes to high perplexity, video games for instance, it seems impractical if not using high level languages such as Jack. Again, we learn that abstraction enables us to handle complexity. 
 
 Although programmers benefit from high-level languages, the computer does not. An extra step, called compilation, is needed to convert Jack codes into VM codes. Whenever you run a program after writing it in C++ or Java, a compiler plays its role in converting high-level codes to machine codes (in C++) or to VM codes (in Java). This conversion, involving a lot of knowledge, is usually not a easy job. 
 
@@ -64,19 +64,22 @@ In this chapter, we focus on tokenization and syntax analysis. Code generation w
 *Logic Model
 **Background
 ***Convert the Jack language into VM language.
-**Target / Goal
-***Write an LL(0) tokenizer and a Jack syntax analyzer in Java, using recursive descent. 
-**Inputs
-***Chapter 10 in textbook
-***Sample codes written in Jack, for test
-***A sample Jack Compiler, which parses sample codes into syntax tree
+**Goal
+***Learn how to implement an LL(0) tokenizer in Java or other high-level language.
+***Learn the concept of recursion, syntax tree, and recursice descent.
+***Write a Jack syntax analyzer in Java, using recursive descent.
+**Effects
+***The reader should be able to teach others about the idea of recursive descent.
+***Our syntax analyzer passes all the test samples, generating the same syntax trees as the sample compiler does.
+**Outputs:
+***A Jack syntax analyzer in Java, along with an HTTP Web API.
 **Activities
-***Write our Jack syntax analyzer in Java
-***Compare oour output with that of the test samples
-**Outputs
-***A Jack syntax analyzer in Java, along with an HTTP Web API
-**Outcomes/Impacts
-***Our syntax analyzer passes all the test samples, generating the same syntax trees as the sample compiler does
+***Learn recursive descent through examples.
+***Write our Jack syntax analyzer in Java, according to Figure 10.5 in textbook.
+**Inputs
+***Chapter 10 in textbook.
+***Sample codes written in Jack, for test.
+***A sample Jack Compiler, which parses sample codes into syntax tree.
 
 =10.2 Syntax Analyzer Specification=
 The tokenizer is much easier to implement than the syntax analyzer is, so we discuss further on the syntax analyzer. We will come back to implementation of a tokenizer in section 6.3.1.  
