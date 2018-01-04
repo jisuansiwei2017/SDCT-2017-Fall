@@ -281,7 +281,7 @@ Each subroutine in a class can be converted to a function in VM by puting the cl
 *For a method in Jack, a hidden parameter <code>this</code> is added before all other parameters. <code>this</code> contains the address of the current instance. 
 *For a constructor, it is directly conoverted to a function in VM, with some codes added to allocate memory to the fields of the instance to construct.
 
-==11.4.2 Convert Method Calls to Function Calls==
+==11.4.3 Convert Method Calls to Function Calls==
 Suppose you have an instance of <code>Adder</code> called adder, and you call its <code>adder</code> method in Jack: 
 
 <source lang="jack">
