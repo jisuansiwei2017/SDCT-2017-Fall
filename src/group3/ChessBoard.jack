@@ -1,0 +1,385 @@
+class ChessBoard {
+	field int X0, Y0;
+	field int LEN;
+	field int Size;
+	field int Blocklen;
+	field int Rcircle;
+
+	field Array Grid;
+	
+	field int ClickX, ClickY;
+	field int NextPiece;
+
+	field Array Stack;
+	field int top;
+	field Array Step;
+	field int Steptop;
+
+	field int cnt;
+
+	field Array Queue;
+	field int head, tail;
+	field Array vis;
+	field Array Suffocate;
+
+	method void DisplayHint() {
+		var int x, y;
+		let x = X0 / 2;
+		let y = Y0 + (9 * LEN);
+
+		do Screen.setColor(true);
+		do Screen.drawCircle(x, y, 10);
+		
+		if (NextPiece = 1) {
+			do Screen.setColor(false);
+			do Screen.drawCircle(x, y, 9);
+		}
+		return ;
+	}
+
+	method void DisplayClick() {
+		var int x, y;
+		let x = X0 + (ClickX * LEN);
+		let y = Y0 + (ClickY * LEN);
+		
+		do Screen.setColor(true);
+		do Screen.drawRectangle(x - Blocklen, y - Blocklen, x + Blocklen, y + Blocklen);
+
+		return ;
+	}
+
+	method void DisplayPiece(int id) {
+		var int x, y, Xcenter, Ycenter;
+		var int i, j;
+		var int linelen;
+		var int ux, dx, ly, ry;
+
+		let x = id / Size;
+		let y = id - (x * Size);
+		let Xcenter = X0 + (x * LEN);
+		let Ycenter = Y0 + (y * LEN);
+
+		do Screen.setColor(false);
+		if (id = (ClickX * Size + ClickY)) {
+			if (~(Grid[id] = 1)) {
+				do Screen.drawRectangle(Xcenter - Blocklen, Ycenter - Blocklen, Xcenter + Blocklen, Ycenter + Blocklen);
+			}
+			else {
+				do Screen.drawRectangle(Xcenter - Blocklen, Ycenter - Blocklen, Xcenter - Blocklen + 1, Ycenter - Blocklen + 1);
+				do Screen.drawRectangle(Xcenter + Blocklen - 1, Ycenter - Blocklen, Xcenter + Blocklen, Ycenter - Blocklen + 1);
+				do Screen.drawRectangle(Xcenter - Blocklen, Ycenter + Blocklen - 1, Xcenter - Blocklen + 1, Ycenter + Blocklen);
+				do Screen.drawRectangle(Xcenter + Blocklen - 1, Ycenter + Blocklen - 1, Xcenter + Blocklen, Ycenter + Blocklen);
+			}
+		}
+		if (~(Grid[id] = 1)) {
+			do Screen.drawCircle(Xcenter, Ycenter, Rcircle);
+		}
+
+		let linelen = Math.max(Blocklen, Rcircle);
+		do Screen.setColor(true);
+
+		if (Grid[id] = 0) {
+			do Screen.setColor(true);
+			do Screen.drawCircle(Xcenter, Ycenter, Rcircle);
+			return ;
+		}
+
+		if (x = 0) { let ux = Xcenter; }
+		else { let ux = Xcenter - linelen; }
+		if (y = 0) { let ly = Ycenter; }
+		else { let ly = Ycenter - linelen; }
+		if (x = (Size - 1)) { let dx = Xcenter; }
+		else { let dx = Xcenter + linelen; }
+		if (y = (Size - 1)) { let ry = Ycenter; }
+		else { let ry = Ycenter + linelen; }
+
+		if (Grid[id] = -1) {
+			do Screen.drawLine(ux, Ycenter, dx, Ycenter);
+			do Screen.drawLine(Xcenter, ly, Xcenter, ry);
+	
+			if (((x = 3) | (x = 9) | (x = 15)) & ((y = 3) | (y = 9) | (y = 15))) {
+				do Screen.drawCircle(Xcenter, Ycenter, 3);
+			}
+		}
+
+		if (Grid[id] = 1) {
+			do Screen.setColor(true);
+			do Screen.drawCircle(Xcenter, Ycenter, Rcircle);
+			do Screen.setColor(false);
+			do Screen.drawCircle(Xcenter, Ycenter, Rcircle - 1);
+		}
+		return ;
+	}
+
+	method void Display() {
+		let cnt = cnt + 1;
+		if (cnt > 599) {
+			if (cnt = 600) {
+				do DisplayPiece(ClickX * Size + ClickY);
+			}
+			if (cnt > 19999) {
+				let cnt = 0;
+			}
+		}
+		else {
+			do DisplayClick();
+		}
+		return ;
+	}
+
+	method boolean OnBoard(int x, int y) {
+		return ((x > 0) & (x < Size) & (y > 0) & (y < Size));
+	}
+
+	method void bfs(int x, int y) {
+		var int pre, xi, yi, set;
+		var boolean ret;
+
+		let ret = false;
+		let set = Grid[x * Size + y];
+		let pre = head;
+		let tail = tail + 1;
+		let Queue[tail] = x * Size + y;
+		let vis[Queue[tail]] = 1;
+		
+		while (~(head > tail)) {
+			let xi = Queue[head] / Size;
+			let yi = Queue[head] - (xi * Size);
+			let head = head + 1;
+			
+			if (OnBoard(xi - 1, yi)) {
+				if (Grid[(xi - 1) * Size + yi] = set) {
+					if (vis[(xi - 1) * Size + yi] = 0) {
+						let tail = tail + 1;
+						let Queue[tail] = (xi - 1) * Size + yi;
+						let vis[Queue[tail]] = 1;
+					}
+				}
+				else {
+					if (Grid[(xi - 1) * Size + yi] = -1) { let ret = true; }
+				}
+			}
+
+			if (OnBoard(xi, yi - 1)) {
+				if (Grid[xi * Size + yi - 1] = set) {
+					if (vis[xi * Size + yi - 1] = 0) {
+						let tail = tail + 1;
+						let Queue[tail] = xi * Size + yi - 1;
+						let vis[Queue[tail]] = 1;
+					}
+				}
+				else {
+					if (Grid[xi * Size + yi - 1] = -1) { let ret = true; }
+				}
+			}
+
+			if (OnBoard(xi + 1, yi)) {
+				if (Grid[(xi + 1) * Size + yi] = set) {
+					if (vis[(xi + 1) * Size + yi] = 0) {
+						let tail = tail + 1;
+						let Queue[tail] = (xi + 1) * Size + yi;
+						let vis[Queue[tail]] = 1;
+					}
+				}
+				else {
+					if (Grid[(xi + 1) * Size + yi] = -1) { let ret = true; }
+				}
+			}
+
+			if (OnBoard(xi, yi + 1)) {
+				if (Grid[xi * Size + yi + 1] = set) {
+					if (vis[xi * Size + yi + 1] = 0) {
+						let tail = tail + 1;
+						let Queue[tail] = xi * Size + yi + 1;
+						let vis[Queue[tail]] = 1;
+					}
+				}
+				else {
+					if (Grid[xi * Size + yi + 1] = -1) { let ret = true; }
+				}
+			}
+		}
+
+		if (~ret) {
+			while (~(pre > tail)) {
+				let Suffocate[Queue[pre]] = 1;
+				let pre = pre + 1;
+			}
+		}
+
+		return ;
+	}
+
+	method void check(int id) {
+		var int i, x, y;
+
+		let i = 0;
+		let head = 0;
+		let tail = -1;
+		while (i < (Size * Size)) {
+			let x = i / Size;
+			let y = i - (x * Size);
+			if ((Grid[i] = NextPiece) & (vis[i] = 0)) { do bfs(x, y); }
+			let i = i + 1;
+		}
+
+		let i = 0;
+		while (i < (Size * Size)) {
+			if (Suffocate[i] = 1) {
+				let Stack[top] = i;
+				let top = top + 1;
+				let Grid[i] = -1;
+				do DisplayPiece(i);
+			}
+			let i = i + 1;
+		}
+
+		let i = 0;
+		while (i < head) {
+			let vis[Queue[i]] = 0;
+			let Suffocate[Queue[i]] = 0;
+			let i = i + 1;
+		}
+		return ;
+	}
+
+	method void PlacePiece() {
+		var int id;
+		let id = ClickX * Size + ClickY;
+
+		if (Grid[id] = -1) {
+			let Step[Steptop] = top;
+			let Steptop = Steptop + 1;
+
+			let Stack[top] = id;
+			let top = top + 1;
+			let Grid[id] = NextPiece;
+			let NextPiece = 1 - NextPiece;
+			do check(id);
+			do DisplayPiece(id);
+			do DisplayHint();
+		}
+		return ;
+	}
+
+	method void Withdraw() {
+		if (Steptop > 0) {
+			let Steptop = Steptop - 1;
+			while (top > Step[Steptop]) {
+				let top = top - 1;
+				let Grid[Stack[top]] = NextPiece;
+				do DisplayPiece(Stack[top]);
+			}
+			let Grid[Stack[top]] = -1;
+			do DisplayPiece(Stack[top]);
+			let NextPiece = 1 - NextPiece;
+			do DisplayHint();
+		}
+		return ;
+	}
+
+	method void MoveClick(int way) {
+		let cnt = -1;
+		do DisplayPiece(ClickX * Size + ClickY);
+
+		if (way = 3) {
+			if (ClickX > 0) {
+				let ClickX = ClickX - 1;
+			}
+		}
+
+		if (way = 4) {
+			if (ClickX < (Size - 1)) {
+				let ClickX = ClickX + 1;
+			}
+		}
+
+		if (way = 1) {
+			if (ClickY > 0) {
+				let ClickY = ClickY - 1;
+			}
+		}
+
+		if (way = 2) {
+			if (ClickY < (Size - 1)) {
+				let ClickY = ClickY + 1;
+			}
+		}
+		return ;
+	}
+
+	method void InitChessBoard() {
+		var int i, j;
+
+		do Screen.clearScreen();
+
+		let top = 0;
+		let Steptop = 0;
+		let Step[0] = 0;
+		let NextPiece = 0;
+		do DisplayHint();
+		let cnt = 0;
+
+		do Screen.setColor(true);
+
+		let i = 0;
+		while (i < Size) {
+			do Screen.drawLine(X0 + (i * LEN), Y0, X0 + (i * LEN), Y0 + (LEN * (Size - 1)));
+			let i = i + 1;
+		}
+		let i = 0;
+		while (i < Size) {
+			do Screen.drawLine(X0, Y0 + (i * LEN), X0 + (LEN * (Size - 1)), Y0 + (i * LEN));
+			let i = i + 1;
+		}
+
+		let i = 0;
+		while (i < (Size * Size)) {
+			let Grid[i] = -1;
+			let i = i + 1;
+		}
+
+		let i = 3;
+		while (i < 16) {
+			let j = 3;
+			while (j < 16) {
+				do DisplayPiece(i * Size + j);
+				let j = j + 6;
+			}
+			let i = i + 6;
+		}
+
+		return ;
+	}
+
+	constructor ChessBoard init() {
+		var int i;
+		let X0 = 125;
+		let Y0 = 9;
+		let LEN = 13;
+		let Size = 19;
+		let Rcircle = 6;
+		let Blocklen = 5;
+
+		let Grid = Array.new(Size * Size);
+		let Stack = Array.new(Size * Size * 4);
+		let Step = Array.new(Size * Size * 4);
+		let Queue = Array.new(Size * Size);
+		let vis = Array.new(Size * Size);
+		let Suffocate = Array.new(Size * Size);
+		
+		let i = 0;
+		while (i < (Size * Size)) {
+			let vis[i] = 0;
+			let Suffocate[i] = 0;
+			let i = i + 1;
+		}
+
+		do InitChessBoard();
+		
+		let ClickX = 9;
+		let ClickY = 9;
+
+        return this;
+    }
+}
