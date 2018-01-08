@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+	<script type="text/javascript">
+		const X0 = 195;
+		const Y0 = 45;
+		const Size = 19;
+		const Move = 48;
+		const Length = 40;
+		var grid = new Array(0);
+
+		/*
+		<img src=\"image/black.png\" style=\"position:absolute; left:45px; top:195px; z-index: 0;\">
+		
+		str = "<img src=\"image/Goboard.png\" style=\"z-index: -1;\" usemap=\"#chess\">";
+			str = str + "<map name=\"chess\" id=\"chess\">";
+			str = str + "<area shape=\"rect\" coords=\"45,195,85,235\" href=\"image\white.png\"/>";
+			
+		<img src="image/empty.png" style="position:absolute; left:'Xi'px; top:'Yi'px; z-index: 0;" onclick="PlaceAPiece(this)" id='i'/>
+		*/
+		
+		var now;
+		var StackTop;
+		var Steps = new Array(0);
+		
+		function GetColor(x,y)
+		{
+			var ret;
+			grid[x][y] = now;
+			StackTop++;
+			Steps[StackTop][0] = x;
+			Steps[StackTop][1] = y;
+			if (now == 0)
+				ret = "image/black.png";
+			else
+				ret = "image/white.png";
+			now ^= 1;
+			return ret;
+		}
+		
+		function InitStack()
+		{
+			var _Steps = new Array(Size * Size);
+			for (i = 0; i < Size * Size; i++) {
+				_Steps[i] = new Array(2);
+				_Steps[i][0] = _Steps[i][1] = 0;
+			}
+			return _Steps;
+		}
+		
+        function Init() {
+			now = 0; StackTop = 0;
+			Steps = InitStack();
+            grid = InitGrid();
+            DisplayGrid();
+        }
+
+        function InitGrid() {
+            var _grid = new Array(Size);
+            for (i=0; i<Size; i++) {
+                _grid[i] = new Array(Size);
+                for (j=0; j<Size; j++) {
+                    _grid[i][j]=-1;
+                }
+            }
+            return _grid;
+        }
+		
+		function PlaceAPiece(Point) {
+			var id = parseInt(Point.id);
+			var x = Math.floor(id / Size);
+			var y = id % Size;
+			if (grid[x][y] == -1)
+				Point.src = GetColor(x,y);
+			else
+				window.alert("This point was placed!");
+		}
+		
+		function DisplayGrid() {
+			var str = "";
+			var x = 0, y = 0;
+			for (x = 0; x < Size; x++)
+				for (y = 0; y < Size; y++) {
+					var Xi = X0 + x * Move;
+					var Yi = Y0 + y * Move;
+					var id = x * Size + y;
+					str = str + "<img src=\"image/empty.png\" style=\"position:absolute; top:" + Xi + "px; left:" + Yi + "px; z-index: 0;\" onclick=\"PlaceAPiece(this)\" id=\"" + id + "\"/> ";
+				}
+			
+			gridElement = document.getElementById('grid');
+            gridElement.innerHTML = str;
+		}
+		
+		function StepBack() {
+			var x = Steps[StackTop][0];
+			var y = Steps[StackTop][1];
+			var id = x * Size + y;
+			grid[x][y] = -1;
+			now ^= 1;
+			document.getElementById(String(id)).src = "image/empty.png";
+			StackTop--;
+		}
+	</script>
+<meta charset="utf-8">
+<title>Simulator Go</title>
+</head>
+<body onload="Init()">
+	<h1 align="center" style="font-family: Courier">Simulator Go</h1>
+	<h2 style="font-family: Courier">This is a test for Goboard</h2>
+		<p>Of course it is implemented by Javascript</p>
+	<table>
+		<img src="image/Goboard.png" style="z-index: -1;"/>
+		<div id="grid"/>
+		<td>
+			<button type="button" onclick="StepBack()" style="font-size: 20px">Step back</button>
+			<button type="button" onclick="Init()" style="font-size: 20px">Clear</button>
+		</td>
+	</table>
+</body>
+</html>
