@@ -1,0 +1,41 @@
+class Main {
+    function void main() {
+		var int key;
+		var boolean exit;
+		var ChessBoard Game;
+
+		do Output.printString("Press Anykey to continue.");
+		do Output.println();
+		while (Keyboard.keyPressed() = 0) {
+		}
+
+        let Game = ChessBoard.init();
+		let exit = false;
+		let key = 0;
+		
+		while (~exit) {
+			while (key = 0) {
+				let key = Keyboard.keyPressed();
+				do Game.Display();
+			}
+
+			if (key = 81) { let exit = true; } //Q quit
+			if (key = 66) { do Game.Withdraw(); } //B back
+			if (key = 82) { do Game.InitChessBoard(); } // R restart
+			if (key = 131) { do Game.MoveClick(1); } // up arrow
+			if (key = 133) { do Game.MoveClick(2); } // down arrow
+			if (key = 130) { do Game.MoveClick(3); } // left arrow
+			if (key = 132) { do Game.MoveClick(4); } // right arrow
+			if (key = 128) { do Game.PlacePiece(); } // Enter
+
+			while (~(key = 0)) {
+				let key = Keyboard.keyPressed();
+				do Game.Display();
+			}
+		}
+
+		do Output.printString("See you next time!");
+		do Output.println();
+        return ;
+    }
+}
