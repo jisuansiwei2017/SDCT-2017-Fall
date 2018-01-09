@@ -1,0 +1,106 @@
+为服务提供商提供的 ADOBE INDESIGN 打印说明
+
+出版物名称: 数字出版流.indd
+
+打包日期: 2018-01-05 19:37
+创建日期: 2018-01-05
+修改日期: 2018-01-05
+
+联系信息
+
+公司名称: 
+联系人: 
+地址: 
+
+
+
+
+
+电话: 
+传真: 
+电子邮件: 
+
+特殊说明与其他附注
+
+
+
+
+
+
+外部增效工具 0
+非不透明对象 : 出现页面: 5, 7, 8, 11, 17, 19, 20, 21, 23, 26, 29, 32, 35, 39, 45, 47, 48, 49, 54, 57, 71, 78, 79, 81, 87, 93
+
+字体
+12 款用到的字体; 0 缺失, 0 嵌入, 0 不完整, 0 款受保护
+
+未打包的字体
+- 名称: AdobeSongStd-Light; 类型: OpenType CID, 状态: 正常
+- 名称: FangSong; 类型: OpenType TrueType, 状态: 正常
+- 名称: SimHei; 类型: OpenType TrueType, 状态: 正常
+已打包的字体
+- 名称: BemboStd; 类型: OpenType Type 1, 状态: 正常
+- 名称: BemboStd-Italic; 类型: OpenType Type 1, 状态: 正常
+- 名称: BerlinSansFB-Reg; 类型: OpenType TrueType, 状态: 正常
+- 名称: Calibri-Bold; 类型: OpenType TrueType, 状态: 正常
+- 名称: Consolas; 类型: OpenType TrueType, 状态: 正常
+- 名称: Futura-Condensed-Normal; 类型: TrueType, 状态: 正常
+- 名称: FuturaLT-CondensedBoldOblique; 类型: TrueType, 状态: 正常
+- 名称: TimesNewRomanPS-BoldMT; 类型: OpenType TrueType, 状态: 正常
+- 名称: TimesNewRomanPSMT; 类型: OpenType TrueType, 状态: 正常
+
+
+颜色和油墨
+4 种印刷色油墨; 0 种专色油墨
+
+- 名称和类型: 青色; 角度: 0.000; 行/英寸: 0.000
+- 名称和类型: 洋红; 角度: 0.000; 行/英寸: 0.000
+- 名称和类型: 黄色; 角度: 0.000; 行/英寸: 0.000
+- 名称和类型: 黑色; 角度: 0.000; 行/英寸: 0.000
+
+
+链接和图像
+（仅缺失和嵌入的链接）
+链接和图像: 82 个链接已找到; 0 个已修改, 0 缺失 0 无法访问
+图像: 0 嵌入, 82 个使用 RGB 色彩空间
+
+
+打印设置
+PPD: 不可用, (Microsoft Print to PDF)
+打印至: 打印机
+份数: 1
+阅读方向跨页: 否
+奇/偶数页: 两者兼有
+页面: 全部
+校样: 否
+拼贴: 无
+缩放: 100%, 100%
+页面位置: 居中
+打印图层: 可见并可打印的图层
+印刷标记: 无
+出血: 0 毫米, 0 毫米, 0 毫米, 0 毫米
+颜色: 复合 RGB
+陷印模式: 无
+发送图像数据: 优化次像素采样
+OPI/DCS 图像替换: 否
+页面大小: A4
+纸张尺寸: 210 毫米 x 297 毫米
+页面方向: 纵向
+负片: 否
+翻转模式: 关
+
+
+文件包列表
+
+1. 数字出版流.indd; 类型: Adobe InDesign 出版物; 大小: 13900K
+2. 数字出版流.idml; 类型: InDesign 标记文档; 大小: 563K
+3. 数字出版流.pdf; 类型: Adobe Acrobat 文档; 大小: 61556K
+4. AdobeSongStd-Light.otf; 类型: 字体文件; 大小: 15224K
+5. BemboStd.otf; 类型: 字体文件; 大小: 62K
+6. BemboStd-Italic.otf; 类型: 字体文件; 大小: 46K
+7. BRLNSR.TTF; 类型: 字体文件; 大小: 95K
+8. calibrib.ttf; 类型: 字体文件; 大小: 828K
+9. consola.ttf; 类型: 字体文件; 大小: 443K
+10. FUTURA.TTF; 类型: 字体文件; 大小: 27K
+11. Futura LT Condensed Bold Oblique.ttf; 类型: 字体文件; 大小: 50K
+12. timesbd.ttf; 类型: 字体文件; 大小: 821K
+13. times.ttf; 类型: 字体文件; 大小: 1135K

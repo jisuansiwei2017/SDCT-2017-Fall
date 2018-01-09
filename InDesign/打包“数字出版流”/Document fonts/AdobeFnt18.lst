@@ -1,0 +1,237 @@
+%!Adobe-FontList 1.18
+%Locale:0x804
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:CID
+FontName:AdobeSongStd-Light
+FamilyName:Adobe Song Std
+StyleName:L
+FullName:Adobe Song Std L
+MenuName:Adobe 宋体 Std L
+StyleBits:0
+FamilyNameNative:Adobe 宋体 Std
+StyleNameNative:L
+FullNameNative:Adobe 宋体 Std L
+WritingScript:SimplifiedChinese
+OutlineFileName:F:\打包“数字出版流”\打包“数字出版流”\Document fonts\AdobeSongStd-Light.otf
+DataFormat:sfntData
+isCFF:yes
+hasSVG:no
+FileLength:15589544
+FileModTime:1475680750
+WeightClass:300
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Adobe Song Std L
+NameArray:25,Mac,4,Adobe 宋体 Std L
+NameArray:0,Win,1,Adobe Song Std L
+NameArray:0,Win,16,Adobe Song Std
+NameArray:25,Win,1,Adobe 宋体 Std L
+NameArray:25,Win,16,Adobe 宋体 Std
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:BemboStd-Italic
+FamilyName:Bembo Std
+StyleName:Italic
+FullName:Bembo Std Italic
+MenuName:Bembo Std
+StyleBits:1
+WritingScript:Roman
+OutlineFileName:F:\打包“数字出版流”\打包“数字出版流”\Document fonts\BemboStd-Italic.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+FileLength:47220
+FileModTime:1340176795
+WeightClass:400
+WidthClass:5
+AngleClass:1
+DesignSize:80
+NameArray:0,Mac,4,Bembo Std Italic
+NameArray:0,Win,1,Bembo Std
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:BemboStd
+FamilyName:Bembo Std
+StyleName:Regular
+FullName:Bembo Std
+MenuName:Bembo Std
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:F:\打包“数字出版流”\打包“数字出版流”\Document fonts\BemboStd.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+FileLength:63596
+FileModTime:1340176795
+WeightClass:400
+WidthClass:5
+AngleClass:0
+DesignSize:80
+NameArray:0,Mac,4,Bembo Std
+NameArray:0,Win,1,Bembo Std
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:BerlinSansFB-Reg
+FamilyName:Berlin Sans FB
+StyleName:Regular
+FullName:Berlin Sans FB
+MenuName:Berlin Sans FB
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:F:\打包“数字出版流”\打包“数字出版流”\Document fonts\BRLNSR.TTF
+DataFormat:sfntData
+hasSVG:no
+FileLength:97284
+FileModTime:1438198072
+WeightClass:400
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Berlin Sans FB
+NameArray:0,Win,1,Berlin Sans FB
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:Calibri-Bold
+FamilyName:Calibri
+StyleName:Bold
+FullName:Calibri Bold
+MenuName:Calibri
+StyleBits:2
+WritingScript:Roman
+OutlineFileName:F:\打包“数字出版流”\打包“数字出版流”\Document fonts\calibrib.ttf
+DataFormat:sfntData
+hasSVG:no
+FileLength:848720
+FileModTime:1244666594
+WeightClass:700
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Calibri Bold
+NameArray:0,Win,1,Calibri
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:Consolas
+FamilyName:Consolas
+StyleName:Regular
+FullName:Consolas
+MenuName:Consolas
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:F:\打包“数字出版流”\打包“数字出版流”\Document fonts\consola.ttf
+DataFormat:sfntData
+hasSVG:no
+FileLength:453732
+FileModTime:1506692495
+WeightClass:400
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Consolas
+NameArray:0,Win,1,Consolas
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:FuturaLT-CondensedBoldOblique
+FamilyName:Futura LT Condensed
+StyleName:Bold Italic
+FullName:Futura LT Condensed Bold Oblique
+MenuName:Futura LT Condensed
+StyleBits:3
+WritingScript:Roman
+OutlineFileName:F:\打包“数字出版流”\打包“数字出版流”\Document fonts\Futura LT Condensed Bold Oblique.ttf
+DataFormat:sfntData
+hasSVG:no
+FileLength:51220
+FileModTime:1031208902
+WeightClass:700
+WidthClass:5
+AngleClass:1
+NameArray:0,Mac,4,Futura LT Condensed Bold Oblique
+NameArray:0,Win,1,Futura LT Condensed
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:Futura-Condensed-Normal
+FamilyName:Futura-Condensed-Normal
+StyleName:Regular
+FullName:Futura-Condensed-Normal
+MenuName:Futura-Condensed-Normal
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:F:\打包“数字出版流”\打包“数字出版流”\Document fonts\FUTURA.TTF
+DataFormat:sfntData
+hasSVG:no
+FileLength:27708
+FileModTime:1284618570
+WeightClass:5
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Futura-Condensed-Normal
+NameArray:0,Win,1,Futura-Condensed-Normal
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:TimesNewRomanPSMT
+FamilyName:Times New Roman
+StyleName:Regular
+FullName:Times New Roman
+MenuName:Times New Roman
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:F:\打包“数字出版流”\打包“数字出版流”\Document fonts\times.ttf
+DataFormat:sfntData
+hasSVG:no
+FileLength:1162804
+FileModTime:1506692487
+WeightClass:400
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Times New Roman
+NameArray:0,Win,1,Times New Roman
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:TimesNewRomanPS-BoldMT
+FamilyName:Times New Roman
+StyleName:Bold
+FullName:Times New Roman Bold
+MenuName:Times New Roman
+StyleBits:2
+WritingScript:Roman
+OutlineFileName:F:\打包“数字出版流”\打包“数字出版流”\Document fonts\timesbd.ttf
+DataFormat:sfntData
+hasSVG:no
+FileLength:840736
+FileModTime:1290309856
+WeightClass:700
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Times New Roman Bold
+NameArray:0,Win,1,Times New Roman
+%EndFont
+
